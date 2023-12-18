@@ -1,25 +1,26 @@
 package model;
 
 import model.exceptions.PositionAlreadyOccupiedException;
+import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
+import model.util.MapVisualizer;
 import model.util.PositionsGenerator;
-
 import java.util.*;
-
 import static java.lang.Math.sqrt;
 
-public class GrassField extends AbstractWorldMap{
-
+public class GrassField{
     private final Map<Vector2d, Grass> grassFields = new HashMap<>();
+    protected final Map<Vector2d, Animal> animals;
+    protected MapVisualizer map;
     private Boundary worldBounds;
-    private final Boundary grassBounds;
+    private ArrayList<Boundary> jungleBounds;
+    protected final ArrayList<MapChangeListener> observers;
 
-    public GrassField(int grassNumber, int mapID){
-        this(grassNumber,new Random(), mapID);
-    }
+    public GrassField(int grassNumber,Random seed, int minJungleSize, int maxJungleSize){
+        this.map = new MapVisualizer(this);
+        this.animals = new HashMap<>();
+        this.observers = new ArrayList<>();
 
-    public GrassField(int grassNumber,Random seed, int mapID){
-        super(mapID);
         Vector2d worldTopRightCorner = new Vector2d(0, 0);
         Vector2d worldDownLeftCorner = new Vector2d((int)(sqrt(grassNumber * 10)),(int) (sqrt(grassNumber * 10)));
 
@@ -33,16 +34,24 @@ public class GrassField extends AbstractWorldMap{
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
     }
 
-    @Override
     public void place(Animal animal) throws PositionAlreadyOccupiedException {
-        super.place(animal);
+        if(canMoveTo(animal.getPosition())){
+            animals.put(animal.getPosition(), animal);
+            showMessage("Animal moved into position: " + animal.getPosition());
+        }
+        else{
+            throw new PositionAlreadyOccupiedException(animal.getPosition());
 
+        }
     }
 
-    @Override
-    public void move(Animal animal, MoveDirection direction) throws PositionAlreadyOccupiedException {
-        super.move(animal, direction);
+    private void showMessage(String message){
+        for(MapChangeListener observer: observers){
+            observer.mapChanged(this, message);
+        }
+    }
 
+    public void move(Animal animal) throws PositionAlreadyOccupiedException {
     }
 
     public void updateCorners(){
@@ -54,24 +63,32 @@ public class GrassField extends AbstractWorldMap{
         }
         worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
     }
-    @Override
+
     public WorldElement objectAt(Vector2d position) {
-        if (super.objectAt(position) == null){
-            return grassFields.get(position);
-        }
-        return super.objectAt(position);
+        return animals.get(position);
     }
 
-    @Override
     public Boundary getCurrentBounds() {
         updateCorners();
         return worldBounds;
     }
 
-    @Override
-    public ArrayList<WorldElement> getElements() {
-        ArrayList<WorldElement> values = new ArrayList<>(super.getElements());
+    public ArrayList<WorldElement> getElements(){
+        ArrayList<WorldElement> values = new ArrayList<>(new ArrayList<>(animals.values()));
         values.addAll(grassFields.values());
         return values;
+    }
+
+    public boolean isOccupied(Vector2d position){
+        return animals.containsKey(position);
+    }
+
+    public boolean canMoveTo(Vector2d position){
+        return !isOccupied(position);
+    }
+
+    public String toString(){
+        Boundary bounds = getCurrentBounds();
+        return map.draw(bounds.leftDownCorner(), bounds.rightUpperCorner());
     }
 }
