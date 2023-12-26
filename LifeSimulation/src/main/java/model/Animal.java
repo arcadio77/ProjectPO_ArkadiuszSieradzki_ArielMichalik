@@ -37,6 +37,8 @@ public class Animal implements WorldElement {
         return this.orientation;
     }
 
+
+
     @Override
     public String toString() {
         return switch (this.orientation){
@@ -71,7 +73,14 @@ public class Animal implements WorldElement {
 
         //warunki brzegowe
 
+    }
+
+    public void eat(){
+        this.energy++;
+    }
 
 
+    public int getEnergy() {
+        return energy;
     }
 }

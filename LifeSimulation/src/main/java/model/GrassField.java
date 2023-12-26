@@ -91,4 +91,37 @@ public class GrassField{
         Boundary bounds = getCurrentBounds();
         return map.draw(bounds.leftDownCorner(), bounds.rightUpperCorner());
     }
+
+    public void oneMovement(){
+
+        Map<Vector2d, Integer> counter = new HashMap<>();
+
+        for (Vector2d key : animals.keySet()) {
+            Animal animal = animals.get(key);
+
+            // dead
+            int animalEnergy = animal.getEnergy();
+            if(animalEnergy == 0){animals.remove(key);}
+
+            // move
+            animal.move();
+
+            //eat
+            Vector2d animalPos = animal.getPosition();
+            if(grassFields.containsKey(animalPos)){
+                grassFields.remove(animalPos);
+                animal.eat(); // energy +1
+            }
+
+            counter.put(key, )
+
+        }
+        Set<Vector2d> animalsPos = animals.keySet();
+
+        for
+    }
+    
+
+
+
 }
