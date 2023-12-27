@@ -11,33 +11,20 @@ public class Animal implements WorldElement {
     private final Genome genome;
     private final int genome_length;
     private Integer gene_id;
+    private int age;
+    private ArrayList<Animal> children;
 
     public Animal(Vector2d x){
-        this(x, MapDirection.NORTH, new Genome(10));
+        this(x, MapDirection.NORTH, new Genome(10), 0);
     }
 
-    public Animal(Vector2d x, MapDirection dir, Genome genome){
+    public Animal(Vector2d x, MapDirection dir, Genome genome, Integer geneId){
         this.position = x;
         this.orientation = dir;
         this.genome = genome;
+        this.gene_id = geneId;
         this.genome_length = genome.getGenome().size();
     }
-
-    //odwołuje się do funkcje w klasie genome ktora zwraca genome (ArrayList)
-    public ArrayList<Integer> getGenome() {
-        return this.genome.getGenome();
-    }
-
-    @Override
-    public Vector2d getPosition(){
-        return this.position;
-    }
-
-    public MapDirection getOrientation(){
-        return this.orientation;
-    }
-
-
 
     @Override
     public String toString() {
@@ -58,6 +45,9 @@ public class Animal implements WorldElement {
     }
 
     public void move(){
+
+        this.energy--; // daleko jeszcze???
+
         this.gene_id = (this.gene_id + 1) % this.genome_length;
         int gene = this.genome.getGenome().get(gene_id);
 
@@ -75,12 +65,36 @@ public class Animal implements WorldElement {
 
     }
 
+    public void breed(Animal child){
+        children.add(child);
+    }
+
     public void eat(){
         this.energy++;
     }
 
 
+
+    //odwołuje się do funkcje w klasie genome ktora zwraca genome (ArrayList)
+    public ArrayList<Integer> getGenome() {
+        return this.genome.getGenome();
+    }
+
+    @Override
+    public Vector2d getPosition(){
+        return this.position;
+    }
+
+    public MapDirection getOrientation(){
+        return this.orientation;
+    }
+
     public int getEnergy() {
         return energy;
     }
+
+    public int getAge() {
+        return age;
+    }
+
 }
