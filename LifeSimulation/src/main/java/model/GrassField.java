@@ -47,7 +47,7 @@ public class GrassField{
         Vector2d worldDownLeftCorner = new Vector2d(width, height);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
 
-        setJungleBounds(seed); // jungle generator <- to do
+        //setJungleBounds(seed); // jungle generator <- to do
 
 
         //put grass - very dirty but will work

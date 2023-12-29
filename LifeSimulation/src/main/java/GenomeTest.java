@@ -25,9 +25,13 @@ public class GenomeTest {
 
         Genome g3 = new Genome(10, a1, a2, new Mutation(0,0));
 
-
         ArrayList<Integer> g3List = g3.getGenome();
         System.out.println(g3List);
 
+        Animal child1 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g3, 0);
+
+        a1.breed(child1);
+        a2.breed(child1);
+        
     }
 }

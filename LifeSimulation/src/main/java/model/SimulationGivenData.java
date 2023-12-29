@@ -1,22 +1,24 @@
 package model;
 
 public class SimulationGivenData {
-    private final int width;
-    private final int height;
-    private final int initialAnimalsNumber;
-    private final int initialGrassNumber;
-    private final int initialAnimalEnergy;
-    private final int numOfGrassGrowingDaily;
-    private final int grassEnergy;
-    private final int breedReadyEnergy;
-    private final int breedLostEnergy;
-    private final int genomeLength;
-    private final int minMutationNum;
-    private final int maxMutationNum;
+    protected final int width;
+    protected final int height;
+    protected final int initialAnimalsNumber;
+    protected final int initialGrassNumber;
+    protected final int initialAnimalEnergy;
+    protected final int numOfGrassGrowingDaily;
+    protected final int grassEnergy;
+    protected final int breedReadyEnergy;
+    protected final int breedLostEnergy;
+    protected final int genomeLength;
+    protected final int minMutationNum;
+    protected final int maxMutationNum;
 
 
 
-    public SimulationGivenData(int width, int height, int animalsCnt, int grassCnt, int initialAnimalEnergy, int numOfGrassGrowingDaily, int grassEnergy, int breedReadyEnergy, int breedLostEnergy, int genomeLength, int minMutationNum, int maxMutationNum) {
+    public SimulationGivenData(int width, int height, int animalsCnt, int grassCnt, int initialAnimalEnergy,
+                               int numOfGrassGrowingDaily, int grassEnergy, int breedReadyEnergy, int breedLostEnergy,
+                               int genomeLength, int minMutationNum, int maxMutationNum) {
         this.width = width;
         this.height = height;
         this.initialAnimalsNumber = animalsCnt;
