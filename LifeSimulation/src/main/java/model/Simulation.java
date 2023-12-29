@@ -1,5 +1,9 @@
 package model;
 
+import model.util.Energy;
+
+import java.util.Random;
+
 public class Simulation extends SimulationGivenData{
     private GrassField map;
     private SimulationGivenData data;
@@ -10,7 +14,9 @@ public class Simulation extends SimulationGivenData{
     }
 
     public void run(){
-        GrassField map = new GrassField(width, height, initialAnimalsNumber, );
+        Energy energy = new Energy(grassEnergy, breedLostEnergy, breedReadyEnergy, initialAnimalEnergy);
+        GrassField map = new GrassField(width, height, initialAnimalsNumber, energy, minMutationNum, maxMutationNum,
+                initialAnimalsNumber, new Random(), numOfGrassGrowingDaily, 0, 10);
         OneCycle oneDay = new OneCycle(map);
         oneDay.runOneCycle();
     }
