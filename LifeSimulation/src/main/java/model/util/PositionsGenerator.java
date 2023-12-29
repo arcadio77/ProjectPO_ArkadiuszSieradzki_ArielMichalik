@@ -12,28 +12,21 @@ public class PositionsGenerator implements Iterable<Vector2d> {
         this(width, height, count, new Random());
     }
 
-    public PositionsGenerator(int width, int height, int count, Random random, boolean isPutGrass) {
+    public PositionsGenerator(int width, int height, int count, Random random) {
         this.random = random;
-        List<Vector2d> allPositions = generateAllPositions(width, height, isPutGrass);
+        List<Vector2d> allPositions = generateAllPositions(width, height);
         this.positions = selectRandomPositions(allPositions, count);
     }
 
-    private List<Vector2d> generateAllPositions(int width, int height, boolean isPutGrass) {
+    private List<Vector2d> generateAllPositions(int width, int height) {
         List<Vector2d> allPositions = new ArrayList<>();
         for (int i = 0; i <= height; i++) {
             for (int j = 0; j <= width; j++) {
-                if(isPutGrass){
-                    if(GrassField.isO)
-                }
                 allPositions.add(new Vector2d(i, j));
             }
         }
-
         return allPositions;
     }
-
-
-
 
     private List<Vector2d> selectRandomPositions(List<Vector2d> allPositions, int count) {
         List<Vector2d> selectedPositions = new ArrayList<>();

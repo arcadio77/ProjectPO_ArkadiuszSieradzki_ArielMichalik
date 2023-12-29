@@ -9,21 +9,21 @@ public class Animal implements WorldElement {
     private Vector2d position;
     private int energy;
     private final Genome genome;
-    private final int genome_length;
-    private Integer gene_id;
+    private final int genomeLength;
+    private Integer geneId;
     private int age;
-    private ArrayList<Animal> children;
+    private ArrayList<Animal> children = new ArrayList<>();
 
     public Animal(Vector2d x){
-        this(x, MapDirection.NORTH, new Genome(10), 0);
+        this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0)), 0);
     }
 
     public Animal(Vector2d x, MapDirection dir, Genome genome, Integer geneId){
         this.position = x;
         this.orientation = dir;
         this.genome = genome;
-        this.gene_id = geneId;
-        this.genome_length = genome.getGenome().size();
+        this.geneId = geneId;
+        this.genomeLength = genome.getGenome().size();
     }
 
     @Override
@@ -47,9 +47,10 @@ public class Animal implements WorldElement {
     public void move(){
 
         this.energy--; // daleko jeszcze???
+        this.age++;
 
-        this.gene_id = (this.gene_id + 1) % this.genome_length;
-        int gene = this.genome.getGenome().get(gene_id);
+        this.geneId = (this.geneId + 1) % this.genomeLength;
+        int gene = this.genome.getGenome().get(geneId);
 
         int curr_orientation_int = this.orientation.fromEnum();
         int new_orientation_int = curr_orientation_int + gene;
@@ -69,8 +70,8 @@ public class Animal implements WorldElement {
         children.add(child);
     }
 
-    public void eat(){
-        this.energy++;
+    public void eat(int grassEnergy){
+        this.energy += grassEnergy;
     }
 
 
@@ -97,4 +98,7 @@ public class Animal implements WorldElement {
         return age;
     }
 
+    public ArrayList<Animal> getChildren() {
+        return children;
+    }
 }
