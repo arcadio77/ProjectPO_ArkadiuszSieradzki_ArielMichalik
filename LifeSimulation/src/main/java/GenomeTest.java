@@ -1,0 +1,33 @@
+import model.Animal;
+import model.Genome;
+import model.Mutation;
+import model.Vector2d;
+import model.enums.MapDirection;
+
+import java.util.ArrayList;
+
+public class GenomeTest {
+    public static void main(String[] args){
+        Genome g1 = new Genome(10, new Mutation(0,0));
+        ArrayList<Integer> g1List = g1.getGenome();
+        System.out.println(g1List);
+
+        Genome g2 = new Genome(10, new Mutation(0,0));
+        ArrayList<Integer> g2List = g2.getGenome();
+        System.out.println(g2List);
+
+
+        Animal a1 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g1, 0);
+        Animal a2 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g2, 0);
+
+        a1.eat(10);
+        a2.eat(5);
+
+        Genome g3 = new Genome(10, a1, a2, new Mutation(0,0));
+
+
+        ArrayList<Integer> g3List = g3.getGenome();
+        System.out.println(g3List);
+
+    }
+}

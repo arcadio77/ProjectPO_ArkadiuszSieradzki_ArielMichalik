@@ -6,7 +6,6 @@ public class SimulationGivenData {
     int initialAnimalsNumber;
     int initialGrassNumber;
     private final int initialAnimalEnergy;
-    private
     private final int grassEnergy;
     private final int breedReadyEnergy;
     private final int breedLostEnergy;

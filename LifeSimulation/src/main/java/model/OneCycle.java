@@ -62,7 +62,7 @@ public class OneCycle {
             Vector2d bestAnimalPos = mostPowerful.getPosition();
             if (plants.containsKey(bestAnimalPos)) {
                 plants.remove(bestAnimalPos);
-                mostPowerful.eat(); // energy += grassEnergy <- do zmiany
+                mostPowerful.eat(1); // energy += grassEnergy <- do zmiany
             }
 
             // sec most powerful

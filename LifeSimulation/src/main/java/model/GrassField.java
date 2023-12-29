@@ -39,7 +39,7 @@ public class GrassField{
         this.energy = energy;
         this.mutation = new Mutation(minMutationNum, maxMutationNum);
         this.numOfGrassGrowingDaily = numOfGrassGrowingDaily;
-        this.map = new MapVisualizer(this);
+        //this.map = new MapVisualizer(this);
         this.animals = new HashMap<>();
         this.observers = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class GrassField{
         Vector2d worldDownLeftCorner = new Vector2d(width, height);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
 
-        setJungleBounds(seed);
+        //setJungleBounds(seed);
 
 
         //put grass - very dirty but will work
@@ -91,6 +91,8 @@ public class GrassField{
         return height;
     }
 
+    /*
+
     public ArrayList<WorldElement> getElements() { // do wyjebania albo do zmiany
         //ArrayList<WorldElement> values = new ArrayList<>(new ArrayList<>(animals.values()));
         //values.addAll(grassFields.values());
@@ -100,6 +102,7 @@ public class GrassField{
     // <---------------------------------------------------------------------------------------------->
     //                                              SETTERS
     // <---------------------------------------------------------------------------------------------->
+
 
     private void setJungleBounds(int minJungles, int maxJungles, Random seed){
 
@@ -116,6 +119,9 @@ public class GrassField{
         }
     }
 
+
+     */
+
     // <---------------------------------------------------------------------------------------------->
     //                                            POSITIONING
     // <---------------------------------------------------------------------------------------------->
@@ -128,9 +134,11 @@ public class GrassField{
         return animals.containsKey(position);
     }
 
+    /*
     public WorldElement objectAt(Vector2d position) { // do wyjebania albo do zmiany
         //return animals.get(position);
     }
+     */
 
     public void place(Animal animal){
         Vector2d animalPos = animal.getPosition();
@@ -147,10 +155,10 @@ public class GrassField{
     //                                            DISPLAYING
     // <---------------------------------------------------------------------------------------------->
 
-
+    /*
     public String toString(){
         return map.draw(worldBounds.leftDownCorner(), worldBounds.rightUpperCorner());
-    }
+    }*/
 
     private void showMessage(String message){
         for(MapChangeListener observer: observers){

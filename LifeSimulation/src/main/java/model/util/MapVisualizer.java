@@ -2,7 +2,7 @@ package model.util;
 
 import model.GrassField;
 import model.Vector2d;
-import model.interfaces.WorldMap;
+//import model.interfaces.WorldMap;
 
 /**
  * The map visualizer converts the {@link WorldMap} map into a string
@@ -11,6 +11,7 @@ import model.interfaces.WorldMap;
  * @author apohllo, idzik
  */
 public class MapVisualizer {
+    /*
     private static final String EMPTY_CELL = " ";
     private static final String FRAME_SEGMENT = "-";
     private static final String CELL_SEGMENT = "|";
@@ -21,6 +22,7 @@ public class MapVisualizer {
      *
      * @param map
      */
+    /*
     public MapVisualizer(GrassField map) {
         this.map = map;
     }
@@ -34,6 +36,8 @@ public class MapVisualizer {
      * @param upperRight The upper right corner of the region that is drawn.
      * @return String representation of the selected region of the map.
      */
+
+    /*
     public String draw(Vector2d lowerLeft, Vector2d upperRight) {
         StringBuilder builder = new StringBuilder();
         for (int i = upperRight.getY() + 1; i >= lowerLeft.getY() - 1; i--) {
@@ -82,4 +86,5 @@ public class MapVisualizer {
         }
         return EMPTY_CELL;
     }
+    */
 }
