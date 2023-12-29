@@ -31,7 +31,7 @@ public class GrassField{
 
     public GrassField(int width, int height, int animalsNumber,
                       Energy energy, int minMutationNum, int maxMutationNum, int plantsNumber,
-                      Random seed, int numOfGrassGrowingDaily, int minJungleSize, int maxJungleSize){
+                      Random seed, int numOfGrassGrowingDaily, int minJungleNum, int maxJungleNum){
 
         this.width = width;
         this.height = height;
@@ -47,7 +47,7 @@ public class GrassField{
         Vector2d worldDownLeftCorner = new Vector2d(width, height);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
 
-        setJungleBounds(seed);
+        setJungleBounds(seed); // jungle generator <- to do
 
 
         //put grass - very dirty but will work
@@ -101,17 +101,14 @@ public class GrassField{
     //                                              SETTERS
     // <---------------------------------------------------------------------------------------------->
 
-    private void setJungleBounds(int minJungles, int maxJungles, Random seed){
+    private void setJungleBounds(int minJungles, int maxJungles, Random seed){ // to do
 
         int howManyJungles = minJungles + seed.nextInt(maxJungles + 1 - minJungles);
 
-        for(int i = 0; i < howManyJungles; i++) {
-            PositionsGenerator positions = new PositionsGenerator(width, height, 2, seed);
-            for (Vector2d grassPosition : positions) {
-                if (!isOccupied(grassPosition)) {
-                    plants.put(grassPosition, new Grass(grassPosition));
-                    plantsNumber--;
-                }
+        PositionsGenerator positions = new PositionsGenerator(width, height, 2 * howManyJungles, seed);
+        for (Vector2d jungleBounds : positions) {
+            if (!isOccupied(jungleBounds)) {
+
             }
         }
     }
@@ -128,8 +125,8 @@ public class GrassField{
         return animals.containsKey(position);
     }
 
-    public WorldElement objectAt(Vector2d position) { // do wyjebania albo do zmiany
-        //return animals.get(position);
+    public Set<Animal> objectsAt(Vector2d position) { // do wyjebania albo do zmiany
+        return animals.get(position);
     }
 
     public void place(Animal animal){
