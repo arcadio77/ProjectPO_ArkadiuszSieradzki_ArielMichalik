@@ -2,16 +2,16 @@ package model.util;
 
 import model.GrassField;
 import model.Vector2d;
+import model.interfaces.WorldElement;
 //import model.interfaces.WorldMap;
 
 /**
- * The map visualizer converts the {@link WorldMap} map into a string
+ * The map visualizer converts the {@link GrassField} map into a string
  * representation.
  *
- * @author apohllo, idzik
+ * @author ariello and arcadio
  */
 public class MapVisualizer {
-    /*
     private static final String EMPTY_CELL = " ";
     private static final String FRAME_SEGMENT = "-";
     private static final String CELL_SEGMENT = "|";
@@ -22,7 +22,6 @@ public class MapVisualizer {
      *
      * @param map
      */
-    /*
     public MapVisualizer(GrassField map) {
         this.map = map;
     }
@@ -36,8 +35,6 @@ public class MapVisualizer {
      * @param upperRight The upper right corner of the region that is drawn.
      * @return String representation of the selected region of the map.
      */
-
-    /*
     public String draw(Vector2d lowerLeft, Vector2d upperRight) {
         StringBuilder builder = new StringBuilder();
         for (int i = upperRight.getY() + 1; i >= lowerLeft.getY() - 1; i--) {
@@ -78,13 +75,18 @@ public class MapVisualizer {
         return builder.toString();
     }
 
+    private String drawObjects(){
+        //trzeba zmienić tak aby wyświetłał na mapie w terminalu krotke w postaci (liczba zwierzat, liczba roslin)
+        //potrzebna jakas wspolna metoda toString() dla obiektów na mapie oraz countery ich ilosci
+        //TODO
+        return null;
+    }
 
     private String drawObject(Vector2d currentPosition) {
-        Object object = this.map.objectAt(currentPosition);
+        WorldElement object = this.map.objectAt(currentPosition);
         if (object != null) {
             return object.toString();
         }
         return EMPTY_CELL;
     }
-    */
 }

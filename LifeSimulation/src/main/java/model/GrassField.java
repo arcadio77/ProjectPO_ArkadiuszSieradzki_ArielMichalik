@@ -19,11 +19,12 @@ public class GrassField{
 
     Mutation mutation;
 
-    protected final Map<Vector2d, Set<Animal>> animals;
+    MapVisualizer map = new MapVisualizer(this);
+
+    protected final Map<Vector2d, ArrayList<Animal>> animals;
     private final Map<Vector2d, Grass> plants = new HashMap<>();
     final int numOfGrassGrowingDaily;
 
-    protected MapVisualizer map;
     private final Boundary worldBounds;
     private ArrayList<Boundary> jungleBounds;
 
@@ -39,12 +40,11 @@ public class GrassField{
         this.energy = energy;
         this.mutation = new Mutation(minMutationNum, maxMutationNum);
         this.numOfGrassGrowingDaily = numOfGrassGrowingDaily;
-        //this.map = new MapVisualizer(this);
         this.animals = new HashMap<>();
         this.observers = new ArrayList<>();
 
-        Vector2d worldTopRightCorner = new Vector2d(0, 0);
-        Vector2d worldDownLeftCorner = new Vector2d(width, height);
+        Vector2d worldTopRightCorner = new Vector2d(width, height);
+        Vector2d worldDownLeftCorner = new Vector2d(0, 0);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
 
         //setJungleBounds(seed); // jungle generator <- to do
@@ -61,13 +61,20 @@ public class GrassField{
             }
         }
 
+        //put animals on map
+        PositionsGenerator positions = new PositionsGenerator(width, height, animalsNumber, seed);
+        for(Vector2d animalPosition: positions){
+            Animal newAnimal = new Animal(animalPosition);
+            this.place(newAnimal);
+        }
+
     }
 
     // <---------------------------------------------------------------------------------------------->
     //                                              GETTERS
     // <---------------------------------------------------------------------------------------------->
 
-    public Map<Vector2d, Set<Animal>> getAnimals(){
+    public Map<Vector2d, ArrayList<Animal>> getAnimals(){
         return this.animals;
     }
 
@@ -91,18 +98,22 @@ public class GrassField{
         return height;
     }
 
-    /*
-
-    public ArrayList<WorldElement> getElements() { // do wyjebania albo do zmiany
-        //ArrayList<WorldElement> values = new ArrayList<>(new ArrayList<>(animals.values()));
-        //values.addAll(grassFields.values());
-        //return values;
+    public Energy getEnergy(){
+        return energy;
     }
+
+    /*
+    public ArrayList<WorldElement> getElements() { // to do
+        ArrayList<Set<WorldElement>> values = new ArrayList<>(new ArrayList<>(animals.values()));
+        values.addAll(plants.values());
+        //return values;
+    }*/
 
     // <---------------------------------------------------------------------------------------------->
     //                                              SETTERS
     // <---------------------------------------------------------------------------------------------->
 
+    /*
     private void setJungleBounds(int minJungles, int maxJungles, Random seed){ // to do
 
         int howManyJungles = minJungles + seed.nextInt(maxJungles + 1 - minJungles);
@@ -113,16 +124,14 @@ public class GrassField{
 
             }
         }
-    }
+    }*/
 
-
-     */
 
     // <---------------------------------------------------------------------------------------------->
     //                                            POSITIONING
     // <---------------------------------------------------------------------------------------------->
 
-    public boolean canMoveTo(Vector2d position){
+    public boolean canMoveTo(Vector2d position){ // change this to something that will tell us if an animal is on an edge of the map
         return !isOccupied(position);
     }
 
@@ -130,7 +139,17 @@ public class GrassField{
         return animals.containsKey(position);
     }
 
-    public Set<Animal> objectsAt(Vector2d position) { // do wyjebania albo do zmiany
+    public WorldElement objectAt(Vector2d position){ // demo version 1
+        if(animals.containsKey(position)){
+            ArrayList<Animal> animalsOnPos = animals.get(position);
+            return animalsOnPos.get(0); // first animal on this position
+        }
+        else if(plants.containsKey(position)){
+            return plants.get(position);
+        }
+        return null;
+    }
+    public ArrayList<Animal> objectsAt(Vector2d position) { // demo version 2
         return animals.get(position);
     }
 
@@ -140,7 +159,7 @@ public class GrassField{
             animals.get(animalPos).add(animal);
         }
         else{
-            animals.put(animalPos, new HashSet<Animal>(List.of(animal)));
+            animals.put(animalPos, new ArrayList<>(List.of(animal)));
         }
         showMessage("Animal moved into position: " + animal.getPosition());
     }
@@ -149,16 +168,15 @@ public class GrassField{
     //                                            DISPLAYING
     // <---------------------------------------------------------------------------------------------->
 
-    /*
-    public String toString(){
+
+    public String toString(){ // don't know if necessary
         return map.draw(worldBounds.leftDownCorner(), worldBounds.rightUpperCorner());
-    }*/
+    }
 
     private void showMessage(String message){
         for(MapChangeListener observer: observers){
             observer.mapChanged(this, message);
         }
     }
-
 
 }

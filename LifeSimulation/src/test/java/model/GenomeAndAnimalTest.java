@@ -1,12 +1,11 @@
-import model.Animal;
-import model.Genome;
-import model.Mutation;
-import model.Vector2d;
+package model;
+
 import model.enums.MapDirection;
+import model.util.Energy;
 
 import java.util.ArrayList;
 
-public class GenomeTest {
+public class GenomeAndAnimalTest {
     public static void main(String[] args){
         Genome g1 = new Genome(10, new Mutation(0,0));
         ArrayList<Integer> g1List = g1.getGenome();
@@ -17,8 +16,8 @@ public class GenomeTest {
         System.out.println(g2List);
 
 
-        Animal a1 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g1, 0);
-        Animal a2 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g2, 0);
+        Animal a1 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g1, 0, 5);
+        Animal a2 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g2, 0, 5);
 
         a1.eat(10);
         a2.eat(5);
@@ -28,10 +27,10 @@ public class GenomeTest {
         ArrayList<Integer> g3List = g3.getGenome();
         System.out.println(g3List);
 
-        Animal child1 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g3, 0);
+        Animal child1 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g3, 0, 5);
 
-        a1.breed(child1);
-        a2.breed(child1);
+        a1.breed(child1, 2);
+        a2.breed(child1, 2);
         
     }
 }
