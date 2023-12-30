@@ -157,10 +157,7 @@ public class Animal implements WorldElement {
                     this.orientation = orientation.opposite();
                 }
             }
-
-
         }
-
     }
 
     public void breed(Animal child, int lostEnergy){
@@ -192,6 +189,10 @@ public class Animal implements WorldElement {
     @Override
     public boolean isAt(Vector2d pos){
         return this.position.equals(pos);
+    }
+
+    public Animal copy() {
+        return new Animal(this.position, this.orientation, this.genome, this.geneId, this.energy);
     }
 
 }

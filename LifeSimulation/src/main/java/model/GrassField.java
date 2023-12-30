@@ -1,5 +1,6 @@
 package model;
 
+import model.enums.MapDirection;
 import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
 import model.util.Energy;
@@ -19,8 +20,6 @@ public class GrassField{
     Energy energy;
 
     Mutation mutation;
-
-    MapVisualizer map = new MapVisualizer(this);
 
     protected final Map<Vector2d, ArrayList<Animal>> animals;
     private final Map<Vector2d, Grass> plants;
@@ -90,11 +89,11 @@ public class GrassField{
     }
 
     public Vector2d getLowerLeft(){
-        return worldBounds.leftDownCorner();
+        return worldBounds.lowerLeft();
     }
 
     public Vector2d getUpperRight(){
-        return worldBounds.rightUpperCorner();
+        return worldBounds.upperRight();
     }
 
     public int getWidth(){
@@ -109,6 +108,8 @@ public class GrassField{
         return energy;
     }
 
+    public Mutation getMutation() { return mutation; }
+
     /*
     public ArrayList<WorldElement> getElements() { // to do
         ArrayList<Set<WorldElement>> values = new ArrayList<>(new ArrayList<>(animals.values()));
@@ -119,6 +120,8 @@ public class GrassField{
     // <---------------------------------------------------------------------------------------------->
     //                                              SETTERS
     // <---------------------------------------------------------------------------------------------->
+
+
 
     /*
     private void setJungleBounds(int minJungles, int maxJungles, Random seed){ // to do
@@ -168,7 +171,7 @@ public class GrassField{
         else{
             animals.put(animalPos, new ArrayList<>(List.of(animal)));
         }
-        showMessage("Animal moved into position: " + animal.getPosition());
+        //showMessage("Animal moved into position: " + animal.getPosition());
     }
 
     // <---------------------------------------------------------------------------------------------->
@@ -176,13 +179,133 @@ public class GrassField{
     // <---------------------------------------------------------------------------------------------->
 
 
-    public String toString(){ // don't know if necessary
-        return map.draw(worldBounds.leftDownCorner(), worldBounds.rightUpperCorner());
+    public String toString() {
+        // don't know if necessary
+        MapVisualizer vis = new MapVisualizer(this);
+        return vis.draw(worldBounds.lowerLeft(), worldBounds.upperRight());
     }
 
     private void showMessage(String message){
         for(MapChangeListener observer: observers){
             observer.mapChanged(this, message);
+        }
+    }
+
+
+
+
+    public void runOneCycle(){
+
+        //Map<Vector2d, ArrayList<Animal>> animals = gF.getAnimals();
+        //Map<Vector2d, Grass> plants = gF.getPlants();
+
+        // <---------------------------------------------------------------------------------------------->
+        //                                        First Phase
+        // <---------------------------------------------------------------------------------------------->
+
+
+        Map<Vector2d, ArrayList<Animal>> copy = new HashMap<>();
+        for (Map.Entry<Vector2d, ArrayList<Animal>> entry : animals.entrySet()) {
+            ArrayList<Animal> newList = new ArrayList<>();
+            for (Animal animal : entry.getValue()) {
+                newList.add(animal.copy());
+            }
+            copy.put(entry.getKey(), newList);
+        }
+
+        for (Vector2d key : copy.keySet()) {
+            ArrayList<Animal> animalsOnThisPos = copy.get(key);
+
+            for (Animal animal : animalsOnThisPos) {
+                // !!1 dead
+                if (animal.getEnergy() == 0) {
+                    animalsOnThisPos.remove(animal);
+                    if (animalsOnThisPos.isEmpty()) {
+                        animals.remove(key);
+                    }
+                }
+
+                // !!2 move
+                //int idxOfAnimal = animals.get(key).indexOf(animal);
+                animals.get(key).remove(animal); // removing old position of animal
+                animal.move(worldBounds.lowerLeft(), worldBounds.upperRight()); // energy--
+                if (animals.get(key).isEmpty()) {
+                    animals.remove(key);
+                }
+                place(animal); // placing on our map
+            }
+        }
+
+
+        // <---------------------------------------------------------------------------------------------->
+        //                                        Second Phase
+        // <---------------------------------------------------------------------------------------------->
+
+        // after updating positions of animals after moving
+        for (Vector2d key : animals.keySet()) {
+            ArrayList<Animal> animalsOnNewPos = animals.get(key);
+
+            // most powerful
+            Animal mostPowerful = (Animal) animalsOnNewPos.toArray()[0];
+
+            for (Animal animal : animalsOnNewPos) {
+                if (animal.getEnergy() > mostPowerful.getEnergy()) {
+                    mostPowerful = animal;
+                }
+                else if (animal.getEnergy() == mostPowerful.getEnergy()) {
+                    if (animal.getAge() > mostPowerful.getAge())
+                        mostPowerful = animal;
+                    else if (animal.getAge() == mostPowerful.getAge()) {
+                        if (animal.getChildren().size() > mostPowerful.getChildren().size()){
+                            mostPowerful = animal;
+                        }
+                        else if (animal.getChildren().size() == mostPowerful.getChildren().size()){
+                            Random rand = new Random();
+                            mostPowerful = rand.nextBoolean() ? animal : mostPowerful;
+                        }
+                    }
+                }
+            }
+            // !!3 eat <- most powerful
+            Vector2d bestAnimalPos = mostPowerful.getPosition();
+            if (plants.containsKey(bestAnimalPos)) {
+                //remove that plant out of the map
+                plants.remove(bestAnimalPos);
+                mostPowerful.eat(energy.getGrassEnergy()); // energy += grassEnergy
+            }
+
+            if (animalsOnNewPos.size() > 1) {
+                // sec most powerful
+                Animal secMostPowerful = (Animal) animalsOnNewPos.toArray()[0];
+
+                for (Animal animal : animalsOnNewPos) {
+                    if ((animal.getEnergy() > secMostPowerful.getEnergy()) && (animal.getEnergy() <= mostPowerful.getEnergy())) {
+                        secMostPowerful = animal;
+                    } else if ((animal.getEnergy() == secMostPowerful.getEnergy()) && (animal.getEnergy() <= mostPowerful.getEnergy())) {
+                        if (animal.getAge() > secMostPowerful.getAge())
+                            secMostPowerful = animal;
+                        else if (animal.getAge() == secMostPowerful.getAge()) {
+                            if (animal.getChildren().size() > secMostPowerful.getChildren().size()) {
+                                secMostPowerful = animal;
+                            } else if (animal.getChildren().size() == secMostPowerful.getChildren().size()) {
+                                Random rand = new Random();
+                                secMostPowerful = rand.nextBoolean() ? animal : secMostPowerful;
+                            }
+                        }
+                    }
+                }
+
+                // !!4 breed <- two most powerful (sexiest)
+                // if they have at least minimum energy required to copulate
+                int energyRequiredToCopulate = energy.getBreedReady();
+                if (mostPowerful.getEnergy() >= energyRequiredToCopulate && secMostPowerful.getEnergy() >= energyRequiredToCopulate) {
+                    Genome childGenome = new Genome(100, mostPowerful, secMostPowerful, mutation); // n is not set right
+                    Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, 5, energy.getInitialAnimalEnergy());  //orientation random and geneId random
+                    mostPowerful.breed(child, energy.getBreedLost());
+                    secMostPowerful.breed(child, energy.getBreedLost());
+                    place(child);
+                }
+            }
         }
     }
 

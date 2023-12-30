@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import model.enums.MapDirection;
+import model.GrassField;
 
 public class OneCycle {
 
@@ -29,7 +30,7 @@ public class OneCycle {
             for (Animal animal : animalsOnThisPos) {
                 // !!1 dead
                 if (animal.getEnergy() == 0) {
-                    animalsOnThisPos.remove(animal);
+                    animals.remove(animal);
                 }
 
                 // !!2 move
@@ -101,10 +102,10 @@ public class OneCycle {
 
             // !!4 breed <- two most powerful (sexiest)
             // if they have at least minimum energy required to copulate
-            int energyRequiredToCopulate = gF.energy.getBreedReady();
+            int energyRequiredToCopulate = gF.getEnergy().getBreedReady();
             if (mostPowerful.getEnergy() >= energyRequiredToCopulate && secMostPowerful.getEnergy() >= energyRequiredToCopulate){
-                Genome childGenome = new Genome(100, mostPowerful, secMostPowerful, gF.mutation); // n is not set right
-                Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, 5, gF.energy.getInitialAnimalEnergy());  //orientation random and geneId random
+                Genome childGenome = new Genome(100, mostPowerful, secMostPowerful, gF.getMutation()); // n is not set right
+                Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, 5, gF.getEnergy().getInitialAnimalEnergy());  //orientation random and geneId random
                 mostPowerful.breed(child, gF.getEnergy().getBreedLost());
                 secMostPowerful.breed(child, gF.getEnergy().getBreedLost());
                 gF.place(child);

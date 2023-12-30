@@ -83,7 +83,7 @@ public class MapVisualizer {
     }
 
     private String drawObject(Vector2d currentPosition) {
-        WorldElement object = this.map.objectAt(currentPosition);
+        Object object = this.map.objectAt(currentPosition);
         if (object != null) {
             return object.toString();
         }

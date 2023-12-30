@@ -17,8 +17,20 @@ public class Simulation extends SimulationGivenData{
         GrassField map = new GrassField(width, height, initialAnimalsNumber, energy, minMutationNum, maxMutationNum,
                 initialAnimalsNumber, new Random(), numOfGrassGrowingDaily, 0, 10);
         System.out.println(map); //that prints
-        OneCycle oneDay = new OneCycle(map);
-        oneDay.runOneCycle();  //here is bug
+
+        //OneCycle oneDay = new OneCycle(map);
+        //oneDay.runOneCycle();  //here is a bug
+
+        map.runOneCycle();
+
+        System.out.println(map);
+
+        map.runOneCycle();
+
+        System.out.println(map);
+
+        map.runOneCycle();
+
         System.out.println(map);
     }
 
