@@ -1,8 +1,6 @@
 package model;
 
 import model.util.Energy;
-import model.util.MapVisualizer;
-
 import java.util.Random;
 
 public class Simulation extends SimulationGivenData{
@@ -18,9 +16,10 @@ public class Simulation extends SimulationGivenData{
         Energy energy = new Energy(grassEnergy, breedLostEnergy, breedReadyEnergy, initialAnimalEnergy);
         GrassField map = new GrassField(width, height, initialAnimalsNumber, energy, minMutationNum, maxMutationNum,
                 initialAnimalsNumber, new Random(), numOfGrassGrowingDaily, 0, 10);
-        System.out.println(map);
+        System.out.println(map); //that prints
         OneCycle oneDay = new OneCycle(map);
-        oneDay.runOneCycle();
+        oneDay.runOneCycle();  //here is bug
+        System.out.println(map);
     }
 
 }

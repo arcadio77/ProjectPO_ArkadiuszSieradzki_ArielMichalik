@@ -14,7 +14,7 @@ public class OneCycle {
         this.gF = gF;
     }
 
-    public void runOneCycle() {
+    public void runOneCycle(){
 
         Map<Vector2d, ArrayList<Animal>> animals = gF.getAnimals();
         Map<Vector2d, Grass> plants = gF.getPlants();
@@ -34,7 +34,7 @@ public class OneCycle {
 
                 // !!2 move
                 animal.move(gF.getLowerLeft(), gF.getUpperRight()); // energy--
-                gF.place(animal); // placing in our map
+                gF.place(animal); // placing on our map
                 animalsOnThisPos.remove(animal); // removing old position of animal
 
             }
@@ -72,6 +72,7 @@ public class OneCycle {
             // !!3 eat <- most powerful
             Vector2d bestAnimalPos = mostPowerful.getPosition();
             if (plants.containsKey(bestAnimalPos)) {
+                //remove that plant out of the map
                 plants.remove(bestAnimalPos);
                 mostPowerful.eat(gF.getEnergy().getGrassEnergy()); // energy += grassEnergy
             }

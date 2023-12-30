@@ -1,28 +1,28 @@
 package model;
 
 public class SimulationGivenData {
-    protected final int width;
-    protected final int height;
-    protected final int initialAnimalsNumber;
-    protected final int initialGrassNumber;
-    protected final int initialAnimalEnergy;
-    protected final int numOfGrassGrowingDaily;
-    protected final int grassEnergy;
-    protected final int breedReadyEnergy;
-    protected final int breedLostEnergy;
-    protected final int genomeLength;
-    protected final int minMutationNum;
-    protected final int maxMutationNum;
+    final int width;
+    final int height;
+    final int initialAnimalsNumber;
+    final int initialGrassNumber;
+    final int initialAnimalEnergy;
+    final int numOfGrassGrowingDaily;
+    final int grassEnergy;
+    final int breedReadyEnergy;
+    final int breedLostEnergy;
+    final int genomeLength;
+    final int minMutationNum;
+    final int maxMutationNum;
 
 
 
-    public SimulationGivenData(int width, int height, int animalsCnt, int grassCnt, int initialAnimalEnergy,
+    public SimulationGivenData(int width, int height, int initialAnimalsNumber, int initialGrassNumber, int initialAnimalEnergy,
                                int numOfGrassGrowingDaily, int grassEnergy, int breedReadyEnergy, int breedLostEnergy,
                                int genomeLength, int minMutationNum, int maxMutationNum) {
         this.width = width;
         this.height = height;
-        this.initialAnimalsNumber = animalsCnt;
-        this.initialGrassNumber = grassCnt;
+        this.initialAnimalsNumber = initialAnimalsNumber;
+        this.initialGrassNumber = initialGrassNumber;
         this.initialAnimalEnergy = initialAnimalEnergy;
         this.numOfGrassGrowingDaily = numOfGrassGrowingDaily;
         this.grassEnergy = grassEnergy;

@@ -10,10 +10,11 @@ import java.util.*;
 
 public class GrassField{
 
-    final int width;
-    final int height;
+    private final int width;
+    private final int height;
+    private int plantsNumber; //initial at first
 
-    int animalsNumber;
+    private int animalsNumber; //initial at first
 
     Energy energy;
 
@@ -22,8 +23,8 @@ public class GrassField{
     MapVisualizer map = new MapVisualizer(this);
 
     protected final Map<Vector2d, ArrayList<Animal>> animals;
-    private final Map<Vector2d, Grass> plants = new HashMap<>();
-    final int numOfGrassGrowingDaily;
+    private final Map<Vector2d, Grass> plants;
+    private final int numOfGrassGrowingDaily;
 
     private final Boundary worldBounds;
     private ArrayList<Boundary> jungleBounds;
@@ -37,12 +38,14 @@ public class GrassField{
         this.width = width;
         this.height = height;
         this.animalsNumber = animalsNumber;
+        this.plantsNumber = plantsNumber;
         this.energy = energy;
         this.mutation = new Mutation(minMutationNum, maxMutationNum);
         this.numOfGrassGrowingDaily = numOfGrassGrowingDaily;
         this.animals = new HashMap<>();
-        this.observers = new ArrayList<>();
+        this.plants = new HashMap<>();
 
+        this.observers = new ArrayList<>();
         Vector2d worldTopRightCorner = new Vector2d(width, height);
         Vector2d worldDownLeftCorner = new Vector2d(0, 0);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
@@ -51,15 +54,19 @@ public class GrassField{
 
 
         //put grass - very dirty but will work
-        while(plantsNumber != 0){
-            PositionsGenerator positions = new PositionsGenerator(width,height,plantsNumber,seed);
-            for(Vector2d grassPosition : positions){
-                if(!isOccupied(grassPosition)){
-                    plants.put(grassPosition, new Grass(grassPosition));
-                    plantsNumber--;
-                }
-            }
+        PositionsGenerator grassPositions = new PositionsGenerator(width,height,plantsNumber,seed);
+        for(Vector2d grassPosition : grassPositions){
+            plants.put(grassPosition, new Grass(grassPosition));
         }
+//        while(plantsNumber != 0){
+//            PositionsGenerator positions = new PositionsGenerator(width,height,plantsNumber,seed);
+//            for(Vector2d grassPosition : positions){
+//                if(!isOccupied(grassPosition)){
+//                    plants.put(grassPosition, new Grass(grassPosition));
+//                    plantsNumber--;
+//                }
+//            }
+//        }
 
         //put animals on map
         PositionsGenerator positions = new PositionsGenerator(width, height, animalsNumber, seed);

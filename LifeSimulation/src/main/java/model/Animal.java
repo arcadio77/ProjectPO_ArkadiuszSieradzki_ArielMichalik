@@ -80,15 +80,14 @@ public class Animal implements WorldElement {
         Vector2d lowerRight = new Vector2d(upperRight.getX(), lowerLeft.getY());
 
         // not borders
-        if (position.getX() >= lowerLeft.getX() && position.getX() <= upperRight.getX() &&
-            position.getY() >= lowerLeft.getY() && position.getY() <= upperRight.getY()){
+        if (position.getX() > lowerLeft.getX() && position.getX() < upperRight.getX() &&
+            position.getY() > lowerLeft.getY() && position.getY() < upperRight.getY()){
             this.position = new_position;
             this.orientation = new_orientation;
         }
 
-        // not corners
+        // borders but not corners
         else if (!(position.equals(lowerLeft) || position.equals(upperLeft) || position.equals(upperRight) || position.equals(lowerRight))) {
-            //check borders
             //right -> move animal to the left part of the map
 
             if(new_position.getX() > upperRight.getX()){
