@@ -1,11 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import model.enums.MapDirection;
-import model.GrassField;
+import model.util.MapVisualizer;
 
 public class OneCycle {
 
@@ -14,6 +12,7 @@ public class OneCycle {
     public OneCycle(GrassField gF){
         this.gF = gF;
     }
+
 
     public void runOneCycle(){
 
@@ -24,22 +23,31 @@ public class OneCycle {
         //                                        First Phase
         // <---------------------------------------------------------------------------------------------->
 
-        for (Vector2d key : animals.keySet()) {
-            ArrayList<Animal> animalsOnThisPos = animals.get(key);
+        Map<Vector2d, ArrayList<Animal>> toPlace = new HashMap<>();
+
+        for (Vector2d position : animals.keySet()) {
+            ArrayList<Animal> animalsOnThisPos = animals.get(position);
 
             for (Animal animal : animalsOnThisPos) {
                 // !!1 dead
-                if (animal.getEnergy() == 0) {
-                    animals.remove(animal);
+                if (animal.getEnergy() > 0) {
+                    // !!2 move and place
+                    animal.move(gF.getLowerLeft(), gF.getUpperRight()); // energy--
+
+                    if(!(toPlace.containsKey(animal.getPosition()))) { // placing on our map
+                        toPlace.put(animal.getPosition(), new ArrayList<>(List.of(animal)));
+                    }
+                    else{
+                        toPlace.get(animal.getPosition()).add(animal);
+                    }
                 }
-
-                // !!2 move
-                animal.move(gF.getLowerLeft(), gF.getUpperRight()); // energy--
-                gF.place(animal); // placing on our map
-                animalsOnThisPos.remove(animal); // removing old position of animal
-
+                else{
+                    gF.animalIsDead();
+                }
             }
         }
+
+        animals = toPlace; // ez
 
         // <---------------------------------------------------------------------------------------------->
         //                                        Second Phase
@@ -102,13 +110,14 @@ public class OneCycle {
 
             // !!4 breed <- two most powerful (sexiest)
             // if they have at least minimum energy required to copulate
-            int energyRequiredToCopulate = gF.getEnergy().getBreedReady();
+            int energyRequiredToCopulate = gF.energy.getBreedReady();
             if (mostPowerful.getEnergy() >= energyRequiredToCopulate && secMostPowerful.getEnergy() >= energyRequiredToCopulate){
-                Genome childGenome = new Genome(100, mostPowerful, secMostPowerful, gF.getMutation()); // n is not set right
-                Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, 5, gF.getEnergy().getInitialAnimalEnergy());  //orientation random and geneId random
+                Genome childGenome = new Genome(10, mostPowerful, secMostPowerful, gF.mutation); // n is not set right
+                Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, 5, gF.energy.getInitialAnimalEnergy());  //orientation random and geneId random
                 mostPowerful.breed(child, gF.getEnergy().getBreedLost());
                 secMostPowerful.breed(child, gF.getEnergy().getBreedLost());
                 gF.place(child);
+                gF.newAnimalBorn();
             }
         }
     }

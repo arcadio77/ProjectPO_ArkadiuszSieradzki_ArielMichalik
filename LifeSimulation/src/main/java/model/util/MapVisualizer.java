@@ -59,7 +59,7 @@ public class MapVisualizer {
 
     private String drawFrame(boolean innerSegment) {
         if (innerSegment) {
-            return FRAME_SEGMENT + FRAME_SEGMENT;
+            return FRAME_SEGMENT + FRAME_SEGMENT + FRAME_SEGMENT;
         } else {
             return FRAME_SEGMENT;
         }
@@ -69,24 +69,34 @@ public class MapVisualizer {
         StringBuilder builder = new StringBuilder();
         builder.append(" y\\x ");
         for (int j = lowerLeft.getX(); j < upperRight.getX() + 1; j++) {
-            builder.append(String.format("%2d", j));
+            builder.append(String.format("%2d ", j));
         }
         builder.append(System.lineSeparator());
         return builder.toString();
     }
 
-    private String drawObjects(){
+    private String drawObjects(Vector2d postion){
         //trzeba zmienić tak aby wyświetłał na mapie w terminalu krotke w postaci (liczba zwierzat, liczba roslin)
         //potrzebna jakas wspolna metoda toString() dla obiektów na mapie oraz countery ich ilosci
-        //TODO
-        return null;
+        Object objects = this.map.objectsAt(postion);
+        if(objects != null){
+            //TODO write objects toString method that prints tuple on the map
+            return objects.toString() + " ";
+        }
+        return EMPTY_CELL + " ";
     }
 
     private String drawObject(Vector2d currentPosition) {
         Object object = this.map.objectAt(currentPosition);
         if (object != null) {
-            return object.toString();
+            String str = object.toString();
+            if (str.length() == 1){
+                return str + " ";
+            }
+            else{
+                return str;
+            }
         }
-        return EMPTY_CELL;
+        return EMPTY_CELL + " ";
     }
 }

@@ -29,6 +29,7 @@ public class PositionsGenerator implements Iterable<Vector2d> {
     }
 
     private List<Vector2d> selectRandomPositions(List<Vector2d> allPositions, int count) {
+        //positions never repeat works fine for plants but not for animals -> question is do we want put animals on the same field or put them on seperate ones but let them move to the same
         List<Vector2d> selectedPositions = new ArrayList<>();
         Collections.shuffle(allPositions, random);
         for (int i = 0; i < Math.min(count, allPositions.size()); i++) {
@@ -36,6 +37,12 @@ public class PositionsGenerator implements Iterable<Vector2d> {
         }
         return selectedPositions;
     }
+
+//
+//    private List<Vector2d> selectRandomPositionsAnimals(){
+//        //different approach for animals maybe to do later
+//    }
+
 
     @Override
     public Iterator<Vector2d> iterator() {

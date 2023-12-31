@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Animal implements WorldElement {
+    private int id;
     private MapDirection orientation;
     private Vector2d position;
     private int energy;
@@ -16,12 +17,15 @@ public class Animal implements WorldElement {
     private Integer geneId;
     private int age;
     private ArrayList<Animal> children = new ArrayList<>();
+    private static int idCnt = 0;
 
     public Animal(Vector2d x){
         this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0)), 0, 5);
     }
 
     public Animal(Vector2d x, MapDirection dir, Genome genome, Integer geneId, int initEnergy){
+        this.id = idCnt;
+        idCnt ++;
         this.position = x;
         this.orientation = dir;
         this.genome = genome;
@@ -67,11 +71,11 @@ public class Animal implements WorldElement {
         this.energy--; // daleko jeszcze???
         this.age++; // starość nie radość
 
-        this.geneId = (this.geneId + 1) % this.genomeLength;
+        this.geneId = (this.geneId + 1) % this.genome.getGenome().size();
         int gene = this.genome.getGenome().get(geneId);
 
         int curr_orientation_int = this.orientation.fromEnum();
-        int new_orientation_int = curr_orientation_int + gene;
+        int new_orientation_int = (curr_orientation_int + gene) % 8;  // FUCKING BUG <- not mod 8
 
         MapDirection new_orientation = MapDirection.fromInteger(new_orientation_int);
         Vector2d new_position = this.position.add(new_orientation.toUnitVector());
@@ -173,6 +177,7 @@ public class Animal implements WorldElement {
     //                                              OTHER
     // <---------------------------------------------------------------------------------------------->
 
+    /*
     @Override
     public String toString() {
         return switch (this.orientation){
@@ -185,7 +190,13 @@ public class Animal implements WorldElement {
             case WEST -> "W";
             case NORTHWEST -> "NW";
         };
+    }*/
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
     }
+
     @Override
     public boolean isAt(Vector2d pos){
         return this.position.equals(pos);
