@@ -9,7 +9,8 @@ public class Pair {
         this.animalsNumber = animalsNumber;
         this.grassNumber = grassNumber;
     }
+    @Override
     public String toString(){
-        return "(%d, %d)".formatted(animalsNumber, grassNumber);
+        return "(%d, %d) ".formatted(animalsNumber, grassNumber);
     }
 }

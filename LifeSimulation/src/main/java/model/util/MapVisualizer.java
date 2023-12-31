@@ -2,8 +2,7 @@ package model.util;
 
 import model.GrassField;
 import model.Vector2d;
-import model.interfaces.WorldElement;
-//import model.interfaces.WorldMap;
+
 
 /**
  * The map visualizer converts the {@link GrassField} map into a string
@@ -75,13 +74,14 @@ public class MapVisualizer {
         return builder.toString();
     }
 
-    private String drawObjects(Vector2d position){
-        Object objects = this.map.objectsAt(position);
-        if(objects != null){
-            return objects.toString() + " ";
-        }
-        return EMPTY_CELL + " ";
-    }
+    //TODO throws error for now don't know why doesn't print anything
+//    private String drawObject(Vector2d position){
+//        Object object = this.map.objectsAt(position);
+//        if(object != null){
+//            return object.toString();
+//        }
+//        return EMPTY_CELL + " ";
+//    }
 
     private String drawObject(Vector2d currentPosition) {
         Object object = this.map.objectAt(currentPosition);

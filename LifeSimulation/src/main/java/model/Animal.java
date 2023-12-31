@@ -197,10 +197,6 @@ public class Animal implements WorldElement {
         return String.valueOf(id);
     }
 
-    @Override
-    public boolean isAt(Vector2d pos){
-        return this.position.equals(pos);
-    }
 
     public Animal copy() {
         return new Animal(this.position, this.orientation, this.genome, this.geneId, this.energy);
