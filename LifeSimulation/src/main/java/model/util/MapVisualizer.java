@@ -75,12 +75,9 @@ public class MapVisualizer {
         return builder.toString();
     }
 
-    private String drawObjects(Vector2d postion){
-        //trzeba zmienić tak aby wyświetłał na mapie w terminalu krotke w postaci (liczba zwierzat, liczba roslin)
-        //potrzebna jakas wspolna metoda toString() dla obiektów na mapie oraz countery ich ilosci
-        Object objects = this.map.objectsAt(postion);
+    private String drawObjects(Vector2d position){
+        Object objects = this.map.objectsAt(position);
         if(objects != null){
-            //TODO write objects toString method that prints tuple on the map
             return objects.toString() + " ";
         }
         return EMPTY_CELL + " ";

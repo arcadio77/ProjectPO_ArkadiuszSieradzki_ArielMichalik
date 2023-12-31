@@ -3,21 +3,20 @@ package model;
 import java.util.*;
 
 import model.enums.MapDirection;
-import model.util.MapVisualizer;
 
 public class OneCycle {
 
-    private final GrassField gF;
+    private final GrassField map;
 
-    public OneCycle(GrassField gF){
-        this.gF = gF;
+    public OneCycle(GrassField map){
+        this.map = map;
     }
 
 
     public void runOneCycle(){
 
-        Map<Vector2d, ArrayList<Animal>> animals = gF.getAnimals();
-        Map<Vector2d, Grass> plants = gF.getPlants();
+        Map<Vector2d, ArrayList<Animal>> animals = map.getAnimals();
+        Map<Vector2d, Grass> plants = map.getPlants();
 
         // <---------------------------------------------------------------------------------------------->
         //                                        First Phase
@@ -32,7 +31,7 @@ public class OneCycle {
                 // !!1 dead
                 if (animal.getEnergy() > 0) {
                     // !!2 move and place
-                    animal.move(gF.getLowerLeft(), gF.getUpperRight()); // energy--
+                    animal.move(map.getLowerLeft(), map.getUpperRight()); // energy--
 
                     if(!(toPlace.containsKey(animal.getPosition()))) { // placing on our map
                         toPlace.put(animal.getPosition(), new ArrayList<>(List.of(animal)));
@@ -42,7 +41,7 @@ public class OneCycle {
                     }
                 }
                 else{
-                    gF.animalIsDead();
+                    map.animalIsDead();
                 }
             }
         }
@@ -83,7 +82,7 @@ public class OneCycle {
             if (plants.containsKey(bestAnimalPos)) {
                 //remove that plant out of the map
                 plants.remove(bestAnimalPos);
-                mostPowerful.eat(gF.getEnergy().getGrassEnergy()); // energy += grassEnergy
+                mostPowerful.eat(map.getEnergy().getGrassEnergy()); // energy += grassEnergy
             }
 
             // sec most powerful
@@ -110,14 +109,14 @@ public class OneCycle {
 
             // !!4 breed <- two most powerful (sexiest)
             // if they have at least minimum energy required to copulate
-            int energyRequiredToCopulate = gF.energy.getBreedReady();
+            int energyRequiredToCopulate = map.energy.getBreedReady();
             if (mostPowerful.getEnergy() >= energyRequiredToCopulate && secMostPowerful.getEnergy() >= energyRequiredToCopulate){
-                Genome childGenome = new Genome(10, mostPowerful, secMostPowerful, gF.mutation); // n is not set right
-                Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, 5, gF.energy.getInitialAnimalEnergy());  //orientation random and geneId random
-                mostPowerful.breed(child, gF.getEnergy().getBreedLost());
-                secMostPowerful.breed(child, gF.getEnergy().getBreedLost());
-                gF.place(child);
-                gF.newAnimalBorn();
+                Genome childGenome = new Genome(10, mostPowerful, secMostPowerful, map.mutation); // n is not set right
+                Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, 5, map.energy.getInitialAnimalEnergy());  //orientation random and geneId random
+                mostPowerful.breed(child, map.getEnergy().getBreedLost());
+                secMostPowerful.breed(child, map.getEnergy().getBreedLost());
+                map.place(child);
+                map.newAnimalBorn();
             }
         }
     }

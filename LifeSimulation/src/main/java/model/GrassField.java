@@ -1,10 +1,10 @@
 package model;
 
-import model.enums.MapDirection;
 import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
 import model.util.Energy;
 import model.util.MapVisualizer;
+import model.util.Pair;
 import model.util.PositionsGenerator;
 import java.util.*;
 
@@ -17,7 +17,7 @@ public class GrassField{
     private int animalsNumber; //initial at first
 
     private int dead = 0;
-    private int new_animals = 0;
+    private int newAnimals = 0;
 
     Energy energy;
 
@@ -108,11 +108,11 @@ public class GrassField{
         return animals.get(position).size();
     }
 
-    public int cntGrassesonGivenPosition(Vector2d position){
+    public int cntGrassesOnGivenPosition(Vector2d position){
         return isOccupiedByGrass(position) ? 1 : 0;
     }
 
-    public int cntGrasess(){
+    public int cntAllGrasess(){
         return plants.size();
     }
 
@@ -153,11 +153,11 @@ public class GrassField{
     }*/
 
     public void newAnimalBorn(){
-        new_animals++;
+        newAnimals++;
     }
 
     public void animalIsDead(){
-        new_animals++;
+        newAnimals++;
     }
 
     // <---------------------------------------------------------------------------------------------->
@@ -183,12 +183,9 @@ public class GrassField{
         return null;
     }
 
-    public List<Integer> objectsAt(Vector2d position) { // demo version 2
+    public Pair objectsAt(Vector2d position) { // demo version 2
         if(isOccupiedByGrass(position) || isOccupiedByAnimal(position)){
-            List<Integer> tuple = new ArrayList<>();
-            tuple.add(cntAnimalsOnGivenPosition(position));
-            tuple.add(cntGrassesonGivenPosition(position));
-            return tuple;
+            return new Pair(cntAnimalsOnGivenPosition(position), cntGrassesOnGivenPosition(position));
         }
         return null;
     }
@@ -210,7 +207,6 @@ public class GrassField{
 
 
     public String toString() {
-        // don't know if necessary
         MapVisualizer vis = new MapVisualizer(this);
         return vis.draw(worldBounds.lowerLeft(), worldBounds.upperRight());
     }

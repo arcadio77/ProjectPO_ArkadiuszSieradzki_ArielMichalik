@@ -1,11 +1,7 @@
 package model;
-
 import model.util.Energy;
-import java.util.Random;
 
 public class Simulation extends SimulationGivenData{
-    private GrassField map;
-    private SimulationGivenData data;
 
     public Simulation(){
         super(10, 10, 10, 10, 3, 5, 1,
