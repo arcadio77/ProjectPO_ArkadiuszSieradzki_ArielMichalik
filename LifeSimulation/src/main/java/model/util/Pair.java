@@ -1,5 +1,7 @@
 package model.util;
 
+import java.util.Objects;
+
 public class Pair {
     private final int grassNumber;
     private final int animalsNumber;
@@ -12,5 +14,17 @@ public class Pair {
     @Override
     public String toString(){
         return "(%d, %d) ".formatted(animalsNumber, grassNumber);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pair pair)) return false;
+        return grassNumber == pair.grassNumber && animalsNumber == pair.animalsNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(grassNumber, animalsNumber);
     }
 }

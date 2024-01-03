@@ -192,11 +192,16 @@ public class Animal implements WorldElement {
         };
     }*/
 
+    /*
     @Override
     public String toString() {
         return String.valueOf(id);
-    }
+    }*/
 
+
+    public String toString() {
+        return String.valueOf(energy);
+    }
 
     public Animal copy() {
         return new Animal(this.position, this.orientation, this.genome, this.geneId, this.energy);

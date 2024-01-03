@@ -24,17 +24,18 @@ public class GrassField{
     Mutation mutation;
 
     protected Map<Vector2d, ArrayList<Animal>> animals;
+    protected Map<Vector2d, Animal> bestAnimals;
     private Map<Vector2d, Grass> plants;
     private final int numOfGrassGrowingDaily; //need to move to oneCycle class
 
     private final Boundary worldBounds;
-    private ArrayList<Boundary> jungleBounds;
+    private Boundary jungleBounds;
 
     protected final ArrayList<MapChangeListener> observers;
 
     public GrassField(int width, int height, int animalsNumber,
                       Energy energy, int minMutationNum, int maxMutationNum, int plantsNumber,
-                      int numOfGrassGrowingDaily, int minJungleNum, int maxJungleNum){
+                      int numOfGrassGrowingDaily){
 
         this.width = width;
         this.height = height;
@@ -50,6 +51,7 @@ public class GrassField{
         Vector2d worldDownLeftCorner = new Vector2d(0, 0);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
 
+
         this.observers = new ArrayList<>();
 
         //setJungleBounds(seed); // jungle generator <- to do
@@ -58,9 +60,16 @@ public class GrassField{
 
     }
 
-    // <---------------------------------------------------------------------------------------------->
-    //                                              GETTERS
-    // <---------------------------------------------------------------------------------------------->
+    public void setJungleCorners(){
+        //20% of the map area, horizontal line of the grass -> const width
+        int mapArea = this.height * this.width;
+        int jungleArea = (int) (mapArea*0.2);
+        int x = jungleArea/this.width;
+        int centerHeight =this.height/2;
+        Vector2d leftDownCorner = new Vector2d(this.width,centerHeight-(int)(x/2));
+        Vector2d rightUpCorner = new Vector2d(this.width,centerHeight+(int)(x/2));
+        //TODO FINISH
+    }
 
 
     public Map<Vector2d, ArrayList<Animal>> getAnimals(){
@@ -174,8 +183,7 @@ public class GrassField{
 
     public WorldElement objectAt(Vector2d position){ // demo version 1
         if(animals.containsKey(position)){
-            ArrayList<Animal> animalsOnPos = animals.get(position);
-            return animalsOnPos.get(0); // first animal on this position
+            return bestAnimals.get(position); // energy of most powerful
         }
         else if(plants.containsKey(position)){
             return plants.get(position);
@@ -183,12 +191,6 @@ public class GrassField{
         return null;
     }
 
-    public Pair objectsAt(Vector2d position) { // demo version 2
-        if(isOccupiedByGrass(position) || isOccupiedByAnimal(position)){
-            return new Pair(cntAnimalsOnGivenPosition(position), cntGrassesOnGivenPosition(position));
-        }
-        return null;
-    }
 
     public void place(Animal animal){
         Vector2d animalPos = animal.getPosition();
@@ -198,7 +200,6 @@ public class GrassField{
         else{
             animals.put(animalPos, new ArrayList<>(List.of(animal)));
         }
-        //showMessage("Animal moved into position: " + animal.getPosition());
     }
 
     // <---------------------------------------------------------------------------------------------->

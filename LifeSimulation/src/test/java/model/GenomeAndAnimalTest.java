@@ -4,7 +4,6 @@ import model.enums.MapDirection;
 import model.util.Energy;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GenomeAndAnimalTest {
     public static void main(String[] args){
@@ -34,7 +33,7 @@ public class GenomeAndAnimalTest {
         a2.breed(child1, 2);
 
         GrassField gF = new GrassField(10, 10, 10, new Energy(1, 2, 3, 5), 5, 5, 10,
-                 1, 0, 1);
+                 1, 1);
 
         gF.place(a1);
         gF.place(a2);

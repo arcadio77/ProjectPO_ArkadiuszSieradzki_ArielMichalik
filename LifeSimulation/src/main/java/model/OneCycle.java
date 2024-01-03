@@ -79,6 +79,15 @@ public class OneCycle {
             }
             // !!3 eat <- most powerful
             Vector2d bestAnimalPos = mostPowerful.getPosition();
+
+            if (map.bestAnimals.containsKey(key)) {
+                map.bestAnimals.remove(key);
+                map.bestAnimals.put(key, mostPowerful);
+            }
+            else{
+                map.bestAnimals.put(key, mostPowerful);
+            }
+
             if (plants.containsKey(bestAnimalPos)) {
                 //remove that plant out of the map
                 plants.remove(bestAnimalPos);

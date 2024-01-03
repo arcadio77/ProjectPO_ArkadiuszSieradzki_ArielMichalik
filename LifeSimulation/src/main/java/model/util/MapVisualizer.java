@@ -74,14 +74,6 @@ public class MapVisualizer {
         return builder.toString();
     }
 
-    //TODO throws error for now don't know why doesn't print anything
-//    private String drawObject(Vector2d position){
-//        Object object = this.map.objectsAt(position);
-//        if(object != null){
-//            return object.toString();
-//        }
-//        return EMPTY_CELL + " ";
-//    }
 
     private String drawObject(Vector2d currentPosition) {
         Object object = this.map.objectAt(currentPosition);
