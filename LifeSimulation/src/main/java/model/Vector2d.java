@@ -1,8 +1,7 @@
 package model;
 
 import java.util.Objects;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+
 
 public class Vector2d {
     private final int x;
