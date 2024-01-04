@@ -1,10 +1,8 @@
 package model;
 
-import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
 import model.util.Energy;
 import model.util.MapVisualizer;
-import model.util.Pair;
 import model.util.PositionsGenerator;
 import java.util.*;
 
@@ -31,7 +29,6 @@ public class GrassField{
     private final Boundary worldBounds;
     private Boundary jungleBounds;
 
-    protected final ArrayList<MapChangeListener> observers;
 
     public GrassField(int width, int height, int animalsNumber,
                       Energy energy, int minMutationNum, int maxMutationNum, int plantsNumber,
@@ -51,16 +48,13 @@ public class GrassField{
         Vector2d worldDownLeftCorner = new Vector2d(0, 0);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
 
-
-        this.observers = new ArrayList<>();
-
         //setJungleBounds(seed); // jungle generator <- to do
         putGrasses();
         putAnimals();
 
     }
 
-    public void setJungleCorners(){
+    public Boundary setJungleBounds(){
         //20% of the map area, horizontal line of the grass -> const width
         int mapArea = this.height * this.width;
         int jungleArea = (int) (mapArea*0.2);
@@ -68,50 +62,10 @@ public class GrassField{
         int centerHeight =this.height/2;
         Vector2d leftDownCorner = new Vector2d(this.width,centerHeight-(int)(x/2));
         Vector2d rightUpCorner = new Vector2d(this.width,centerHeight+(int)(x/2));
-        //TODO FINISH
+        return new Boundary(leftDownCorner, rightUpCorner);
     }
 
 
-    public Map<Vector2d, ArrayList<Animal>> getAnimals(){
-        return this.animals;
-    }
-
-    public  Map<Vector2d, Grass> getPlants(){
-        return this.plants;
-    }
-
-    public Vector2d getLowerLeft(){
-        return worldBounds.lowerLeft();
-    }
-
-    public Vector2d getUpperRight(){
-        return worldBounds.upperRight();
-    }
-
-    public int getWidth(){
-        return width;
-    }
-
-    public int getHeight(){
-        return height;
-    }
-
-    public Energy getEnergy(){
-        return energy;
-    }
-
-    public Mutation getMutation() { return mutation; }
-
-    /*
-    public ArrayList<WorldElement> getElements() { // to do
-        ArrayList<Set<WorldElement>> values = new ArrayList<>(new ArrayList<>(animals.values()));
-        values.addAll(plants.values());
-        //return values;
-    }*/
-
-    // <---------------------------------------------------------------------------------------------->
-    //                                              SETTERS
-    // <---------------------------------------------------------------------------------------------->
 
     public int cntAnimalsOnGivenPosition(Vector2d position){
         return animals.get(position).size();
@@ -148,18 +102,6 @@ public class GrassField{
         }
     }
 
-    /*
-    private void setJungleBounds(int minJungles, int maxJungles, Random seed){ // to do
-
-        int howManyJungles = minJungles + seed.nextInt(maxJungles + 1 - minJungles);
-
-        PositionsGenerator positions = new PositionsGenerator(width, height, 2 * howManyJungles, seed);
-        for (Vector2d jungleBounds : positions) {
-            if (!isOccupied(jungleBounds)) {
-
-            }
-        }
-    }*/
 
     public void newAnimalBorn(){
         newAnimals++;
@@ -202,21 +144,40 @@ public class GrassField{
         }
     }
 
-    // <---------------------------------------------------------------------------------------------->
-    //                                            DISPLAYING
-    // <---------------------------------------------------------------------------------------------->
-
-
     public String toString() {
         MapVisualizer vis = new MapVisualizer(this);
         return vis.draw(worldBounds.lowerLeft(), worldBounds.upperRight());
     }
 
-    private void showMessage(String message){
-        for(MapChangeListener observer: observers){
-            observer.mapChanged(this, message);
-        }
+    public Map<Vector2d, ArrayList<Animal>> getAnimals(){
+        return this.animals;
     }
+
+    public  Map<Vector2d, Grass> getPlants(){
+        return this.plants;
+    }
+
+    public Vector2d getLowerLeft(){
+        return worldBounds.lowerLeft();
+    }
+
+    public Vector2d getUpperRight(){
+        return worldBounds.upperRight();
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public Energy getEnergy(){
+        return energy;
+    }
+
+    public Mutation getMutation() { return mutation; }
 
 
 }
