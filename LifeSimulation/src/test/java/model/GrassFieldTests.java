@@ -9,7 +9,7 @@ public class GrassFieldTests {
 
     public static void main(String[] args) {
         GrassField gF = new GrassField(10, 10, 10, new Energy(1, 2, 3, 5), 5, 5, 10,
-                1, 1);
+                1);
 
         Genome g1 = new Genome(10, new Mutation(0, 0));
         Genome g2 = new Genome(10, new Mutation(0, 0));

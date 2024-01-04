@@ -27,7 +27,6 @@ public class GrassField{
     private final int numOfGrassGrowingDaily; //need to move to oneCycle class
 
     private final Boundary worldBounds;
-    private Boundary jungleBounds;
 
 
     public GrassField(int width, int height, int animalsNumber,
@@ -80,7 +79,6 @@ public class GrassField{
     }
 
     public int cntAllAliveAnimals(){
-        //maybe works
         int cnt = 0;
         for(Map.Entry<Vector2d, ArrayList<Animal>> entry : animals.entrySet()){
             cnt += entry.getValue().size();

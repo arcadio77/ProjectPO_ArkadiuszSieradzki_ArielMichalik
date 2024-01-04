@@ -33,7 +33,7 @@ public class GenomeAndAnimalTest {
         a2.breed(child1, 2);
 
         GrassField gF = new GrassField(10, 10, 10, new Energy(1, 2, 3, 5), 5, 5, 10,
-                 1, 1);
+                 1);
 
         gF.place(a1);
         gF.place(a2);
