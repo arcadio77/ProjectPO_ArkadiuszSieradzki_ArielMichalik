@@ -1,13 +1,12 @@
 package model;
 
 import model.interfaces.WorldElement;
-import model.util.Energy;
-import model.util.MapVisualizer;
-import model.util.PositionsGenerator;
+import model.util.*;
+
 import java.util.*;
 
 
-public class GrassField{
+public class WorldMap {
 
     private final int width;
     private final int height;
@@ -27,11 +26,12 @@ public class GrassField{
     private final int numOfGrassGrowingDaily; //need to move to oneCycle class
 
     private final Boundary worldBounds;
+    private final Boundary jungleBounds;
 
 
-    public GrassField(int width, int height, int animalsNumber,
-                      Energy energy, int minMutationNum, int maxMutationNum, int plantsNumber,
-                      int numOfGrassGrowingDaily){
+    public WorldMap(int width, int height, int animalsNumber, int plantsNumber,
+                    Energy energy, int minMutationNum, int maxMutationNum,
+                    int numOfGrassGrowingDaily){
 
         this.width = width;
         this.height = height;
@@ -46,21 +46,24 @@ public class GrassField{
         Vector2d worldTopRightCorner = new Vector2d(width, height);
         Vector2d worldDownLeftCorner = new Vector2d(0, 0);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
-
-        //setJungleBounds(seed); // jungle generator <- to do
+        this.jungleBounds = setJungleBounds();
         putGrasses();
         putAnimals();
 
+    }
+    public WorldMap(int width, int height){
+        this(width, height, 5, 5, new Energy(1, 2, 4, 4),
+                1, 1, 4);
     }
 
     public Boundary setJungleBounds(){
         //20% of the map area, horizontal line of the grass -> const width
         int mapArea = this.height * this.width;
         int jungleArea = (int) (mapArea*0.2);
-        int x = jungleArea/this.width;
+        int y = jungleArea/this.width;
         int centerHeight =this.height/2;
-        Vector2d leftDownCorner = new Vector2d(this.width,centerHeight-(int)(x/2));
-        Vector2d rightUpCorner = new Vector2d(this.width,centerHeight+(int)(x/2));
+        Vector2d leftDownCorner = new Vector2d(0,centerHeight-(int)(y/2));
+        Vector2d rightUpCorner = new Vector2d(this.width,leftDownCorner.getY() + Math.max(y,1));
         return new Boundary(leftDownCorner, rightUpCorner);
     }
 
@@ -86,14 +89,14 @@ public class GrassField{
         return cnt;
     }
     public void putGrasses(){
-        PositionsGenerator grassPositions = new PositionsGenerator(width,height,plantsNumber);
+        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(width,height,plantsNumber,this.jungleBounds, this.plants);
         for(Vector2d grassPosition : grassPositions){
             plants.put(grassPosition, new Grass(grassPosition));
         }
     }
 
     public void putAnimals(){
-        PositionsGenerator positions = new PositionsGenerator(width, height, animalsNumber);
+        AnimalPositionsGenerator positions = new AnimalPositionsGenerator(width, height, animalsNumber);
         for(Vector2d animalPosition: positions){
             Animal newAnimal = new Animal(animalPosition);
             this.place(newAnimal);
@@ -123,14 +126,14 @@ public class GrassField{
 
     public WorldElement objectAt(Vector2d position){ // demo version 1
         if(animals.containsKey(position)){
-            return bestAnimals.get(position); // energy of most powerful
+// TODO           return bestAnimals.get(position); // energy of most powerful - DON'T WORK FOR THAT VERSION FOR NOW
+            return animals.get(position).get(0);
         }
         else if(plants.containsKey(position)){
             return plants.get(position);
         }
         return null;
     }
-
 
     public void place(Animal animal){
         Vector2d animalPos = animal.getPosition();

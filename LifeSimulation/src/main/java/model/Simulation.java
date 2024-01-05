@@ -10,8 +10,8 @@ public class Simulation extends SimulationGivenData{
 
     public void run(){
         Energy energy = new Energy(grassEnergy, breedLostEnergy, breedReadyEnergy, initialAnimalEnergy);
-        GrassField map = new GrassField(width, height, initialAnimalsNumber, energy, minMutationNum, maxMutationNum,
-                initialAnimalsNumber, numOfGrassGrowingDaily);
+        WorldMap map = new WorldMap(width, height, initialAnimalsNumber, initialAnimalsNumber, energy, minMutationNum, maxMutationNum,
+                 numOfGrassGrowingDaily);
         System.out.println(map);
         OneCycle oneDay = new OneCycle(map);
 

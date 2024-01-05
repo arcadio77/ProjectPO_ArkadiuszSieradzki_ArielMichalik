@@ -1,4 +1,3 @@
-import model.GrassField;
 import model.Simulation;
 
 public class World {

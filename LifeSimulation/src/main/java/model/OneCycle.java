@@ -6,9 +6,9 @@ import model.enums.MapDirection;
 
 public class OneCycle {
 
-    private final GrassField map;
+    private final WorldMap map;
 
-    public OneCycle(GrassField map){
+    public OneCycle(WorldMap map){
         this.map = map;
     }
 
