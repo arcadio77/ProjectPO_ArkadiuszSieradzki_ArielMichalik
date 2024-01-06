@@ -10,16 +10,19 @@ import java.util.*;
 public class GrassPositionsGenerator implements PositionsGenerator {
 
     private final List<Vector2d> positions;
-    private final Random random = new Random();
+    private final Random random;
     private final Map<Vector2d, Grass> plants;
     private final Boundary jungleBounds;
 
-    public GrassPositionsGenerator(int width, int height, int count, Boundary jungleBounds, Map<Vector2d, Grass> plants) {
+    public GrassPositionsGenerator(int width, int height, int count, Boundary jungleBounds, Map<Vector2d, Grass> plants, Random random) {
         List<Vector2d> allPositions = generateAllPositions(width, height);
         this.plants = plants;
+        this.random = random;
         this.jungleBounds = jungleBounds;
         this.positions = selectRandomPositions(allPositions, count);
     }
+
+    //TODO after all animals die grass don't cover whole map even if there is only one empty cell in many days any grass is growing there, it's not jungle territory
 
     private List<Vector2d> generateAllJunglePositions(List<Vector2d> allPositions){
         List<Vector2d> allJunglePositions = new ArrayList<>();

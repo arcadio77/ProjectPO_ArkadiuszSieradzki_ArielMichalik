@@ -1,8 +1,12 @@
 package model;
 
+
 public class SimulationGivenData {
     final int width;
     final int height;
+    //simulacja jest opisywana takze przez wybrany wariant mapy, do wyboru maja byc 4
+    //wariant wzrostu roślin (wyjaśnione w sekcji poniżej),
+    //wariant mutacji (wyjaśnione w sekcji poniżej)
     final int initialAnimalsNumber;
     final int initialGrassNumber;
     final int initialAnimalEnergy;
@@ -13,12 +17,13 @@ public class SimulationGivenData {
     final int genomeLength;
     final int minMutationNum;
     final int maxMutationNum;
+    final long seed;
 
 
 
     public SimulationGivenData(int width, int height, int initialAnimalsNumber, int initialGrassNumber, int initialAnimalEnergy,
                                int numOfGrassGrowingDaily, int grassEnergy, int breedReadyEnergy, int breedLostEnergy,
-                               int genomeLength, int minMutationNum, int maxMutationNum) {
+                               int genomeLength, int minMutationNum, int maxMutationNum, long seed) {
         this.width = width;
         this.height = height;
         this.initialAnimalsNumber = initialAnimalsNumber;
@@ -31,53 +36,7 @@ public class SimulationGivenData {
         this.genomeLength = genomeLength;
         this.minMutationNum = minMutationNum;
         this.maxMutationNum = maxMutationNum;
+        this.seed = seed;
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getInitialAnimalsNumber() {
-        return initialAnimalsNumber;
-    }
-
-    public int getInitialGrassNumber() {
-        return initialGrassNumber;
-    }
-
-    public int getInitialAnimalEnergy() {
-        return initialAnimalEnergy;
-    }
-
-    public int getGrassEnergy() {
-        return grassEnergy;
-    }
-
-    public int getBreedReadyEnergy() {
-        return breedReadyEnergy;
-    }
-
-    public int getBreedLostEnergy() {
-        return breedLostEnergy;
-    }
-
-    public int getGenomeLength() {
-        return genomeLength;
-    }
-
-    public int getNumOfGrassGrowingDaily() {
-        return numOfGrassGrowingDaily;
-    }
-
-    public int getMinMutationNum() {
-        return minMutationNum;
-    }
-
-    public int getMaxMutationNum() {
-        return maxMutationNum;
-    }
 }

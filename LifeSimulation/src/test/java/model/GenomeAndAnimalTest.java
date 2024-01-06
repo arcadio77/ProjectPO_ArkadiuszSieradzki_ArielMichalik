@@ -32,12 +32,12 @@ public class GenomeAndAnimalTest {
         a1.breed(child1, 2);
         a2.breed(child1, 2);
 
-        WorldMap gF = new WorldMap(10, 10, 10,  10, new Energy(1, 2, 3, 5), 5, 5,
-                 1);
+//        WorldMap gF = new WorldMap(10, 10, 10,  10, new Energy(1, 2, 3, 5), 5, 5,
+//                 1);
 
-        gF.place(a1);
-        gF.place(a2);
-        gF.place(child1);
+//        gF.place(a1);
+//        gF.place(a2);
+//        gF.place(child1);
         
     }
 }

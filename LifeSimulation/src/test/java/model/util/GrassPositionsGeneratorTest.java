@@ -10,8 +10,7 @@ public class GrassPositionsGeneratorTest {
     public void TestSelectRandomPositions(){
         WorldMap map = new WorldMap(10, 10);
         int grassToPlace = 10;
-        //TODO add getJungleBounds to WorldMap
-        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(10, 10, grassToPlace, map.setJungleBounds(), map.getPlants());
+        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(10, 10, grassToPlace, map.getJungleBounds(), map.getPlants(), map.getRandom());
         for(Vector2d position: grassPositions){
             System.out.println(position);
         }

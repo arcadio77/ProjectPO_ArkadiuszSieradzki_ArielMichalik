@@ -30,10 +30,11 @@ public class WorldMap {
     private final Boundary worldBounds;
     private final Boundary jungleBounds;
 
+    private final Random random;
 
     public WorldMap(int width, int height, int animalsNumber, int plantsNumber,
                     Energy energy, int minMutationNum, int maxMutationNum, int genomeLength,
-                    int numOfGrassGrowingDaily){
+                    int numOfGrassGrowingDaily, Random random){
 
         this.width = width;
         this.height = height;
@@ -46,18 +47,23 @@ public class WorldMap {
         this.animals = new HashMap<>();
         this.bestAnimals = new HashMap<>();
         this.plants = new HashMap<>();
+        this.random = random;
 
         Vector2d worldTopRightCorner = new Vector2d(width, height);
         Vector2d worldDownLeftCorner = new Vector2d(0, 0);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
         this.jungleBounds = setJungleBounds();
-        putGrasses();
+        putGrasses(this.plantsNumber);
         putAnimals();
 
+        for (Vector2d position : animals.keySet()){
+            this.bestAnimals.put(position, animals.get(position).get(0));
+        }
     }
+    
     public WorldMap(int width, int height){
         this(width, height, 5, 5, new Energy(1, 2, 4, 4),
-                1, 1, 10, 4);
+                1, 1, 10, 4, new Random());
     }
 
     public Boundary setJungleBounds(){
@@ -91,21 +97,20 @@ public class WorldMap {
         }
         return cnt;
     }
-    public void putGrasses(){
-        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(width,height,plantsNumber,this.jungleBounds, this.plants);
+    public void putGrasses(int plantsNumber){
+        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(width,height,plantsNumber,this.jungleBounds, this.plants, this.random);
         for(Vector2d grassPosition : grassPositions){
             plants.put(grassPosition, new Grass(grassPosition));
         }
     }
 
     public void putAnimals(){
-        AnimalPositionsGenerator positions = new AnimalPositionsGenerator(width, height, animalsNumber);
+        AnimalPositionsGenerator positions = new AnimalPositionsGenerator(width, height, animalsNumber, this.random);
         for(Vector2d animalPosition: positions){
-            Animal newAnimal = new Animal(animalPosition, MapDirection.NORTH, new Genome(genomeLength, mutation), 0, energy.getInitialAnimalEnergy());
+            Animal newAnimal = new Animal(animalPosition, MapDirection.generateRandomDirection(), new Genome(genomeLength, mutation), 0, energy.getInitialAnimalEnergy());
             this.place(newAnimal);
         }
     }
-
 
     public void newAnimalBorn(){
         newAnimals++;
@@ -129,8 +134,7 @@ public class WorldMap {
 
     public WorldElement objectAt(Vector2d position){ // demo version 1
         if(animals.containsKey(position)){
-            return bestAnimals.get(position); // energy of most powerful - DON'T WORK FOR THAT VERSION FOR NOW
-            //return animals.get(position).get(0);
+            return bestAnimals.get(position);
         }
         else if(plants.containsKey(position)){
             return plants.get(position);
@@ -192,6 +196,7 @@ public class WorldMap {
         return numOfGrassGrowingDaily;
     }
 
+    public Boundary getJungleBounds(){ return jungleBounds; }
 
+    public Random getRandom() { return random; }
 }
-

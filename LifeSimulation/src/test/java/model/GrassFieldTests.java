@@ -3,13 +3,14 @@ package model;
 import model.enums.MapDirection;
 import model.util.Energy;
 
+import java.util.Random;
 
 
 public class GrassFieldTests {
 
     public static void main(String[] args) {
         WorldMap map = new WorldMap(4, 5, 10, 10, new Energy(1, 2, 3, 5), 5, 5,
-                1);
+                1, 5, new Random());
 
         Genome g1 = new Genome(10, new Mutation(0, 0));
         Genome g2 = new Genome(10, new Mutation(0, 0));

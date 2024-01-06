@@ -7,10 +7,11 @@ import java.util.*;
 
 public class AnimalPositionsGenerator implements PositionsGenerator {
     private final List<Vector2d> positions;
-    private final Random random = new Random();
+    private final Random random;
 
-    public AnimalPositionsGenerator(int width, int height, int count) {
+    public AnimalPositionsGenerator(int width, int height, int count, Random random) {
         List<Vector2d> allPositions = generateAllPositions(width, height);
+        this.random = random;
         this.positions = selectRandomPositions(allPositions, count);
     }
 

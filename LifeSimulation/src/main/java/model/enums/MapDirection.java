@@ -79,9 +79,9 @@ public enum MapDirection {
             case NORTHWEST -> SOUTHEAST;
         };
     }
-    public MapDirection generateRandomDirection(){
+    public static MapDirection generateRandomDirection(){
         Random rand = new Random();
-       return fromInteger( rand.nextInt(8));
+        return fromInteger( rand.nextInt(8));
     }
 
 }

@@ -25,10 +25,10 @@ public class Genome {
 
     public Genome(int n, Animal parent1, Animal parent2, Mutation mutation){
         this.genomeLength = n;
-        this.mutation = mutation;;
+        this.mutation = mutation;
 
         int combinedEnergy = parent1.getEnergy() + parent2.getEnergy();
-        double parent1Share = (double) parent1.getEnergy() / combinedEnergy; //castowanie na double gdzies musi być moze do naprawy?
+        double parent1Share = (double) parent1.getEnergy() / combinedEnergy;
         double parent2Share = (double) parent2.getEnergy() / combinedEnergy;
 
         if(true){
@@ -61,6 +61,7 @@ public class Genome {
         int min = mutation.getMinNum();
         int max = mutation.getMaxNum();
 
+        //TODO GET RANDOM FROM WORLD MAP NOT GENERATE RANDOM SEED
         Random rand = new Random();
 
         int mutationsNum = min + rand.nextInt(max + 1 - min);
