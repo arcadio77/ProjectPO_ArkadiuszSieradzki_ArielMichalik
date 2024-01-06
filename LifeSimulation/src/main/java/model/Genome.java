@@ -25,8 +25,7 @@ public class Genome {
 
     public Genome(int n, Animal parent1, Animal parent2, Mutation mutation){
         this.genomeLength = n;
-        this.mutation = mutation;
-        boolean rand = new Random().nextBoolean();
+        this.mutation = mutation;;
 
         int combinedEnergy = parent1.getEnergy() + parent2.getEnergy();
         double parent1Share = (double) parent1.getEnergy() / combinedEnergy; //castowanie na double gdzies musi być moze do naprawy?
@@ -78,5 +77,4 @@ public class Genome {
     public ArrayList<Integer> getGenome() {
         return genome;
     }
-    public int getGenomeLength(){return genomeLength;}
 }
