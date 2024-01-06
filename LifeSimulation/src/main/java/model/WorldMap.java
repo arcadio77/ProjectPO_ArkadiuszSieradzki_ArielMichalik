@@ -22,7 +22,7 @@ public class WorldMap {
 
     protected Map<Vector2d, ArrayList<Animal>> animals;
     protected Map<Vector2d, Animal> bestAnimals;
-    private Map<Vector2d, Grass> plants;
+    protected Map<Vector2d, Grass> plants;
     private final int numOfGrassGrowingDaily; //need to move to oneCycle class
 
     private final Boundary worldBounds;
@@ -67,7 +67,6 @@ public class WorldMap {
         Vector2d rightUpCorner = new Vector2d(this.width,leftDownCorner.getY() + Math.max(y,1));
         return new Boundary(leftDownCorner, rightUpCorner);
     }
-
 
 
     public int cntAnimalsOnGivenPosition(Vector2d position){
@@ -127,8 +126,8 @@ public class WorldMap {
 
     public WorldElement objectAt(Vector2d position){ // demo version 1
         if(animals.containsKey(position)){
-// TODO           return bestAnimals.get(position); // energy of most powerful - DON'T WORK FOR THAT VERSION FOR NOW
-            return animals.get(position).get(0);
+            return bestAnimals.get(position); // energy of most powerful - DON'T WORK FOR THAT VERSION FOR NOW
+            //return animals.get(position).get(0);
         }
         else if(plants.containsKey(position)){
             return plants.get(position);
@@ -146,6 +145,7 @@ public class WorldMap {
         }
     }
 
+    @Override
     public String toString() {
         MapVisualizer vis = new MapVisualizer(this);
         return vis.draw(worldBounds.lowerLeft(), worldBounds.upperRight());

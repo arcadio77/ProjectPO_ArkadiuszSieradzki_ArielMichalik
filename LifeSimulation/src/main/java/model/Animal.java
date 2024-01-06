@@ -204,8 +204,4 @@ public class Animal implements WorldElement {
         return String.valueOf(energy);
     }
 
-    public Animal copy() {
-        return new Animal(this.position, this.orientation, this.genome, this.geneId, this.energy);
-    }
-
 }

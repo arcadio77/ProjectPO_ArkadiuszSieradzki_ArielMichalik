@@ -13,6 +13,7 @@ public class OneCycle {
     }
 
     public void runOneCycle(){
+        map.bestAnimals.clear();
 
         Map<Vector2d, ArrayList<Animal>> animals = map.getAnimals();
         Map<Vector2d, Grass> plants = map.getPlants();
@@ -46,6 +47,7 @@ public class OneCycle {
         }
 
         animals = toPlace; // ez
+        map.animals = animals; // bug fixed
 
         // <---------------------------------------------------------------------------------------------->
         //                                        Second Phase
@@ -79,9 +81,7 @@ public class OneCycle {
             // !!3 eat <- most powerful
             Vector2d bestAnimalPos = mostPowerful.getPosition();
 
-            map.bestAnimals.clear();
-
-            map.bestAnimals.put(key, mostPowerful);
+            map.bestAnimals.put(bestAnimalPos, mostPowerful);
 
             if (plants.containsKey(bestAnimalPos)) {
                 //remove that plant out of the map
@@ -91,7 +91,7 @@ public class OneCycle {
 
             // sec most powerful
             Animal secMostPowerful = (Animal) animalsOnNewPos.toArray()[0];
-            if (animals.size() > 1) {
+            if (animalsOnNewPos.size() > 1) {
                 for (Animal animal : animalsOnNewPos) {
                     if ((animal.getEnergy() > secMostPowerful.getEnergy()) && (animal.getEnergy() <= mostPowerful.getEnergy())) {
                         secMostPowerful = animal;
@@ -125,5 +125,6 @@ public class OneCycle {
                 }
             }
         }
+        map.plants = plants;
     }
 }
