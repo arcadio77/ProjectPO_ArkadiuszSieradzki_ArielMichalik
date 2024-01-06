@@ -1,5 +1,6 @@
 package model;
 
+import model.enums.MapDirection;
 import model.interfaces.WorldElement;
 import model.util.*;
 
@@ -12,6 +13,7 @@ public class WorldMap {
     private final int height;
     private int plantsNumber; //initial at first
     private int animalsNumber; //initial at first
+    private int genomeLength;
 
     private int dead = 0;
     private int newAnimals = 0;
@@ -30,7 +32,7 @@ public class WorldMap {
 
 
     public WorldMap(int width, int height, int animalsNumber, int plantsNumber,
-                    Energy energy, int minMutationNum, int maxMutationNum,
+                    Energy energy, int minMutationNum, int maxMutationNum, int genomeLength,
                     int numOfGrassGrowingDaily){
 
         this.width = width;
@@ -39,6 +41,7 @@ public class WorldMap {
         this.plantsNumber = plantsNumber;
         this.energy = energy;
         this.mutation = new Mutation(minMutationNum, maxMutationNum);
+        this.genomeLength = genomeLength;
         this.numOfGrassGrowingDaily = numOfGrassGrowingDaily;
         this.animals = new HashMap<>();
         this.bestAnimals = new HashMap<>();
@@ -54,7 +57,7 @@ public class WorldMap {
     }
     public WorldMap(int width, int height){
         this(width, height, 5, 5, new Energy(1, 2, 4, 4),
-                1, 1, 4);
+                1, 1, 10, 4);
     }
 
     public Boundary setJungleBounds(){
@@ -98,7 +101,7 @@ public class WorldMap {
     public void putAnimals(){
         AnimalPositionsGenerator positions = new AnimalPositionsGenerator(width, height, animalsNumber);
         for(Vector2d animalPosition: positions){
-            Animal newAnimal = new Animal(animalPosition);
+            Animal newAnimal = new Animal(animalPosition, MapDirection.NORTH, new Genome(genomeLength, mutation), 0, energy.getInitialAnimalEnergy());
             this.place(newAnimal);
         }
     }
@@ -180,6 +183,14 @@ public class WorldMap {
     }
 
     public Mutation getMutation() { return mutation; }
+
+    public int getGenomeLength() {
+        return genomeLength;
+    }
+
+    public int getNumOfGrassGrowingDaily() {
+        return numOfGrassGrowingDaily;
+    }
 
 
 }

@@ -8,8 +8,11 @@ public class OneCycle {
 
     private final WorldMap map;
 
+    private Random rand;
+
     public OneCycle(WorldMap map){
         this.map = map;
+        this.rand = new Random();
     }
 
     public void runOneCycle(){
@@ -72,7 +75,7 @@ public class OneCycle {
                             mostPowerful = animal;
                         }
                         else if (animal.getChildren().size() == mostPowerful.getChildren().size()){
-                            Random rand = new Random();
+                            //Random rand = new Random();
                             mostPowerful = rand.nextBoolean() ? animal : mostPowerful;
                         }
                     }
@@ -102,7 +105,7 @@ public class OneCycle {
                             if (animal.getChildren().size() > secMostPowerful.getChildren().size()) {
                                 secMostPowerful = animal;
                             } else if (animal.getChildren().size() == secMostPowerful.getChildren().size()) {
-                                Random rand = new Random();
+                                //Random rand = new Random();
                                 secMostPowerful = rand.nextBoolean() ? animal : secMostPowerful;
                             }
                         }
@@ -116,8 +119,10 @@ public class OneCycle {
                 int energyRequiredToCopulate = map.energy.getBreedReady();
                 if (mostPowerful.getEnergy() >= energyRequiredToCopulate && secMostPowerful.getEnergy() >= energyRequiredToCopulate) {
                     System.out.println(mostPowerful.getEnergy());
-                    Genome childGenome = new Genome(10, mostPowerful, secMostPowerful, map.mutation); // n is not set right
-                    Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, 5, map.energy.getInitialAnimalEnergy());  //orientation random and geneId random
+                    Genome childGenome = new Genome(map.getGenomeLength(), mostPowerful, secMostPowerful, map.mutation);
+                    //Random rand = new Random();
+                    int geneIDChild = rand.nextInt(0, map.getGenomeLength() - 1);
+                    Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, geneIDChild, map.getEnergy().getBreedLost()*2);  //orientation random and geneId random
                     mostPowerful.breed(child, map.getEnergy().getBreedLost());
                     secMostPowerful.breed(child, map.getEnergy().getBreedLost());
                     map.place(child);
@@ -127,4 +132,10 @@ public class OneCycle {
         }
         map.plants = plants;
     }
+
+
+    private void growGrass(){
+        int numOfGrassGrowingDaily = map.getNumOfGrassGrowingDaily();
+    }
+
 }

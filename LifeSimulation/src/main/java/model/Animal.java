@@ -13,7 +13,6 @@ public class Animal implements WorldElement {
     private Vector2d position;
     private int energy;
     private final Genome genome;
-    private final int genomeLength;
     private Integer geneId;
     private int age;
     private ArrayList<Animal> children = new ArrayList<>();
@@ -30,7 +29,6 @@ public class Animal implements WorldElement {
         this.orientation = dir;
         this.genome = genome;
         this.geneId = geneId;
-        this.genomeLength = genome.getGenome().size();
         this.energy = initEnergy;
     }
 
