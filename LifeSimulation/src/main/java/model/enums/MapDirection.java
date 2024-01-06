@@ -2,6 +2,8 @@ package model.enums;
 
 import model.Vector2d;
 
+import java.util.Random;
+
 public enum MapDirection {
     NORTH,
     NORTHEAST,
@@ -76,6 +78,10 @@ public enum MapDirection {
             case WEST -> EAST;
             case NORTHWEST -> SOUTHEAST;
         };
+    }
+    public MapDirection generateRandomDirection(){
+        Random rand = new Random();
+       return fromInteger( rand.nextInt(8));
     }
 
 }
