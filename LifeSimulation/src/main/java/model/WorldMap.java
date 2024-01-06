@@ -41,6 +41,7 @@ public class WorldMap {
         this.mutation = new Mutation(minMutationNum, maxMutationNum);
         this.numOfGrassGrowingDaily = numOfGrassGrowingDaily;
         this.animals = new HashMap<>();
+        this.bestAnimals = new HashMap<>();
         this.plants = new HashMap<>();
 
         Vector2d worldTopRightCorner = new Vector2d(width, height);

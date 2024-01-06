@@ -165,6 +165,7 @@ public class Animal implements WorldElement {
     }
 
     public void breed(Animal child, int lostEnergy){
+        System.out.println("breeding");
         this.energy -= lostEnergy;
         children.add(child);
     }

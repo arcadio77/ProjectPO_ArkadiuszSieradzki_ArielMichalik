@@ -12,7 +12,6 @@ public class OneCycle {
         this.map = map;
     }
 
-
     public void runOneCycle(){
 
         Map<Vector2d, ArrayList<Animal>> animals = map.getAnimals();
@@ -80,13 +79,9 @@ public class OneCycle {
             // !!3 eat <- most powerful
             Vector2d bestAnimalPos = mostPowerful.getPosition();
 
-            if (map.bestAnimals.containsKey(key)) {
-                map.bestAnimals.remove(key);
-                map.bestAnimals.put(key, mostPowerful);
-            }
-            else{
-                map.bestAnimals.put(key, mostPowerful);
-            }
+            map.bestAnimals.clear();
+
+            map.bestAnimals.put(key, mostPowerful);
 
             if (plants.containsKey(bestAnimalPos)) {
                 //remove that plant out of the map
@@ -96,21 +91,20 @@ public class OneCycle {
 
             // sec most powerful
             Animal secMostPowerful = (Animal) animalsOnNewPos.toArray()[0];
-
-            for (Animal animal : animalsOnNewPos) {
-                if ((animal.getEnergy() > secMostPowerful.getEnergy()) && (animal.getEnergy() <= mostPowerful.getEnergy())) {
-                    secMostPowerful = animal;
-                }
-                else if ((animal.getEnergy() == secMostPowerful.getEnergy()) && (animal.getEnergy() <= mostPowerful.getEnergy())) {
-                    if (animal.getAge() > secMostPowerful.getAge())
+            if (animals.size() > 1) {
+                for (Animal animal : animalsOnNewPos) {
+                    if ((animal.getEnergy() > secMostPowerful.getEnergy()) && (animal.getEnergy() <= mostPowerful.getEnergy())) {
                         secMostPowerful = animal;
-                    else if (animal.getAge() == secMostPowerful.getAge()) {
-                        if (animal.getChildren().size() > secMostPowerful.getChildren().size()){
+                    } else if ((animal.getEnergy() == secMostPowerful.getEnergy()) && (animal.getEnergy() <= mostPowerful.getEnergy())) {
+                        if (animal.getAge() > secMostPowerful.getAge())
                             secMostPowerful = animal;
-                        }
-                        else if (animal.getChildren().size() == secMostPowerful.getChildren().size()){
-                            Random rand = new Random();
-                            secMostPowerful = rand.nextBoolean() ? animal : secMostPowerful;
+                        else if (animal.getAge() == secMostPowerful.getAge()) {
+                            if (animal.getChildren().size() > secMostPowerful.getChildren().size()) {
+                                secMostPowerful = animal;
+                            } else if (animal.getChildren().size() == secMostPowerful.getChildren().size()) {
+                                Random rand = new Random();
+                                secMostPowerful = rand.nextBoolean() ? animal : secMostPowerful;
+                            }
                         }
                     }
                 }
@@ -118,14 +112,17 @@ public class OneCycle {
 
             // !!4 breed <- two most powerful (sexiest)
             // if they have at least minimum energy required to copulate
-            int energyRequiredToCopulate = map.energy.getBreedReady();
-            if (mostPowerful.getEnergy() >= energyRequiredToCopulate && secMostPowerful.getEnergy() >= energyRequiredToCopulate){
-                Genome childGenome = new Genome(10, mostPowerful, secMostPowerful, map.mutation); // n is not set right
-                Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, 5, map.energy.getInitialAnimalEnergy());  //orientation random and geneId random
-                mostPowerful.breed(child, map.getEnergy().getBreedLost());
-                secMostPowerful.breed(child, map.getEnergy().getBreedLost());
-                map.place(child);
-                map.newAnimalBorn();
+            if (!mostPowerful.equals(secMostPowerful)) {
+                int energyRequiredToCopulate = map.energy.getBreedReady();
+                if (mostPowerful.getEnergy() >= energyRequiredToCopulate && secMostPowerful.getEnergy() >= energyRequiredToCopulate) {
+                    System.out.println(mostPowerful.getEnergy());
+                    Genome childGenome = new Genome(10, mostPowerful, secMostPowerful, map.mutation); // n is not set right
+                    Animal child = new Animal(mostPowerful.getPosition(), MapDirection.NORTH, childGenome, 5, map.energy.getInitialAnimalEnergy());  //orientation random and geneId random
+                    mostPowerful.breed(child, map.getEnergy().getBreedLost());
+                    secMostPowerful.breed(child, map.getEnergy().getBreedLost());
+                    map.place(child);
+                    map.newAnimalBorn();
+                }
             }
         }
     }
