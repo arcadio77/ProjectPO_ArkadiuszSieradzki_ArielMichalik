@@ -107,7 +107,7 @@ public class WorldMap {
     public void putAnimals(){
         AnimalPositionsGenerator positions = new AnimalPositionsGenerator(width, height, animalsNumber, this.random);
         for(Vector2d animalPosition: positions){
-            Animal newAnimal = new Animal(animalPosition, MapDirection.generateRandomDirection(), new Genome(genomeLength, mutation), 0, energy.getInitialAnimalEnergy());
+            Animal newAnimal = new Animal(animalPosition, MapDirection.generateRandomDirection(), new Genome(genomeLength, mutation, random), 0, energy.getInitialAnimalEnergy());
             this.place(newAnimal);
         }
     }
@@ -120,9 +120,6 @@ public class WorldMap {
         newAnimals++;
     }
 
-    // <---------------------------------------------------------------------------------------------->
-    //                                            POSITIONING
-    // <---------------------------------------------------------------------------------------------->
 
     public boolean isOccupiedByAnimal(Vector2d position){
         return animals.containsKey(position);

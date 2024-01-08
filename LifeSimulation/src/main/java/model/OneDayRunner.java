@@ -8,11 +8,11 @@ public class OneDayRunner {
 
     private final WorldMap map;
 
-    private final Random rand;
+    private final Random random;
 
     public OneDayRunner(WorldMap map){
         this.map = map;
-        this.rand = map.getRandom();
+        this.random = map.getRandom();
     }
 
     public void runOneDay(){
@@ -79,7 +79,7 @@ public class OneDayRunner {
             if (animal2.getChildren().size() > animal1.getChildren().size()) {
                 animal1 = animal2;
             } else if (animal2.getChildren().size() == animal1.getChildren().size()) {
-                animal1 = rand.nextBoolean() ? animal2 : animal1;
+                animal1 = random.nextBoolean() ? animal2 : animal1;
             }
         }
         return animal1;
@@ -90,8 +90,8 @@ public class OneDayRunner {
             int energyRequiredToCopulate = map.energy.getBreedReady();
             if (mostPowerful.getEnergy() >= energyRequiredToCopulate && secMostPowerful.getEnergy() >= energyRequiredToCopulate) {
                 System.out.println(mostPowerful.getEnergy());
-                Genome childGenome = new Genome(map.getGenomeLength(), mostPowerful, secMostPowerful, map.mutation);
-                int geneIDChild = rand.nextInt(0, map.getGenomeLength() - 1);
+                Genome childGenome = new Genome(map.getGenomeLength(), mostPowerful, secMostPowerful, map.mutation, random);
+                int geneIDChild = random.nextInt(0, map.getGenomeLength() - 1);
                 Animal child = new Animal(mostPowerful.getPosition(), MapDirection.generateRandomDirection(), childGenome, geneIDChild, map.getEnergy().getBreedLost()*2);
                 mostPowerful.breed(child, map.getEnergy().getBreedLost());
                 secMostPowerful.breed(child, map.getEnergy().getBreedLost());

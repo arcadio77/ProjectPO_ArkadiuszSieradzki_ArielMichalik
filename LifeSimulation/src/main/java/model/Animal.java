@@ -2,13 +2,13 @@ package model;
 
 import model.enums.MapDirection;
 import model.interfaces.WorldElement;
-import model.util.Energy;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Random;
 
 public class Animal implements WorldElement {
-    private int id;
+    //TODO clean
+    private final int id;
     private MapDirection orientation;
     private Vector2d position;
     private int energy;
@@ -19,7 +19,7 @@ public class Animal implements WorldElement {
     private static int idCnt = 0;
 
     public Animal(Vector2d x){
-        this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0)), 0, 5);
+        this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0), new Random()), 0, 5);
     }
 
     public Animal(Vector2d x, MapDirection dir, Genome genome, Integer geneId, int initEnergy){
@@ -66,6 +66,7 @@ public class Animal implements WorldElement {
     // <---------------------------------------------------------------------------------------------->
 
     public void move(Vector2d lowerLeft, Vector2d upperRight){
+
         this.energy--; // daleko jeszcze???
         this.age++; // starość nie radość
 
@@ -202,4 +203,7 @@ public class Animal implements WorldElement {
         return String.valueOf(energy);
     }
 
+    public int getId() {
+        return id;
+    }
 }

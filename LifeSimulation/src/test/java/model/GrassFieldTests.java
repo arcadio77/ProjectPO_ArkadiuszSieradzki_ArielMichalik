@@ -9,11 +9,13 @@ import java.util.Random;
 public class GrassFieldTests {
 
     public static void main(String[] args) {
+        Random random = new Random();
+
         WorldMap map = new WorldMap(4, 5, 10, 10, new Energy(1, 2, 3, 5), 5, 5,
                 1, 5, new Random());
 
-        Genome g1 = new Genome(10, new Mutation(0, 0));
-        Genome g2 = new Genome(10, new Mutation(0, 0));
+        Genome g1 = new Genome(10, new Mutation(0, 0), random);
+        Genome g2 = new Genome(10, new Mutation(0, 0), random);
 
         Animal a1 = new Animal(new Vector2d(0, 0), MapDirection.NORTH, g1, 0, 5);
         Animal a2 = new Animal(new Vector2d(0, 0), MapDirection.NORTH, g2, 0, 5);

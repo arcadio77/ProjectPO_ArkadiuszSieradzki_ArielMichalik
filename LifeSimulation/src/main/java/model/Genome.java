@@ -7,14 +7,17 @@ import java.util.Random;
 import static java.lang.Math.round;
 
 public class Genome {
+    //TODO clean
+
     private final ArrayList<Integer> genome;
     private final int genomeLength;
     private final Mutation mutation;
+    private Random random;
 
-
-    public Genome(int n, Mutation mutation){
+    public Genome(int n, Mutation mutation, Random random){
         this.genomeLength = n;
         this.mutation = mutation;
+        this.random = random;
         ArrayList<Integer> genome = new ArrayList<>();
         Random rand = new Random();
         for (int i=0; i< genomeLength; i++){
@@ -23,9 +26,10 @@ public class Genome {
         this.genome = genome;
     }
 
-    public Genome(int n, Animal parent1, Animal parent2, Mutation mutation){
+    public Genome(int n, Animal parent1, Animal parent2, Mutation mutation, Random random){
         this.genomeLength = n;
         this.mutation = mutation;
+        this.random = random;
 
         int combinedEnergy = parent1.getEnergy() + parent2.getEnergy();
         double parent1Share = (double) parent1.getEnergy() / combinedEnergy;
@@ -61,14 +65,11 @@ public class Genome {
         int min = mutation.getMinNum();
         int max = mutation.getMaxNum();
 
-        //TODO GET RANDOM FROM WORLD MAP NOT GENERATE RANDOM SEED
-        Random rand = new Random();
-
-        int mutationsNum = min + rand.nextInt(max + 1 - min);
+        int mutationsNum = min + random.nextInt(max + 1 - min);
 
         for (int i = 0 ; i < mutationsNum; i++){
-            int randomNum = rand.nextInt(8);
-            int where = rand.nextInt(currGenome.size());
+            int randomNum = random.nextInt(8);
+            int where = random.nextInt(currGenome.size());
             currGenome.set(where, randomNum);
         }
 

@@ -1,17 +1,18 @@
 package model;
 
 import model.enums.MapDirection;
-import model.util.Energy;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GenomeAndAnimalTest {
     public static void main(String[] args){
-        Genome g1 = new Genome(10, new Mutation(0,0));
+        Random random = new Random();
+        Genome g1 = new Genome(10, new Mutation(0,0), random);
         ArrayList<Integer> g1List = g1.getGenome();
         System.out.println(g1List);
 
-        Genome g2 = new Genome(10, new Mutation(0,0));
+        Genome g2 = new Genome(10, new Mutation(0,0), random);
         ArrayList<Integer> g2List = g2.getGenome();
         System.out.println(g2List);
 
@@ -22,7 +23,7 @@ public class GenomeAndAnimalTest {
         a1.eat(10);
         a2.eat(5);
 
-        Genome g3 = new Genome(10, a1, a2, new Mutation(0,0));
+        Genome g3 = new Genome(10, a1, a2, new Mutation(0,0), random);
 
         ArrayList<Integer> g3List = g3.getGenome();
         System.out.println(g3List);

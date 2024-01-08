@@ -18,10 +18,11 @@ public class Simulation extends SimulationGivenData{
         WorldMap map = new WorldMap(width, height, initialAnimalsNumber, initialAnimalsNumber, energy, minMutationNum,
                 maxMutationNum, genomeLength, numOfGrassGrowingDaily, this.random);
 
+        //TODO still different variations of the map are printing - don't know why?
         OneDayRunner oneDay = new OneDayRunner(map);
         System.out.println(map);
 
-        for(int i=0; i < 100; i++){
+        for(int i=0; i < 10; i++){
             oneDay.runOneDay();
             System.out.println(map);
         }
