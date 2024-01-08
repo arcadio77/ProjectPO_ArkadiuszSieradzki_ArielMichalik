@@ -171,6 +171,7 @@ public class WorldMap {
         return worldBounds.upperRight();
     }
 
+
     public int getWidth(){
         return width;
     }

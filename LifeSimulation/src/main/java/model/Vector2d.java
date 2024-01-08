@@ -15,10 +15,17 @@ public record Vector2d(int x, int y) {
     public boolean isBiggerOrEqual(Vector2d other) {
         return this.x >= other.x && this.y >= other.y;
     }
+    public boolean isBigger(Vector2d other) {
+        return this.x > other.x && this.y > other.y;
+    }
 
     public boolean isSmallerOrEqual(Vector2d other) {
         return this.x <= other.x && this.y <= other.y;
     }
+    public boolean isSmaller(Vector2d other) {
+        return this.x < other.x && this.y < other.y;
+    }
+
 
     public Vector2d opposite() {
         return new Vector2d(-this.x, -this.y);
