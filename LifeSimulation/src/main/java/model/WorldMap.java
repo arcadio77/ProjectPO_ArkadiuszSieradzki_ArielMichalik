@@ -98,16 +98,16 @@ public class WorldMap {
         return cnt;
     }
     public void putGrasses(int plantsNumber){
-        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(width,height,plantsNumber,this.jungleBounds, this.plants, this.random);
+        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(this,plantsNumber);
         for(Vector2d grassPosition : grassPositions){
             plants.put(grassPosition, new Grass(grassPosition));
         }
     }
 
     public void putAnimals(){
-        AnimalPositionsGenerator positions = new AnimalPositionsGenerator(width, height, animalsNumber, this.random);
+        AnimalPositionsGenerator positions = new AnimalPositionsGenerator(this, animalsNumber);
         for(Vector2d animalPosition: positions){
-            Animal newAnimal = new Animal(animalPosition, MapDirection.generateRandomDirection(), new Genome(genomeLength, mutation), 0, energy.getInitialAnimalEnergy());
+            Animal newAnimal = new Animal(animalPosition, MapDirection.generateRandomDirection(), new Genome(genomeLength, mutation, random), 0, energy.getInitialAnimalEnergy());
             this.place(newAnimal);
         }
     }
@@ -120,9 +120,6 @@ public class WorldMap {
         newAnimals++;
     }
 
-    // <---------------------------------------------------------------------------------------------->
-    //                                            POSITIONING
-    // <---------------------------------------------------------------------------------------------->
 
     public boolean isOccupiedByAnimal(Vector2d position){
         return animals.containsKey(position);

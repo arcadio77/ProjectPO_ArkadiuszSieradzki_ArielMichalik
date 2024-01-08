@@ -2,14 +2,14 @@ package model;
 
 import model.enums.MapDirection;
 import model.interfaces.WorldElement;
-import model.util.Energy;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Random;
 
 public class Animal implements WorldElement {
-    private int id;
-    private MapDirection orientation;
+    //TODO clean
+    private final int id;
+    private MapDirection direction;
     private Vector2d position;
     private int energy;
     private final Genome genome;
@@ -19,22 +19,19 @@ public class Animal implements WorldElement {
     private static int idCnt = 0;
 
     public Animal(Vector2d x){
-        this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0)), 0, 5);
+        this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0), new Random()), 0, 5);
     }
 
     public Animal(Vector2d x, MapDirection dir, Genome genome, Integer geneId, int initEnergy){
         this.id = idCnt;
         idCnt ++;
         this.position = x;
-        this.orientation = dir;
+        this.direction = dir;
         this.genome = genome;
         this.geneId = geneId;
         this.energy = initEnergy;
     }
 
-    // <---------------------------------------------------------------------------------------------->
-    //                                              GETTERS
-    // <---------------------------------------------------------------------------------------------->
 
     public ArrayList<Integer> getGenome() {
         return this.genome.getGenome();
@@ -45,8 +42,8 @@ public class Animal implements WorldElement {
         return this.position;
     }
 
-    public MapDirection getOrientation(){
-        return this.orientation;
+    public MapDirection getDirection(){
+        return this.direction;
     }
 
     public int getEnergy() {
@@ -61,19 +58,17 @@ public class Animal implements WorldElement {
         return children;
     }
 
-    // <---------------------------------------------------------------------------------------------->
-    //                                             ACTIVITIES
-    // <---------------------------------------------------------------------------------------------->
 
     public void move(Vector2d lowerLeft, Vector2d upperRight){
+
         this.energy--; // daleko jeszcze???
         this.age++; // starość nie radość
 
         this.geneId = (this.geneId + 1) % this.genome.getGenome().size();
         int gene = this.genome.getGenome().get(geneId);
 
-        int curr_orientation_int = this.orientation.fromEnum();
-        int new_orientation_int = (curr_orientation_int + gene) % 8;  // FUCKING BUG <- not mod 8
+        int curr_orientation_int = this.direction.fromEnum();
+        int new_orientation_int = (curr_orientation_int + gene) % 8;
 
         MapDirection new_orientation = MapDirection.fromInteger(new_orientation_int);
         Vector2d new_position = this.position.add(new_orientation.toUnitVector());
@@ -85,7 +80,7 @@ public class Animal implements WorldElement {
         if (position.getX() > lowerLeft.getX() && position.getX() < upperRight.getX() &&
             position.getY() > lowerLeft.getY() && position.getY() < upperRight.getY()){
             this.position = new_position;
-            this.orientation = new_orientation;
+            this.direction = new_orientation;
         }
 
         // borders but not corners
@@ -103,12 +98,12 @@ public class Animal implements WorldElement {
 
             //turn around South Pole
             if(new_position.getY() < lowerLeft.getY()){
-                this.orientation = orientation.opposite();
+                this.direction = direction.opposite();
             }
 
             // turn around North Pole
             if (new_position.getY() > upperRight.getY()){
-                this.orientation = orientation.opposite();
+                this.direction = direction.opposite();
             }
         }
 
@@ -120,10 +115,10 @@ public class Animal implements WorldElement {
                     this.position = new Vector2d(lowerRight.getX(), new_position.getY());
                 }
                 if(new_position.getY() < lowerLeft.getY() && new_position.getX() >= lowerLeft.getX()){
-                    this.orientation = orientation.opposite();
+                    this.direction = direction.opposite();
                 }
                 if(new_position.getX() < lowerLeft.getX() && new_position.getY() < lowerLeft.getY()){
-                    this.orientation = orientation.opposite();
+                    this.direction = direction.opposite();
                 }
             }
             if(position.equals(lowerRight)){
@@ -131,10 +126,10 @@ public class Animal implements WorldElement {
                     this.position = new Vector2d(lowerLeft.getX(), new_position.getY());
                 }
                 if(new_position.getY() < lowerRight.getY() && new_position.getX() <= lowerRight.getX()){
-                    this.orientation = orientation.opposite();
+                    this.direction = direction.opposite();
                 }
                 if(new_position.getX() > lowerRight.getX() && new_position.getY() < lowerRight.getY()){
-                    this.orientation = orientation.opposite();
+                    this.direction = direction.opposite();
                 }
             }
             if(position.equals(upperLeft)){
@@ -142,10 +137,10 @@ public class Animal implements WorldElement {
                     this.position = new Vector2d(upperRight.getX(), new_position.getY());
                 }
                 if(new_position.getY() > upperLeft.getY() && new_position.getX() >= upperLeft.getX()){
-                    this.orientation = orientation.opposite();
+                    this.direction = direction.opposite();
                 }
                 if(new_position.getX() < upperLeft.getX() && new_position.getY() > upperLeft.getY()){
-                    this.orientation = orientation.opposite();
+                    this.direction = direction.opposite();
                 }
             }
             if(position.equals(upperRight)){
@@ -153,10 +148,10 @@ public class Animal implements WorldElement {
                     this.position = new Vector2d(upperLeft.getX(), new_position.getY());
                 }
                 if(new_position.getY() > upperRight.getY() && new_position.getX() <= upperRight.getX()){
-                    this.orientation = orientation.opposite();
+                    this.direction = direction.opposite();
                 }
                 if(new_position.getX() > upperRight.getX() && new_position.getY() > upperRight.getY()){
-                    this.orientation = orientation.opposite();
+                    this.direction = direction.opposite();
                 }
             }
         }
@@ -202,4 +197,7 @@ public class Animal implements WorldElement {
         return String.valueOf(energy);
     }
 
+    public int getId() {
+        return id;
+    }
 }

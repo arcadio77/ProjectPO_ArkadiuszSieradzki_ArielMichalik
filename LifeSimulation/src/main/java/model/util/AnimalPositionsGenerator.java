@@ -1,6 +1,7 @@
 package model.util;
 
 import model.Vector2d;
+import model.WorldMap;
 import model.interfaces.PositionsGenerator;
 
 import java.util.*;
@@ -9,9 +10,9 @@ public class AnimalPositionsGenerator implements PositionsGenerator {
     private final List<Vector2d> positions;
     private final Random random;
 
-    public AnimalPositionsGenerator(int width, int height, int count, Random random) {
-        List<Vector2d> allPositions = generateAllPositions(width, height);
-        this.random = random;
+    public AnimalPositionsGenerator(WorldMap map, int count) {
+        List<Vector2d> allPositions = generateAllPositions(map.getWidth(), map.getHeight());
+        this.random = map.getRandom();
         this.positions = selectRandomPositions(allPositions, count);
     }
 
