@@ -1,7 +1,5 @@
 package model.util;
 
-import model.Boundary;
-import model.Grass;
 import model.Vector2d;
 import model.WorldMap;
 import model.interfaces.PositionsGenerator;

@@ -3,8 +3,6 @@ import model.Vector2d;
 import model.WorldMap;
 import org.junit.jupiter.api.Test;
 
-import java.util.Random;
-
 public class AnimalPositionsGeneratorTest {
     @Test
     public void TestSelectRandomPositions(){
