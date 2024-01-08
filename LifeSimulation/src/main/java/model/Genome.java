@@ -12,16 +12,15 @@ public class Genome {
     private final ArrayList<Integer> genome;
     private final int genomeLength;
     private final Mutation mutation;
-    private Random random;
+    private final Random random;
 
     public Genome(int n, Mutation mutation, Random random){
         this.genomeLength = n;
         this.mutation = mutation;
         this.random = random;
         ArrayList<Integer> genome = new ArrayList<>();
-        Random rand = new Random();
         for (int i=0; i< genomeLength; i++){
-            genome.add(rand.nextInt(8));
+            genome.add(random.nextInt(8));
         }
         this.genome = genome;
     }
@@ -62,8 +61,8 @@ public class Genome {
     }
 
     private ArrayList<Integer> mutate(List<Integer> currGenome){
-        int min = mutation.getMinNum();
-        int max = mutation.getMaxNum();
+        int min = mutation.minMutationsNum();
+        int max = mutation.maxMutationsNum();
 
         int mutationsNum = min + random.nextInt(max + 1 - min);
 

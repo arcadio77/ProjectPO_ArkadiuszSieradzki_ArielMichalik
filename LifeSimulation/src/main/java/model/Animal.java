@@ -15,7 +15,7 @@ public class Animal implements WorldElement {
     private final Genome genome;
     private Integer geneId;
     private int age;
-    private ArrayList<Animal> children = new ArrayList<>();
+    private final ArrayList<Animal> children = new ArrayList<>();
     private static int idCnt = 0;
 
     public Animal(Vector2d x){
@@ -35,10 +35,10 @@ public class Animal implements WorldElement {
 
     public ArrayList<Integer> getGenome() {
         return this.genome.getGenome();
-    }
+    } //very unclear genome.getGenome when animal has attribute genome....
 
     @Override
-    public Vector2d getPosition(){
+    public Vector2d position(){
         return this.position;
     }
 
@@ -58,51 +58,61 @@ public class Animal implements WorldElement {
         return children;
     }
 
+    public MapDirection getNewOrientation(){
+        int gene = genome.getGenome().get(geneId);
+        int currOrientationInt = this.direction.fromEnum();
+        int newOrientationInt = (currOrientationInt + gene) % 8;
+        return MapDirection.fromInteger(newOrientationInt);
+    }
 
-    public void move(Vector2d lowerLeft, Vector2d upperRight){
+    public Vector2d getNewPosition(MapDirection newOrientation){
+        return position.add(newOrientation.toUnitVector());
+    }
+    public void readNextGene(){
+        geneId = (geneId + 1) % genome.getGenome().size();
+    }
+
+
+    public void move(Vector2d lowerLeft, Vector2d upperRight){ //this method change position or direction or both of the animal on the map
 
         this.energy--; // daleko jeszcze???
         this.age++; // starość nie radość
+        readNextGene();
 
-        this.geneId = (this.geneId + 1) % this.genome.getGenome().size();
-        int gene = this.genome.getGenome().get(geneId);
+        MapDirection newOrientation = getNewOrientation();
+        Vector2d newPosition = getNewPosition(newOrientation);
 
-        int curr_orientation_int = this.direction.fromEnum();
-        int new_orientation_int = (curr_orientation_int + gene) % 8;
+        Vector2d upperLeft = new Vector2d(lowerLeft.x(), upperRight.y());
+        Vector2d lowerRight = new Vector2d(upperRight.x(), lowerLeft.y());
 
-        MapDirection new_orientation = MapDirection.fromInteger(new_orientation_int);
-        Vector2d new_position = this.position.add(new_orientation.toUnitVector());
-
-        Vector2d upperLeft = new Vector2d(lowerLeft.getX(), upperRight.getY());
-        Vector2d lowerRight = new Vector2d(upperRight.getX(), lowerLeft.getY());
 
         // not borders
-        if (position.getX() > lowerLeft.getX() && position.getX() < upperRight.getX() &&
-            position.getY() > lowerLeft.getY() && position.getY() < upperRight.getY()){
-            this.position = new_position;
-            this.direction = new_orientation;
+        if (position.x() > lowerLeft.x() && position.x() < upperRight.x() &&
+            position.y() > lowerLeft.y() && position.y() < upperRight.y()){
+            this.position = newPosition;
+            this.direction = newOrientation;
         }
 
         // borders but not corners
         else if (!(position.equals(lowerLeft) || position.equals(upperLeft) || position.equals(upperRight) || position.equals(lowerRight))) {
             //right -> move animal to the left part of the map
 
-            if(new_position.getX() > upperRight.getX()){
-                this.position = new Vector2d(lowerLeft.getX(), new_position.getY());
+            if(newPosition.x() > upperRight.x()){
+                this.position = new Vector2d(lowerLeft.x(), newPosition.y());
             }
 
             // loop left
-            if (new_position.getX() < lowerLeft.getX()){
-                this.position = new Vector2d(upperRight.getX(), new_position.getY());
+            if (newPosition.x() < lowerLeft.x()){
+                this.position = new Vector2d(upperRight.x(), newPosition.y());
             }
 
             //turn around South Pole
-            if(new_position.getY() < lowerLeft.getY()){
+            if(newPosition.y() < lowerLeft.y()){
                 this.direction = direction.opposite();
             }
 
             // turn around North Pole
-            if (new_position.getY() > upperRight.getY()){
+            if (newPosition.y() > upperRight.y()){
                 this.direction = direction.opposite();
             }
         }
@@ -111,51 +121,60 @@ public class Animal implements WorldElement {
         else{
             //3 subcases, nextPosition can be to the: 1) right/left -> looping around, 2) up/down -> turn around Pole, 3) diagonal -> act as Pole (turn animal around)
             if(position.equals(lowerLeft)){
-                if(new_position.getX() < lowerLeft.getX() && new_position.getY() >= lowerLeft.getY()){
-                    this.position = new Vector2d(lowerRight.getX(), new_position.getY());
+                if(newPosition.x() < lowerLeft.x() && newPosition.y() >= lowerLeft.y()){
+                    this.position = new Vector2d(lowerRight.x(), newPosition.y());
                 }
-                if(new_position.getY() < lowerLeft.getY() && new_position.getX() >= lowerLeft.getX()){
+                if(newPosition.y() < lowerLeft.y() && newPosition.x() >= lowerLeft.x()){
                     this.direction = direction.opposite();
                 }
-                if(new_position.getX() < lowerLeft.getX() && new_position.getY() < lowerLeft.getY()){
+                if(newPosition.isSmaller(lowerLeft)){
                     this.direction = direction.opposite();
+                    this.position = new Vector2d(lowerRight.x(), newPosition.y());
+
                 }
             }
             if(position.equals(lowerRight)){
-                if(new_position.getX() > lowerRight.getX() && new_position.getY() >= lowerRight.getY()){
-                    this.position = new Vector2d(lowerLeft.getX(), new_position.getY());
+                if(newPosition.x() > lowerRight.x() && newPosition.y() >= lowerRight.y()){
+                    this.position = new Vector2d(lowerLeft.x(), newPosition.y());
                 }
-                if(new_position.getY() < lowerRight.getY() && new_position.getX() <= lowerRight.getX()){
+                if(newPosition.y() < lowerRight.y() && newPosition.x() <= lowerRight.x()){
                     this.direction = direction.opposite();
                 }
-                if(new_position.getX() > lowerRight.getX() && new_position.getY() < lowerRight.getY()){
+                if(newPosition.x() > lowerRight.x() && newPosition.y() < lowerRight.y()){
                     this.direction = direction.opposite();
+                    this.position = new Vector2d(lowerLeft.x(), newPosition.y());
+
                 }
             }
             if(position.equals(upperLeft)){
-                if(new_position.getX() < upperLeft.getX() && new_position.getY() <= upperLeft.getY()){
-                    this.position = new Vector2d(upperRight.getX(), new_position.getY());
+                if(newPosition.x() < upperLeft.x() && newPosition.y() <= upperLeft.y()){
+                    this.position = new Vector2d(upperRight.x(), newPosition.y());
                 }
-                if(new_position.getY() > upperLeft.getY() && new_position.getX() >= upperLeft.getX()){
+                if(newPosition.y() > upperLeft.y() && newPosition.x() >= upperLeft.x()){
                     this.direction = direction.opposite();
                 }
-                if(new_position.getX() < upperLeft.getX() && new_position.getY() > upperLeft.getY()){
+                if(newPosition.x() < upperLeft.x() && newPosition.y() > upperLeft.y()){
                     this.direction = direction.opposite();
+                    this.position = new Vector2d(upperRight.x(), newPosition.y());
+
                 }
             }
             if(position.equals(upperRight)){
-                if(new_position.getX() > upperRight.getX() && new_position.getY() <= upperRight.getY()){
-                    this.position = new Vector2d(upperLeft.getX(), new_position.getY());
+                if(newPosition.x() > upperRight.x() && newPosition.y() <= upperRight.y()){
+                    this.position = new Vector2d(upperLeft.x(), newPosition.y());
                 }
-                if(new_position.getY() > upperRight.getY() && new_position.getX() <= upperRight.getX()){
+                if(newPosition.y() > upperRight.y() && newPosition.x() <= upperRight.x()){
                     this.direction = direction.opposite();
                 }
-                if(new_position.getX() > upperRight.getX() && new_position.getY() > upperRight.getY()){
+                if(newPosition.isBigger(upperRight)){
                     this.direction = direction.opposite();
+                    this.position = new Vector2d(upperLeft.x(), newPosition.y());
+
                 }
             }
         }
     }
+
 
     public void breed(Animal child, int lostEnergy){
         System.out.println("breeding");
@@ -166,32 +185,6 @@ public class Animal implements WorldElement {
     public void eat(int grassEnergy){
         this.energy += grassEnergy;
     }
-
-    // <---------------------------------------------------------------------------------------------->
-    //                                              OTHER
-    // <---------------------------------------------------------------------------------------------->
-
-    /*
-    @Override
-    public String toString() {
-        return switch (this.orientation){
-            case NORTH -> "N";
-            case NORTHEAST -> "NE";
-            case SOUTH -> "S";
-            case SOUTHEAST -> "SE";
-            case EAST -> "E";
-            case SOUTHWEST -> "SW";
-            case WEST -> "W";
-            case NORTHWEST -> "NW";
-        };
-    }*/
-
-    /*
-    @Override
-    public String toString() {
-        return String.valueOf(id);
-    }*/
-
 
     public String toString() {
         return String.valueOf(energy);

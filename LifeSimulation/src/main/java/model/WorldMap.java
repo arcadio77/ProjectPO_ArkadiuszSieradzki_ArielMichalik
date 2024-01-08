@@ -73,7 +73,7 @@ public class WorldMap {
         int y = jungleArea/this.width;
         int centerHeight =this.height/2;
         Vector2d leftDownCorner = new Vector2d(0,centerHeight-(int)(y/2));
-        Vector2d rightUpCorner = new Vector2d(this.width,leftDownCorner.getY() + Math.max(y,1));
+        Vector2d rightUpCorner = new Vector2d(this.width,leftDownCorner.y() + Math.max(y,1));
         return new Boundary(leftDownCorner, rightUpCorner);
     }
 
@@ -140,8 +140,8 @@ public class WorldMap {
     }
 
     public void place(Animal animal){
-        Vector2d animalPos = animal.getPosition();
-        if(isOccupiedByAnimal(animal.getPosition())) {
+        Vector2d animalPos = animal.position();
+        if(isOccupiedByAnimal(animal.position())) {
             animals.get(animalPos).add(animal);
         }
         else{
@@ -170,6 +170,7 @@ public class WorldMap {
     public Vector2d getUpperRight(){
         return worldBounds.upperRight();
     }
+
 
     public int getWidth(){
         return width;

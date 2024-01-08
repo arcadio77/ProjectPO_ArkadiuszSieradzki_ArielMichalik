@@ -27,7 +27,7 @@ public class OneDayRunner {
             ArrayList<Animal> animalsOnNewPos = animals.get(key);
 
             Animal mostPowerful = mostPowerful(animalsOnNewPos);
-            Vector2d mostPowerfulPosition = mostPowerful.getPosition();
+            Vector2d mostPowerfulPosition = mostPowerful.position();
             map.bestAnimals.put(mostPowerfulPosition, mostPowerful);
 
             feastOnConquerdPosition(mostPowerful, mostPowerfulPosition);
@@ -92,7 +92,7 @@ public class OneDayRunner {
                 System.out.println(mostPowerful.getEnergy());
                 Genome childGenome = new Genome(map.getGenomeLength(), mostPowerful, secMostPowerful, map.mutation, random);
                 int geneIDChild = random.nextInt(0, map.getGenomeLength() - 1);
-                Animal child = new Animal(mostPowerful.getPosition(), MapDirection.generateRandomDirection(), childGenome, geneIDChild, map.getEnergy().getBreedLost()*2);
+                Animal child = new Animal(mostPowerful.position(), MapDirection.generateRandomDirection(), childGenome, geneIDChild, map.getEnergy().getBreedLost()*2);
                 mostPowerful.breed(child, map.getEnergy().getBreedLost());
                 secMostPowerful.breed(child, map.getEnergy().getBreedLost());
                 map.place(child);
@@ -118,11 +118,11 @@ public class OneDayRunner {
                 if (animal.getEnergy() > 0) {
                     animal.move(map.getLowerLeft(), map.getUpperRight()); // energy--
 
-                    if(!(toPlace.containsKey(animal.getPosition()))) { // placing on our map
-                        toPlace.put(animal.getPosition(), new ArrayList<>(List.of(animal)));
+                    if(!(toPlace.containsKey(animal.position()))) { // placing on our map
+                        toPlace.put(animal.position(), new ArrayList<>(List.of(animal)));
                     }
                     else{
-                        toPlace.get(animal.getPosition()).add(animal);
+                        toPlace.get(animal.position()).add(animal);
                     }
                 }
                 else{ // dead
