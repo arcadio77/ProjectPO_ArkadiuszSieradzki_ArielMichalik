@@ -1,6 +1,7 @@
 package model;
 
 import model.enums.MapDirection;
+import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
 import model.util.*;
 
@@ -11,6 +12,7 @@ public class WorldMap {
 
     private final int width;
     private final int height;
+    protected final ArrayList<MapChangeListener> observers;
     private int plantsNumber; //initial at first
     private int animalsNumber; //initial at first
     private int genomeLength;
@@ -48,6 +50,7 @@ public class WorldMap {
         this.bestAnimals = new HashMap<>();
         this.plants = new HashMap<>();
         this.random = random;
+        this.observers = new ArrayList<>();
 
         Vector2d worldTopRightCorner = new Vector2d(width, height);
         Vector2d worldDownLeftCorner = new Vector2d(0, 0);
@@ -65,6 +68,22 @@ public class WorldMap {
         this(width, height, 5, 5, new Energy(1, 2, 4, 4),
                 1, 1, 10, 4, new Random());
     }
+
+    //OBSERVERS
+    public void addObserver(MapChangeListener observer){
+        observers.add(observer);
+    }
+
+    public void removeObserver(MapChangeListener observer){
+        observers.remove(observer);
+    }
+
+    private void mapChanged(String message){
+        for(MapChangeListener observer: observers){
+            observer.mapChanged(this, message);
+        }
+    }
+
 
     public Boundary setJungleBounds(){
         //20% of the map area, horizontal line of the grass -> const width
@@ -153,6 +172,12 @@ public class WorldMap {
     public String toString() {
         MapVisualizer vis = new MapVisualizer(this);
         return vis.draw(worldBounds.lowerLeft(), worldBounds.upperRight());
+    }
+
+    public ArrayList<WorldElement> getElements(){
+        ArrayList<WorldElement> values = new ArrayList<>(bestAnimals.values());
+        values.addAll(plants.values());
+        return values;
     }
 
     public Map<Vector2d, ArrayList<Animal>> getAnimals(){

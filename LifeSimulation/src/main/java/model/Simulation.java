@@ -3,7 +3,7 @@ import model.util.Energy;
 
 import java.util.Random;
 
-public class Simulation extends SimulationGivenData{
+public class Simulation extends SimulationGivenData implements Runnable{
 
     private final Random random;
 

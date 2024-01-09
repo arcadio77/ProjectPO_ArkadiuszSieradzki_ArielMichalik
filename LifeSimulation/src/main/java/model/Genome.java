@@ -7,8 +7,6 @@ import java.util.Random;
 import static java.lang.Math.round;
 
 public class Genome {
-    //TODO clean
-
     private final ArrayList<Integer> genome;
     private final int genomeLength;
     private final Mutation mutation;
@@ -29,34 +27,39 @@ public class Genome {
         this.genomeLength = n;
         this.mutation = mutation;
         this.random = random;
+        this.genome = generateGenome(parent1, parent2, random);
+    }
 
+    private ArrayList<Integer> generateGenome(Animal parent1, Animal parent2, Random random){
         int combinedEnergy = parent1.getEnergy() + parent2.getEnergy();
         double parent1Share = (double) parent1.getEnergy() / combinedEnergy;
         double parent2Share = (double) parent2.getEnergy() / combinedEnergy;
 
-        if(true){
-            int howManyIdxParent1 = (int)(round(parent1Share * parent1.getGenome().size()));
-            List<Integer> partOfParent1 = parent1.getGenome().subList(0, howManyIdxParent1);
+        boolean randomBool = random.nextBoolean();
 
-            int howManyIdxParent2 = (int)(round(parent2Share * parent2.getGenome().size()));
-            int startingIdx = parent2.getGenome().size() - howManyIdxParent2;
-            List<Integer> partOfParent2 = parent2.getGenome().subList(startingIdx, parent2.getGenome().size());
+        if(randomBool){
+            int howManyIdxParent1 = (int)(round(parent1Share * parent1.getGenomeList().size()));
+            List<Integer> partOfParent1 = parent1.getGenomeList().subList(0, howManyIdxParent1);
+
+            int howManyIdxParent2 = (int)(round(parent2Share * parent2.getGenomeList().size()));
+            int startingIdx = parent2.getGenomeList().size() - howManyIdxParent2;
+            List<Integer> partOfParent2 = parent2.getGenomeList().subList(startingIdx, parent2.getGenomeList().size());
 
             partOfParent1.addAll(partOfParent2); // combined
 
-            this.genome = mutate(partOfParent1); // mutation
+            return mutate(partOfParent1); // mutation
         }
         else{
-            int howManyIdxParent1 = (int)(parent1Share * parent1.getGenome().size());
-            int startingIdx = parent1.getGenome().size() - howManyIdxParent1;
-            List<Integer> partOfParent1 = parent1.getGenome().subList(startingIdx, parent1.getGenome().size());
+            int howManyIdxParent1 = (int)(parent1Share * parent1.getGenomeList().size());
+            int startingIdx = parent1.getGenomeList().size() - howManyIdxParent1;
+            List<Integer> partOfParent1 = parent1.getGenomeList().subList(startingIdx, parent1.getGenomeList().size());
 
-            int howManyIdxParent2 = (int)(parent2Share * parent2.getGenome().size());
-            List<Integer> partOfParent2 = parent2.getGenome().subList(0, howManyIdxParent2);
+            int howManyIdxParent2 = (int)(parent2Share * parent2.getGenomeList().size());
+            List<Integer> partOfParent2 = parent2.getGenomeList().subList(0, howManyIdxParent2);
 
             partOfParent1.addAll(partOfParent2); // combined
 
-            this.genome = mutate(partOfParent1); // mutation
+            return mutate(partOfParent1); // mutation
         }
     }
 

@@ -33,9 +33,9 @@ public class Animal implements WorldElement {
     }
 
 
-    public ArrayList<Integer> getGenome() {
+    public ArrayList<Integer> getGenomeList() {
         return this.genome.getGenome();
-    } //very unclear genome.getGenome when animal has attribute genome....
+    }
 
     @Override
     public Vector2d position(){
@@ -73,6 +73,12 @@ public class Animal implements WorldElement {
     }
 
 
+    public boolean isInTheMiddle(Vector2d lowerLeft, Vector2d upperRight){
+        return position.isBigger(lowerLeft) && position.isSmaller(upperRight);
+    }
+
+
+
     public void move(Vector2d lowerLeft, Vector2d upperRight){ //this method change position or direction or both of the animal on the map
 
         this.energy--; // daleko jeszcze???
@@ -85,10 +91,7 @@ public class Animal implements WorldElement {
         Vector2d upperLeft = new Vector2d(lowerLeft.x(), upperRight.y());
         Vector2d lowerRight = new Vector2d(upperRight.x(), lowerLeft.y());
 
-
-        // not borders
-        if (position.x() > lowerLeft.x() && position.x() < upperRight.x() &&
-            position.y() > lowerLeft.y() && position.y() < upperRight.y()){
+        if (isInTheMiddle(lowerLeft, upperRight)){
             this.position = newPosition;
             this.direction = newOrientation;
         }
