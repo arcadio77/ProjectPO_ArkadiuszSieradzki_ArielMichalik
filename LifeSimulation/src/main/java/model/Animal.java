@@ -122,6 +122,7 @@ public class Animal implements WorldElement {
 
         // corners
         else{
+            //TODO implement intellij ideas
             //3 subcases, nextPosition can be to the: 1) right/left -> looping around, 2) up/down -> turn around Pole, 3) diagonal -> act as Pole (turn animal around)
             if(position.equals(lowerLeft)){
                 if(newPosition.x() < lowerLeft.x() && newPosition.y() >= lowerLeft.y()){
