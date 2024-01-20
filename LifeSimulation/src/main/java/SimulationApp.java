@@ -12,7 +12,7 @@ public class SimulationApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        WorldMap map = new WorldMap(12, 12);
+        WorldMap map = new WorldMap();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));

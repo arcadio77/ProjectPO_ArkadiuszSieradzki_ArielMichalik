@@ -10,8 +10,8 @@ import java.util.*;
 
 public class WorldMap {
 
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
     protected final ArrayList<MapChangeListener> observers;
     private int plantsNumber; //initial at first
     private int animalsNumber; //initial at first
@@ -23,12 +23,12 @@ public class WorldMap {
     protected Map<Vector2d, ArrayList<Animal>> animals;
     protected Map<Vector2d, Animal> bestAnimals;
     protected Map<Vector2d, Grass> plants;
-    private final int numOfGrassGrowingDaily; //need to move to oneCycle class
-    private final Boundary worldBounds;
-    private final Boundary jungleBounds;
-    private final Random random;
-    private final boolean useMutationSwapGene;
-    private final boolean useLifeGivingCorpses;
+    private int numOfGrassGrowingDaily; //need to move to oneCycle class
+    private Boundary worldBounds;
+    private Boundary jungleBounds;
+    private Random random;
+    private boolean useMutationSwapGene;
+    private boolean useLifeGivingCorpses;
     protected Map<Vector2d, Integer> recentGraves = new HashMap<>();
 
     public WorldMap(int width, int height, int animalsNumber, int plantsNumber,
@@ -64,8 +64,8 @@ public class WorldMap {
         }
     }
     
-    public WorldMap(int width, int height){
-        this(width, height, 5, 5, new Energy(1, 2, 4, 4),
+    public WorldMap(){
+        this(10, 10, 5, 5, new Energy(1, 2, 4, 4),
                 1, 1, 10, 4, new Random(), false, false);
     }
 
@@ -252,5 +252,81 @@ public class WorldMap {
 
     public Map<Vector2d, Integer> getRecentGraves() {
         return recentGraves;
+    }
+
+    public void setPlantsNumber(int plantsNumber) {
+        this.plantsNumber = plantsNumber;
+    }
+
+    public void setAnimalsNumber(int animalsNumber) {
+        this.animalsNumber = animalsNumber;
+    }
+
+    public void setGenomeLength(int genomeLength) {
+        this.genomeLength = genomeLength;
+    }
+
+    public void setDead(int dead) {
+        this.dead = dead;
+    }
+
+    public void setNewAnimals(int newAnimals) {
+        this.newAnimals = newAnimals;
+    }
+
+    public void setEnergy(Energy energy) {
+        this.energy = energy;
+    }
+
+    public void setMutation(Mutation mutation) {
+        this.mutation = mutation;
+    }
+
+    public void setAnimals(Map<Vector2d, ArrayList<Animal>> animals) {
+        this.animals = animals;
+    }
+
+    public void setBestAnimals(Map<Vector2d, Animal> bestAnimals) {
+        this.bestAnimals = bestAnimals;
+    }
+
+    public void setPlants(Map<Vector2d, Grass> plants) {
+        this.plants = plants;
+    }
+
+    public void setRecentGraves(Map<Vector2d, Integer> recentGraves) {
+        this.recentGraves = recentGraves;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setNumOfGrassGrowingDaily(int numOfGrassGrowingDaily) {
+        this.numOfGrassGrowingDaily = numOfGrassGrowingDaily;
+    }
+
+    public void setWorldBounds(Boundary worldBounds) {
+        this.worldBounds = worldBounds;
+    }
+
+    public void setJungleBounds(Boundary jungleBounds) {
+        this.jungleBounds = jungleBounds;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    public void setUseMutationSwapGene(boolean useMutationSwapGene) {
+        this.useMutationSwapGene = useMutationSwapGene;
+    }
+
+    public void setUseLifeGivingCorpses(boolean useLifeGivingCorpses) {
+        this.useLifeGivingCorpses = useLifeGivingCorpses;
     }
 }
