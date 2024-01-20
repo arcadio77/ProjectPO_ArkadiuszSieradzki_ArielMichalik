@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 
 import javafx.scene.PointLight;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -14,13 +15,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 import model.*;
 
 import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
 import model.util.Energy;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -125,8 +126,7 @@ public class SimulationPresenter implements MapChangeListener {
 
     @Override
     public void mapChanged(WorldMap worldMap, String message) {
-        System.out.println("niceee");
-        Platform.runLater(this::drawMap);
+        Platform.runLater(() -> drawMap());
     }
 
 
@@ -185,23 +185,21 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
 
-    
-    // Simulation simulation = new SimulationGivenData(getWidthValue(), getHeightValue(), getAnimalNumberValue(), getInitialGrassNumberValue(),
-    //         getInitialAnimalEnergyValue(),getNumOfGrassGrowingDailyValue(), getGrassEnergyValue(), getBreedReadyEnergyValue(), getBreedLostEnergyValue(),
-    //         getGenomeLengthValue(), getMinMutationNumValue(), getMaxMutationNumValue(), getUseMutationSwapGeneValue(), getUseLifeGivingCorpsesValue());
-
-    // simulation.run();
-
     public void onSimulationStartClicked() throws IllegalArgumentException{
         System.out.println("clicked");
 
+        Stage mapStage = new Stage();
+        GridPane gridMap = new GridPane();
+        Scene scene = new Scene(gridMap);
+        mapStage.setScene(scene);
+
+        drawMap();
+
+        mapStage.show();
         settingMap();
-
         Simulation simulation = new Simulation(this.map);
-
         SimulationEngine engine = new SimulationEngine(new ArrayList<>(List.of(simulation)), 4);
         System.out.println("started");
-
         engine.runAsync();
 
 
@@ -222,7 +220,7 @@ public class SimulationPresenter implements MapChangeListener {
         this.map.setUseLifeGivingCorpses(getUseLifeGivingCorpsesValue());
     }
 
-    public void onConfigurationSelected(ActionEvent event) {
+    public void onConfigurationSelected() {
         String selectedConfiguration = configurations.getValue();
         if (selectedConfiguration.equals("Configuration 1")) {
             getWidth.setText("10");
