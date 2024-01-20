@@ -37,5 +37,13 @@ public record Vector2d(int x, int y) {
         if (!(o instanceof Vector2d vector2d)) return false;
         return x == vector2d.x && y == vector2d.y;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }
 

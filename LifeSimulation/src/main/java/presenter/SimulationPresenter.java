@@ -57,8 +57,8 @@ public class SimulationPresenter implements MapChangeListener {
     private void drawMap(){
         clearGrid();
         createGrid(map.getWidth(), map.getHeight());
-        putAnimals(map.getHeight());
         putGrasses(map.getHeight());
+        putAnimals(map.getHeight());
     }
 
     private void putAnimals(int height) {
@@ -69,15 +69,15 @@ public class SimulationPresenter implements MapChangeListener {
                 Animal animal = (Animal) element;
                 if (animal.getEnergy() >= 2 * getInitialAnimalEnergyValue()) {
                     Color animalColor = new Color(1, 1, 0, 1);
-                    Circle circle = new Circle(newX, newY, 10, animalColor);
+                    Circle circle = new Circle(newX, newY, 15, animalColor);
                     gridMap.add(circle, newX, newY);
                 } else if (animal.getEnergy() >= getInitialAnimalEnergyValue()) {
                     Color animalColor = new Color(1, 0.5, 0, 1);
-                    Circle circle = new Circle(newX, newY, 10, animalColor);
+                    Circle circle = new Circle(newX, newY, 15, animalColor);
                     gridMap.add(circle, newX, newY);
                 } else {
                     Color animalColor = new Color(1, 0, 0, 1);
-                    Circle circle = new Circle(newX, newY, 10, animalColor);
+                    Circle circle = new Circle(newX, newY, 15, animalColor);
                     gridMap.add(circle, newX, newY);
                 }
             }
@@ -86,16 +86,16 @@ public class SimulationPresenter implements MapChangeListener {
 
     private void putGrasses(int height) {
         for(WorldElement element: map.getElements()){
-            if (!map.isOccupiedByAnimal(element.position())) {
+            //if (!map.isOccupiedByAnimal(element.position())) {
                 int newX = element.position().x() + 1;
                 int newY = height - (element.position().y()); //because I input values inot column from biggest to smallest
                 if (element instanceof Grass) {
-                    Rectangle rectangle = new Rectangle(newX, newY, 10, 10);
+                    Rectangle rectangle = new Rectangle(newX, newY, 30, 30);
                     Color plantColor = new Color(0, 0.8, 0, 1);
                     rectangle.setFill(plantColor);
                     gridMap.add(rectangle, newX, newY);
                 }
-            }
+            //}
         }
     }
 
@@ -112,13 +112,13 @@ public class SimulationPresenter implements MapChangeListener {
         gridMap.getColumnConstraints().add(new ColumnConstraints(30));
         gridMap.getRowConstraints().add(new RowConstraints(30));
 
-        for(int i=0; i <= width; i++){
+        for(int i=0; i < width; i++){
             gridMap.getColumnConstraints().add(new ColumnConstraints(30));
             Label digit = new Label(String.valueOf(i));
             gridMap.add(digit, i+1, 0); //row
             GridPane.setHalignment(digit, HPos.CENTER);
         }
-        for(int i=0; i <= height; i++){
+        for(int i=0; i < height; i++){
             gridMap.getRowConstraints().add(new RowConstraints(30));
             Label digit = new Label(String.valueOf(height-i-1));
             gridMap.add(digit, 0, i+1);
@@ -208,8 +208,6 @@ public class SimulationPresenter implements MapChangeListener {
         System.out.println("started");
 
         engine.runAsync();
-
-
     }
 
     private void settingMap(){
@@ -225,6 +223,10 @@ public class SimulationPresenter implements MapChangeListener {
         this.map.setRandom(new Random());
         this.map.setUseMutationSwapGene(getUseMutationSwapGeneValue());
         this.map.setUseLifeGivingCorpses(getUseLifeGivingCorpsesValue());
+
+        this.map.initBounds();
+        this.map.initPutAnimals();
+        this.map.initPutGrasses(getInitialGrassNumberValue());
     }
 
     public void onConfigurationSelected(ActionEvent event) {

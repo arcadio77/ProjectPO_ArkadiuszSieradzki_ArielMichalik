@@ -77,8 +77,6 @@ public class Animal implements WorldElement {
         return position.isBigger(lowerLeft) && position.isSmaller(upperRight);
     }
 
-
-
     public void move(Vector2d lowerLeft, Vector2d upperRight){ //this method change position or direction or both of the animal on the map
 
         this.energy--; // daleko jeszcze???

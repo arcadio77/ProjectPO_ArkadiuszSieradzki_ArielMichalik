@@ -51,21 +51,11 @@ public class WorldMap {
         this.useMutationSwapGene = useMutationSwapGene;
         this.useLifeGivingCorpses = useLifeGivingCorpses;
 
-        Vector2d worldTopRightCorner = new Vector2d(width-1, height-1);
-        Vector2d worldDownLeftCorner = new Vector2d(0, 0);
-        this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
-        this.jungleBounds = setJungleBounds();
-        initPutGrasses(this.plantsNumber);
-        putAnimals();
-
-        for (Vector2d position : animals.keySet()){
-            this.bestAnimals.put(position, animals.get(position).get(0));
-        }
     }
-    
+
     public WorldMap(){
-        this(10, 10, 5, 5, new Energy(1, 2, 4, 4),
-                1, 1, 10, 4, new Random(), false, false);
+        this(11, 1, 0, 0, new Energy(0, 0, 0, 0),
+                0, 0, 0, 0, new Random(), false, false);
     }
 
     //OBSERVERS
@@ -87,12 +77,16 @@ public class WorldMap {
 
     public Boundary setJungleBounds(){
         //20% of the map area, horizontal line of the grass -> const width
-        int mapArea = this.height * this.width;
+
+        int h = this.height - 1;
+        int w = this.width - 1;
+
+        int mapArea = h * w;
         int jungleArea = (int) (mapArea*0.2);
-        int y = jungleArea/this.width;
-        int centerHeight =this.height/2;
+        int y = jungleArea/w;
+        int centerHeight =h/2;
         Vector2d leftDownCorner = new Vector2d(0,centerHeight-(int)(y/2));
-        Vector2d rightUpCorner = new Vector2d(this.width,leftDownCorner.y() + Math.max(y,1));
+        Vector2d rightUpCorner = new Vector2d(w,leftDownCorner.y() + Math.max(y,1));
         return new Boundary(leftDownCorner, rightUpCorner);
     }
 
@@ -136,6 +130,24 @@ public class WorldMap {
             Animal newAnimal = new Animal(animalPosition, MapDirection.generateRandomDirection(), new Genome(genomeLength, mutation, random), 0, energy.getInitialAnimalEnergy());
             this.place(newAnimal);
         }
+    }
+
+    public void initPutAnimals(){
+        AnimalPositionsGenerator positions = new AnimalPositionsGenerator(this, animalsNumber);
+        for(Vector2d animalPosition: positions){
+            Animal newAnimal = new Animal(animalPosition, MapDirection.generateRandomDirection(), new Genome(genomeLength, mutation, random), 0, energy.getInitialAnimalEnergy());
+            this.place(newAnimal);
+        }
+        for (Vector2d position : animals.keySet()){
+            this.bestAnimals.put(position, animals.get(position).get(0));
+        }
+    }
+
+    public void initBounds() {
+        Vector2d worldTopRightCorner = new Vector2d(width-1, height-1);
+        Vector2d worldDownLeftCorner = new Vector2d(0, 0);
+        this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
+        this.jungleBounds = setJungleBounds();
     }
 
     public void newAnimalBorn(){
