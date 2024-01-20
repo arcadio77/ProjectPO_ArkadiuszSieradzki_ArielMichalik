@@ -1,4 +1,5 @@
 package presenter;
+
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
@@ -9,11 +10,14 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import model.Simulation;
+
 import model.SimulationGivenData;
 import model.Vector2d;
+
 import model.WorldMap;
 import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
+import model.SimulationEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,8 +94,10 @@ public class SimulationPresenter implements MapChangeListener {
 
     @Override
     public void mapChanged(WorldMap worldMap, String message) {
+        System.out.println("niceee");
         Platform.runLater(this::drawMap);
     }
+
 
     public int getWidthValue() {
         return Integer.parseInt(getWidth.getText());
@@ -148,12 +154,24 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
 
-    public void onSimulationStartClicked() throws IllegalArgumentException{
-        Simulation simulation = new SimulationGivenData(getWidthValue(), getHeightValue(), getAnimalNumberValue(), getInitialGrassNumberValue(),
-                getInitialAnimalEnergyValue(),getNumOfGrassGrowingDailyValue(), getGrassEnergyValue(), getBreedReadyEnergyValue(), getBreedLostEnergyValue(),
-                getGenomeLengthValue(), getMinMutationNumValue(), getMaxMutationNumValue(), getUseMutationSwapGeneValue(), getUseLifeGivingCorpsesValue());
+    
+    // Simulation simulation = new SimulationGivenData(getWidthValue(), getHeightValue(), getAnimalNumberValue(), getInitialGrassNumberValue(),
+    //         getInitialAnimalEnergyValue(),getNumOfGrassGrowingDailyValue(), getGrassEnergyValue(), getBreedReadyEnergyValue(), getBreedLostEnergyValue(),
+    //         getGenomeLengthValue(), getMinMutationNumValue(), getMaxMutationNumValue(), getUseMutationSwapGeneValue(), getUseLifeGivingCorpsesValue());
 
-        simulation.run();
+    // simulation.run();
+
+    public void onSimulationStartClicked() throws IllegalArgumentException{
+        System.out.println("clicked");
+        Simulation simulation = new Simulation(this.map);
+        //simulation.run();
+        //createGrid(10,10);
+
+        SimulationEngine engine = new SimulationEngine(new ArrayList<>(List.of(simulation)), 4);
+        System.out.println("started");
+
+        engine.runAsync();
+
 
     }
 
