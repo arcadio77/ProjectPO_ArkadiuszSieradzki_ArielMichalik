@@ -37,12 +37,17 @@ public class OneDayRunner {
             breedTwoMostPowerful(mostPowerful, secMostPowerful);
         }
         growGrass();
+        gravesAreGettingOlder();
     }
 
 
     private void growGrass(){
         int numOfGrassGrowingDaily = map.getNumOfGrassGrowingDaily();
         map.putGrasses(numOfGrassGrowingDaily);
+    }
+
+    private void gravesAreGettingOlder(){
+        map.gravesAreGettingOlder();
     }
 
     private Animal mostPowerful(ArrayList<Animal> animalsOnNewPos){
@@ -125,7 +130,7 @@ public class OneDayRunner {
                     }
                 }
                 else{ // dead
-                    map.animalIsDead();
+                    map.animalIsDead(position);
                 }
             }
         }

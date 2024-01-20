@@ -10,7 +10,7 @@ public class GrassPositionsGeneratorTest {
     public void TestSelectRandomPositions(){
         WorldMap map = new WorldMap(10, 10);
         int grassToPlace = 10;
-        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(map, grassToPlace);
+        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(map, grassToPlace, false);
         for(Vector2d position: grassPositions){
             System.out.println(position);
         }

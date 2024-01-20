@@ -29,6 +29,7 @@ public class WorldMap {
     private final Random random;
     private final boolean useMutationSwapGene;
     private final boolean useLifeGivingCorpses;
+    protected Map<Vector2d, Integer> recentGraves = new HashMap<>();
 
     public WorldMap(int width, int height, int animalsNumber, int plantsNumber,
                     Energy energy, int minMutationNum, int maxMutationNum, int genomeLength,
@@ -55,7 +56,7 @@ public class WorldMap {
         Vector2d worldDownLeftCorner = new Vector2d(0, 0);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
         this.jungleBounds = setJungleBounds();
-        putGrasses(this.plantsNumber);
+        initPutGrasses(this.plantsNumber);
         putAnimals();
 
         for (Vector2d position : animals.keySet()){
@@ -115,8 +116,15 @@ public class WorldMap {
         }
         return cnt;
     }
+    public void initPutGrasses(int plantsNumber){
+        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(this,plantsNumber, false);
+        for(Vector2d grassPosition : grassPositions){
+            plants.put(grassPosition, new Grass(grassPosition));
+        }
+    }
+
     public void putGrasses(int plantsNumber){
-        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(this,plantsNumber);
+        GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(this,plantsNumber, useLifeGivingCorpses);
         for(Vector2d grassPosition : grassPositions){
             plants.put(grassPosition, new Grass(grassPosition));
         }
@@ -134,8 +142,23 @@ public class WorldMap {
         newAnimals++;
     }
 
-    public void animalIsDead(){
-        newAnimals++;
+    public void animalIsDead(Vector2d position){
+        recentGraves.remove(position);
+        recentGraves.put(position, 5);
+    }
+
+    public void gravesAreGettingOlder(){
+
+        Map<Vector2d, Integer> newRecentGraves = new HashMap<>();
+
+        for(Vector2d position : recentGraves.keySet()){
+            Integer graveStamina = recentGraves.get(position);
+            if (graveStamina > 1) {
+                newRecentGraves.put(position, graveStamina - 1);
+            }
+        }
+
+        recentGraves = newRecentGraves;
     }
 
 
@@ -226,7 +249,7 @@ public class WorldMap {
         return useMutationSwapGene;
     }
 
-    public boolean isUseLifeGivingCorpses() {
-        return useLifeGivingCorpses;
+    public Map<Vector2d, Integer> getRecentGraves() {
+        return recentGraves;
     }
 }

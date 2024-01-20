@@ -10,7 +10,7 @@ public class Simulation extends SimulationGivenData implements Runnable{
     public Simulation(){
         super(10, 10, 40, 50, 10, 5, 1,
                 2, 1, 10, 1, 2, 123456789L,
-                true, false);
+                true, true);
         this.random = new Random(seed);
     }
 
