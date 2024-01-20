@@ -9,19 +9,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import model.Simulation;
+import model.*;
 
-import model.SimulationGivenData;
-import model.Vector2d;
-
-import model.WorldMap;
 import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
-import model.SimulationEngine;
+import model.util.Energy;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class SimulationPresenter implements MapChangeListener {
@@ -164,6 +161,10 @@ public class SimulationPresenter implements MapChangeListener {
 
     public void onSimulationStartClicked() throws IllegalArgumentException{
         System.out.println("clicked");
+
+
+        settingMap();
+
         Simulation simulation = new Simulation(this.map);
         //simulation.run();
         //createGrid(10,10);
@@ -174,6 +175,21 @@ public class SimulationPresenter implements MapChangeListener {
         engine.runAsync();
 
 
+    }
+
+    private void settingMap(){
+        this.map.setWidth(getWidthValue());
+        this.map.setHeight(getHeightValue());
+        this.map.setAnimalsNumber(getAnimalNumberValue());
+        this.map.setPlantsNumber(getInitialGrassNumberValue());
+        Energy energy = new Energy(getGrassEnergyValue(), getBreedLostEnergyValue(), getBreedLostEnergyValue(), getInitialAnimalEnergyValue());
+        this.map.setEnergy(energy);
+        this.map.setMutation(new Mutation(getMinMutationNumValue(), getMaxMutationNumValue()));
+        this.map.setGenomeLength(getGenomeLengthValue());
+        this.map.setNumOfGrassGrowingDaily(getNumOfGrassGrowingDailyValue());
+        this.map.setRandom(new Random());
+        this.map.setUseMutationSwapGene(getUseMutationSwapGeneValue());
+        this.map.setUseLifeGivingCorpses(getUseLifeGivingCorpsesValue());
     }
 
 }
