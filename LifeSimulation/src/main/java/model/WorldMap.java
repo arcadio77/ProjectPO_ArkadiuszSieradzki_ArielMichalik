@@ -16,27 +16,24 @@ public class WorldMap {
     private int plantsNumber; //initial at first
     private int animalsNumber; //initial at first
     private int genomeLength;
-
     private int dead = 0;
     private int newAnimals = 0;
-
     Energy energy;
-
     Mutation mutation;
-
     protected Map<Vector2d, ArrayList<Animal>> animals;
     protected Map<Vector2d, Animal> bestAnimals;
     protected Map<Vector2d, Grass> plants;
     private final int numOfGrassGrowingDaily; //need to move to oneCycle class
-
     private final Boundary worldBounds;
     private final Boundary jungleBounds;
-
     private final Random random;
+    private final boolean useMutationSwapGene;
+    private final boolean useLifeGivingCorpses;
 
     public WorldMap(int width, int height, int animalsNumber, int plantsNumber,
                     Energy energy, int minMutationNum, int maxMutationNum, int genomeLength,
-                    int numOfGrassGrowingDaily, Random random){
+                    int numOfGrassGrowingDaily, Random random, boolean useMutationSwapGene,
+                    boolean useLifeGivingCorpses){
 
         this.width = width;
         this.height = height;
@@ -51,6 +48,8 @@ public class WorldMap {
         this.plants = new HashMap<>();
         this.random = random;
         this.observers = new ArrayList<>();
+        this.useMutationSwapGene = useMutationSwapGene;
+        this.useLifeGivingCorpses = useLifeGivingCorpses;
 
         Vector2d worldTopRightCorner = new Vector2d(width, height);
         Vector2d worldDownLeftCorner = new Vector2d(0, 0);
@@ -66,7 +65,7 @@ public class WorldMap {
     
     public WorldMap(int width, int height){
         this(width, height, 5, 5, new Energy(1, 2, 4, 4),
-                1, 1, 10, 4, new Random());
+                1, 1, 10, 4, new Random(), false, false);
     }
 
     //OBSERVERS
@@ -222,4 +221,12 @@ public class WorldMap {
     public Boundary getJungleBounds(){ return jungleBounds; }
 
     public Random getRandom() { return random; }
+
+    public boolean isUseMutationSwapGene() {
+        return useMutationSwapGene;
+    }
+
+    public boolean isUseLifeGivingCorpses() {
+        return useLifeGivingCorpses;
+    }
 }

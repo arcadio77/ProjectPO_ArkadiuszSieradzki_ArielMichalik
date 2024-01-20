@@ -18,12 +18,15 @@ public class SimulationGivenData {
     final int minMutationNum;
     final int maxMutationNum;
     final long seed;
+    final boolean useMutationSwapGene;
+    final boolean useLifeGivingCorpses;
 
 
 
     public SimulationGivenData(int width, int height, int initialAnimalsNumber, int initialGrassNumber, int initialAnimalEnergy,
                                int numOfGrassGrowingDaily, int grassEnergy, int breedReadyEnergy, int breedLostEnergy,
-                               int genomeLength, int minMutationNum, int maxMutationNum, long seed) {
+                               int genomeLength, int minMutationNum, int maxMutationNum, long seed, boolean useMutationSwapGene,
+                               boolean useLifeGivingCorpses) {
         this.width = width;
         this.height = height;
         this.initialAnimalsNumber = initialAnimalsNumber;
@@ -37,6 +40,67 @@ public class SimulationGivenData {
         this.minMutationNum = minMutationNum;
         this.maxMutationNum = maxMutationNum;
         this.seed = seed;
+        this.useMutationSwapGene = useMutationSwapGene;
+        this.useLifeGivingCorpses = useLifeGivingCorpses;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getInitialAnimalsNumber() {
+        return initialAnimalsNumber;
+    }
+
+    public int getInitialGrassNumber() {
+        return initialGrassNumber;
+    }
+
+    public int getInitialAnimalEnergy() {
+        return initialAnimalEnergy;
+    }
+
+    public int getNumOfGrassGrowingDaily() {
+        return numOfGrassGrowingDaily;
+    }
+
+    public int getGrassEnergy() {
+        return grassEnergy;
+    }
+
+    public int getBreedReadyEnergy() {
+        return breedReadyEnergy;
+    }
+
+    public int getBreedLostEnergy() {
+        return breedLostEnergy;
+    }
+
+    public int getGenomeLength() {
+        return genomeLength;
+    }
+
+    public int getMinMutationNum() {
+        return minMutationNum;
+    }
+
+    public int getMaxMutationNum() {
+        return maxMutationNum;
+    }
+
+    public long getSeed() {
+        return seed;
+    }
+
+    public boolean isUseMutationSwapGene() {
+        return useMutationSwapGene;
+    }
+
+    public boolean isUseLifeGivingCorpses() {
+        return useLifeGivingCorpses;
+    }
 }

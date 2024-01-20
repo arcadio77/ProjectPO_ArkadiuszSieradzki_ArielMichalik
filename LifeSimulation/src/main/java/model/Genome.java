@@ -14,8 +14,8 @@ public class Genome {
 
     public Genome(int n, Mutation mutation, Random random){
         this.genomeLength = n;
-        this.mutation = mutation;
         this.random = random;
+        this.mutation = mutation;
         ArrayList<Integer> genome = new ArrayList<>();
         for (int i=0; i< genomeLength; i++){
             genome.add(random.nextInt(8));
@@ -23,14 +23,14 @@ public class Genome {
         this.genome = genome;
     }
 
-    public Genome(int n, Animal parent1, Animal parent2, Mutation mutation, Random random){
+    public Genome(int n, Animal parent1, Animal parent2, Mutation mutation, Random random, boolean useMutationSwapGene){
         this.genomeLength = n;
         this.mutation = mutation;
         this.random = random;
-        this.genome = generateGenome(parent1, parent2, random);
+        this.genome = generateGenome(parent1, parent2, random, useMutationSwapGene);
     }
 
-    private ArrayList<Integer> generateGenome(Animal parent1, Animal parent2, Random random){
+    private ArrayList<Integer> generateGenome(Animal parent1, Animal parent2, Random random, boolean useMutationSwapGene){
         int combinedEnergy = parent1.getEnergy() + parent2.getEnergy();
         double parent1Share = (double) parent1.getEnergy() / combinedEnergy;
         double parent2Share = (double) parent2.getEnergy() / combinedEnergy;
@@ -47,7 +47,7 @@ public class Genome {
 
             partOfParent1.addAll(partOfParent2); // combined
 
-            return mutate(partOfParent1); // mutation
+            return mutate(partOfParent1, useMutationSwapGene); // mutation
         }
         else{
             int howManyIdxParent1 = (int)(parent1Share * parent1.getGenomeList().size());
@@ -59,11 +59,11 @@ public class Genome {
 
             partOfParent1.addAll(partOfParent2); // combined
 
-            return mutate(partOfParent1); // mutation
+            return mutate(partOfParent1, useMutationSwapGene); // mutation
         }
     }
 
-    private ArrayList<Integer> mutate(List<Integer> currGenome){
+    private ArrayList<Integer> mutate(List<Integer> currGenome, boolean useMutationSwapGene){
         int min = mutation.minMutationsNum();
         int max = mutation.maxMutationsNum();
 
@@ -73,6 +73,14 @@ public class Genome {
             int randomNum = random.nextInt(8);
             int where = random.nextInt(currGenome.size());
             currGenome.set(where, randomNum);
+        }
+
+        if (useMutationSwapGene){
+            int randomId1 = random.nextInt(currGenome.size());
+            int randomId2 = random.nextInt(currGenome.size());
+            Integer temp = currGenome.get(randomId1);
+            currGenome.set(randomId1, currGenome.get(randomId2));
+            currGenome.set(randomId2, temp);
         }
 
         return new ArrayList<>(currGenome);

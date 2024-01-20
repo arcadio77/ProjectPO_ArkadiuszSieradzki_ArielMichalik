@@ -19,7 +19,7 @@ public class Animal implements WorldElement {
     private static int idCnt = 0;
 
     public Animal(Vector2d x){
-        this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0), new Random()), 0, 5);
+        this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0),  new Random()), 0, 5);
     }
 
     public Animal(Vector2d x, MapDirection dir, Genome genome, Integer geneId, int initEnergy){
@@ -181,7 +181,6 @@ public class Animal implements WorldElement {
 
 
     public void breed(Animal child, int lostEnergy){
-        System.out.println("breeding");
         this.energy -= lostEnergy;
         children.add(child);
     }

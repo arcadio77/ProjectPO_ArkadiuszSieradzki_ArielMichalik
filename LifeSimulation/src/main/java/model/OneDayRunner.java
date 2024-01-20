@@ -89,8 +89,7 @@ public class OneDayRunner {
         if (!mostPowerful.equals(secMostPowerful)) {
             int energyRequiredToCopulate = map.energy.getBreedReady();
             if (mostPowerful.getEnergy() >= energyRequiredToCopulate && secMostPowerful.getEnergy() >= energyRequiredToCopulate) {
-                System.out.println(mostPowerful.getEnergy());
-                Genome childGenome = new Genome(map.getGenomeLength(), mostPowerful, secMostPowerful, map.mutation, random);
+                Genome childGenome = new Genome(map.getGenomeLength(), mostPowerful, secMostPowerful, map.mutation, random, map.isUseMutationSwapGene());
                 int geneIDChild = random.nextInt(0, map.getGenomeLength() - 1);
                 Animal child = new Animal(mostPowerful.position(), MapDirection.generateRandomDirection(), childGenome, geneIDChild, map.getEnergy().getBreedLost()*2);
                 mostPowerful.breed(child, map.getEnergy().getBreedLost());
