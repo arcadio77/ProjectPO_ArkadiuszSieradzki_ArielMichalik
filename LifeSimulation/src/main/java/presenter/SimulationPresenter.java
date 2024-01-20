@@ -2,6 +2,7 @@ package presenter;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
+import javafx.scene.PointLight;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -19,6 +20,9 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Circle;
 
 
 public class SimulationPresenter implements MapChangeListener {
@@ -55,9 +59,33 @@ public class SimulationPresenter implements MapChangeListener {
         for(WorldElement element: map.getElements()){
             int newX = element.position().x() + 1;
             int newY = height - ( element.position().y()); //because I input values inot column from biggest to smallest
-            Label elem = new Label(element.toString());
-            gridMap.add(elem, newX, newY);
-            GridPane.setHalignment(elem, HPos.CENTER);
+            if (element instanceof Animal) {
+                Animal animal = (Animal) element;
+                if(animal.getEnergy() >= 2 * getInitialAnimalEnergyValue()){
+                    Color animalColor = new Color(1, 0, 0, 1);
+                    Circle circle = new Circle(newX, newY, 10, animalColor);
+                    gridMap.add(circle, newX, newY);
+                }
+                else if (animal.getEnergy() >= getInitialAnimalEnergyValue()){
+                    Color animalColor = new Color(1, 0, 0, 1);
+                    Circle circle = new Circle(newX, newY, 10, animalColor);
+                    gridMap.add(circle, newX, newY);
+                }
+                else {
+                    Color animalColor = new Color(1, 0, 0, 1);
+                    Circle circle = new Circle(newX, newY, 10, animalColor);
+                    gridMap.add(circle, newX, newY);
+                }
+            } else if (element instanceof Grass) {
+                Rectangle rectangle = new Rectangle(newX, newY, 10, 10);
+                Color plantColor = new Color(0, 0.8, 0, 1);
+                rectangle.setFill(plantColor);
+                gridMap.add(rectangle, newX, newY);
+            } else {
+                Label elem = new Label(element.toString());
+                gridMap.add(elem, newX, newY);
+                GridPane.setHalignment(elem, HPos.CENTER);
+            }
         }
     }
 

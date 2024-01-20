@@ -9,7 +9,6 @@ import java.util.*;
 
 
 public class WorldMap {
-
     private int width;
     private int height;
     protected final ArrayList<MapChangeListener> observers;
