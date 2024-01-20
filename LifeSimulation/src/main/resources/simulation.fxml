@@ -29,6 +29,8 @@
                 <TextField fx:id="getAnimalNumber"/>
                 <Label text="Initial Grass Number"/>
                 <TextField fx:id="getInitialGrassNumber"/>
+                <Label text="Initial Animal Energy"/>
+                <TextField fx:id="getInitialAnimalEnergy"/>
             </VBox>
             <VBox>
                 <Label text="Number of Grass Growing Daily"/>
@@ -39,25 +41,28 @@
                 <TextField fx:id="getBreedReadyEnergy"/>
                 <Label text="Breed Lost Energy"/>
                 <TextField fx:id="getBreedLostEnergy"/>
-                <Label text="Genome Length"/>
-                <TextField fx:id="getGenomeLength"/>
             </VBox>
             <VBox>
+                <Label text="Genome Length"/>
+                <TextField fx:id="getGenomeLength"/>
                 <Label text="Minimum Mutation Number"/>
                 <TextField fx:id="getMinMutationNum"/>
                 <Label text="Maximum Mutation Number"/>
                 <TextField fx:id="getMaxMutationNum"/>
+                <HBox>
+                    <Label text="Use Mutation Swap Gene"/>
+                    <CheckBox fx:id="getUseMutationSwapGene"/>
+                </HBox>
+                <HBox>
+                    <Label text="Use Life Giving Corpses"/>
+                    <CheckBox fx:id="getUseLifeGivingCorpses"/>
+                </HBox>
             </VBox>
         </HBox>
     </center>
+
     <bottom>
-        <HBox>
-            <GridPane fx:id="gridMap" gridLinesVisible="true"/>
-            <Label text="Use Mutation Swap Gene"/>
-            <CheckBox fx:id="getUseMutationSwapGene"/>
-            <Label text="Use Life Giving Corpses"/>
-            <CheckBox fx:id="getUseLifeGivingCorpses"/>
-        </HBox>
+        <GridPane fx:id="gridMap" gridLinesVisible="true"/>
     </bottom>
 </BorderPane>
 

@@ -9,6 +9,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import model.Simulation;
+import model.SimulationGivenData;
 import model.Vector2d;
 import model.WorldMap;
 import model.interfaces.MapChangeListener;
@@ -25,6 +26,7 @@ public class SimulationPresenter implements MapChangeListener {
     public TextField getHeight;
     public TextField getAnimalNumber;
     public TextField getInitialGrassNumber;
+    public TextField getInitialAnimalEnergy;
     public TextField getNumOfGrassGrowingDaily;
     public TextField getGrassEnergy;
     public TextField getBreedReadyEnergy;
@@ -91,10 +93,67 @@ public class SimulationPresenter implements MapChangeListener {
         Platform.runLater(this::drawMap);
     }
 
-    public void onSimulationStartClicked() throws IllegalArgumentException{
-        Simulation simulation = new Simulation();
-        simulation.run();
+    public int getWidthValue() {
+        return Integer.parseInt(getWidth.getText());
+    }
 
+    public int getHeightValue() {
+        return Integer.parseInt(getHeight.getText());
+    }
+
+    public int getAnimalNumberValue() {
+        return Integer.parseInt(getAnimalNumber.getText());
+    }
+
+    public int getInitialGrassNumberValue() {
+        return Integer.parseInt(getInitialGrassNumber.getText());
+    }
+    public int getInitialAnimalEnergyValue(){
+        return Integer.parseInt(getInitialAnimalEnergy.getText());
+    }
+    public int getNumOfGrassGrowingDailyValue() {
+        return Integer.parseInt(getNumOfGrassGrowingDaily.getText());
+    }
+
+    public int getGrassEnergyValue() {
+        return Integer.parseInt(getGrassEnergy.getText());
+    }
+
+    public int getBreedReadyEnergyValue() {
+        return Integer.parseInt(getBreedReadyEnergy.getText());
+    }
+
+    public int getBreedLostEnergyValue() {
+        return Integer.parseInt(getBreedLostEnergy.getText());
+    }
+
+    public int getGenomeLengthValue() {
+        return Integer.parseInt(getGenomeLength.getText());
+    }
+
+    public int getMinMutationNumValue() {
+        return Integer.parseInt(getMinMutationNum.getText());
+    }
+
+    public int getMaxMutationNumValue() {
+        return Integer.parseInt(getMaxMutationNum.getText());
+    }
+
+    public boolean getUseMutationSwapGeneValue() {
+        return getUseMutationSwapGene.isSelected();
+    }
+
+    public boolean getUseLifeGivingCorpsesValue() {
+        return getUseLifeGivingCorpses.isSelected();
+    }
+
+
+    public void onSimulationStartClicked() throws IllegalArgumentException{
+        Simulation simulation = new SimulationGivenData(getWidthValue(), getHeightValue(), getAnimalNumberValue(), getInitialGrassNumberValue(),
+                getInitialAnimalEnergyValue(),getNumOfGrassGrowingDailyValue(), getGrassEnergyValue(), getBreedReadyEnergyValue(), getBreedLostEnergyValue(),
+                getGenomeLengthValue(), getMinMutationNumValue(), getMaxMutationNumValue(), getUseMutationSwapGeneValue(), getUseLifeGivingCorpsesValue());
+
+        simulation.run();
 
     }
 
