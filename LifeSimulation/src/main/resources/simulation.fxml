@@ -9,6 +9,9 @@
 
 <?import javafx.scene.control.CheckBox?>
 
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="550.0" minWidth="850.0" stylesheets="style.css"
@@ -16,6 +19,14 @@
     <top>
         <HBox>
             <Button fx:id="startBtn" text="Start" onAction="#onSimulationStartClicked"/>
+            <ComboBox fx:id="configurations" promptText="Configurations" onAction="#onConfigurationSelected">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Configuration 1"/>
+                        <String fx:value="Configuration 2"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
         </HBox>
     </top>
     <center>

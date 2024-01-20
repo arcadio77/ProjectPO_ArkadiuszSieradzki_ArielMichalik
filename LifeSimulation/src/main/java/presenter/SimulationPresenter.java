@@ -1,11 +1,9 @@
 package presenter;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -22,6 +20,7 @@ import java.util.Random;
 
 
 public class SimulationPresenter implements MapChangeListener {
+    public ComboBox<String> configurations;
     private WorldMap map;
     public Button startBtn;
     public TextField getWidth;
@@ -182,7 +181,7 @@ public class SimulationPresenter implements MapChangeListener {
         this.map.setHeight(getHeightValue());
         this.map.setAnimalsNumber(getAnimalNumberValue());
         this.map.setPlantsNumber(getInitialGrassNumberValue());
-        Energy energy = new Energy(getGrassEnergyValue(), getBreedLostEnergyValue(), getBreedLostEnergyValue(), getInitialAnimalEnergyValue());
+        Energy energy = new Energy(getGrassEnergyValue(), getBreedReadyEnergyValue(), getBreedLostEnergyValue(), getInitialAnimalEnergyValue());
         this.map.setEnergy(energy);
         this.map.setMutation(new Mutation(getMinMutationNumValue(), getMaxMutationNumValue()));
         this.map.setGenomeLength(getGenomeLengthValue());
@@ -190,6 +189,39 @@ public class SimulationPresenter implements MapChangeListener {
         this.map.setRandom(new Random());
         this.map.setUseMutationSwapGene(getUseMutationSwapGeneValue());
         this.map.setUseLifeGivingCorpses(getUseLifeGivingCorpsesValue());
+    }
+
+    public void onConfigurationSelected(ActionEvent event) {
+        String selectedConfiguration = configurations.getValue();
+        if (selectedConfiguration.equals("Configuration 1")) {
+            getWidth.setText("10");
+            getHeight.setText("10");
+            getAnimalNumber.setText("10");
+            getInitialAnimalEnergy.setText("10");
+            getInitialGrassNumber.setText("10");
+            getNumOfGrassGrowingDaily.setText("10");
+            getGrassEnergy.setText("10");
+            getBreedReadyEnergy.setText("10");
+            getBreedLostEnergy.setText("10");
+            getGenomeLength.setText("10");
+            getMinMutationNum.setText("10");
+            getMaxMutationNum.setText("10");
+        } else if (selectedConfiguration.equals("Configuration 2")) {
+            getWidth.setText("20");
+            getHeight.setText("20");
+            getAnimalNumber.setText("20");
+            getInitialAnimalEnergy.setText("20");
+            getInitialGrassNumber.setText("20");
+            getNumOfGrassGrowingDaily.setText("20");
+            getGrassEnergy.setText("20");
+            getBreedReadyEnergy.setText("20");
+            getBreedLostEnergy.setText("20");
+            getGenomeLength.setText("20");
+            getMinMutationNum.setText("20");
+            getMaxMutationNum.setText("20");
+            getUseMutationSwapGene.setSelected(true);
+            getUseLifeGivingCorpses.setSelected(true);
+        }
     }
 
 }
