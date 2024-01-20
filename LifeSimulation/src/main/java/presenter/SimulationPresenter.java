@@ -1,20 +1,40 @@
 package presenter;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import model.Simulation;
+import model.Vector2d;
 import model.WorldMap;
+import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class SimulationPresenter {
+
+public class SimulationPresenter implements MapChangeListener {
     private WorldMap map;
     public Button startBtn;
-    public TextField getParameters;
-    public Label animalMoves;
+    public TextField getWidth;
+    public TextField getHeight;
+    public TextField getAnimalNumber;
+    public TextField getInitialGrassNumber;
+    public TextField getNumOfGrassGrowingDaily;
+    public TextField getGrassEnergy;
+    public TextField getBreedReadyEnergy;
+    public TextField getBreedLostEnergy;
+    public TextField getGenomeLength;
+    public TextField getMinMutationNum;
+    public TextField getMaxMutationNum;
+    public CheckBox getUseMutationSwapGene;
+    public CheckBox getUseLifeGivingCorpses;
+
     public GridPane gridMap;
 
     public void setWorldMap(WorldMap map){
@@ -66,21 +86,16 @@ public class SimulationPresenter {
 
     }
 
-    //TODO repair that part someway
-//    @Override
-//    public void mapChanged(WorldMap worldMap, String message){
-//        Platform.runLater(() ->{
-//            this.drawMap();
-//            this.animalMoves.setText(message);
-//        });
-//
-//    }
-//
-//    public void onSimulationStartClicked() throws IllegalArgumentException{
-//        List<MoveDirection> moves = OptionsParser.parseDirections(getParameters.getText().split(" "));
-//        List<Vector2d> animalPositions = new ArrayList<>(List.of(new Vector2d(2, 2), new Vector2d(3, 5)));
-//        Simulation simulation = new Simulation(animalPositions, moves, map);
-//        SimulationEngine engine = new SimulationEngine(new ArrayList<>( List.of(simulation)), 6);
-//        engine.runAsync();
-//    }
+    @Override
+    public void mapChanged(WorldMap worldMap, String message) {
+        Platform.runLater(this::drawMap);
+    }
+
+    public void onSimulationStartClicked() throws IllegalArgumentException{
+        Simulation simulation = new Simulation();
+        simulation.run();
+
+
+    }
+
 }

@@ -78,7 +78,7 @@ public class WorldMap {
         observers.remove(observer);
     }
 
-    private void mapChanged(String message){
+    public void mapChanged(String message){
         for(MapChangeListener observer: observers){
             observer.mapChanged(this, message);
         }

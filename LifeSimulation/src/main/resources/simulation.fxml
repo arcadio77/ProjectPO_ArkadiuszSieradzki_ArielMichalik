@@ -7,24 +7,57 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Spinner?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="550.0" minWidth="850.0" stylesheets="style.css"
             fx:controller="presenter.SimulationPresenter">
     <top>
-        <VBox>
-            <HBox>
-                <Button fx:id="StartButton" text="Start" onAction="#onSimulationStartClicked"/>
-                <TextField fx:id="getParameters"/>
-            </HBox>
-        </VBox>
+        <HBox>
+            <Button fx:id="startBtn" text="Start" onAction="#onSimulationStartClicked"/>
+        </HBox>
     </top>
     <center>
-        <GridPane fx:id="mapGrid" gridLinesVisible="true"/>
+        <HBox>
+            <VBox>
+                <Label text="Width"/>
+                <TextField fx:id="getWidth"/>
+                <Label text="Height"/>
+                <TextField fx:id="getHeight"/>
+                <Label text="Animal Number"/>
+                <TextField fx:id="getAnimalNumber"/>
+                <Label text="Initial Grass Number"/>
+                <TextField fx:id="getInitialGrassNumber"/>
+            </VBox>
+            <VBox>
+                <Label text="Number of Grass Growing Daily"/>
+                <TextField fx:id="getNumOfGrassGrowingDaily"/>
+                <Label text="Grass Energy"/>
+                <TextField fx:id="getGrassEnergy"/>
+                <Label text="Breed Ready Energy"/>
+                <TextField fx:id="getBreedReadyEnergy"/>
+                <Label text="Breed Lost Energy"/>
+                <TextField fx:id="getBreedLostEnergy"/>
+                <Label text="Genome Length"/>
+                <TextField fx:id="getGenomeLength"/>
+            </VBox>
+            <VBox>
+                <Label text="Minimum Mutation Number"/>
+                <TextField fx:id="getMinMutationNum"/>
+                <Label text="Maximum Mutation Number"/>
+                <TextField fx:id="getMaxMutationNum"/>
+            </VBox>
+        </HBox>
     </center>
     <bottom>
         <HBox>
-            <Label fx:id="moveLabel" styleClass="moveLabel" text="No moves yet"  />
+            <GridPane fx:id="gridMap" gridLinesVisible="true"/>
+            <Label text="Use Mutation Swap Gene"/>
+            <CheckBox fx:id="getUseMutationSwapGene"/>
+            <Label text="Use Life Giving Corpses"/>
+            <CheckBox fx:id="getUseLifeGivingCorpses"/>
         </HBox>
     </bottom>
 </BorderPane>
+

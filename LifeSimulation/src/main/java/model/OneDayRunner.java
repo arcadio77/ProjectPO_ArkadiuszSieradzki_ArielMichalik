@@ -38,6 +38,7 @@ public class OneDayRunner {
         }
         growGrass();
         gravesAreGettingOlder();
+        map.mapChanged("uuu");
     }
 
 

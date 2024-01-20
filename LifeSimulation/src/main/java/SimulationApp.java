@@ -18,8 +18,10 @@ public class SimulationApp extends Application {
         BorderPane viewRoot = loader.load();
 
         SimulationPresenter presenter = loader.getController();
-//TODO       map.addObserver(presenter);
+//        map.addObserver(presenter);
         presenter.setWorldMap(map);
+
+        //wykres
 
         configureStage(primaryStage, viewRoot);
         primaryStage.show();
