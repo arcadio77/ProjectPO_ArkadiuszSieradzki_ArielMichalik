@@ -15,6 +15,7 @@ import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
 import model.util.Energy;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
