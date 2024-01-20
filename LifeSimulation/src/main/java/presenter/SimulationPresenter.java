@@ -161,12 +161,9 @@ public class SimulationPresenter implements MapChangeListener {
     public void onSimulationStartClicked() throws IllegalArgumentException{
         System.out.println("clicked");
 
-
         settingMap();
 
         Simulation simulation = new Simulation(this.map);
-        //simulation.run();
-        //createGrid(10,10);
 
         SimulationEngine engine = new SimulationEngine(new ArrayList<>(List.of(simulation)), 4);
         System.out.println("started");
