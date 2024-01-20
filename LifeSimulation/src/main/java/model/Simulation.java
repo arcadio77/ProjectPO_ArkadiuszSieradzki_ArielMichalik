@@ -18,7 +18,7 @@ public class Simulation implements Runnable{
 
         //TODO still different variations of the map are printing - don't know why?
         OneDayRunner oneDay = new OneDayRunner(map);
-        //System.out.println(map); -> console
+        //System.out.println(map); // -> console
 
         for(int i=0; i < 200; i++){
             oneDay.runOneDay();
@@ -27,7 +27,7 @@ public class Simulation implements Runnable{
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            //System.out.println(map); -> console
+            //System.out.println(map); // -> console
         }
     }
 }

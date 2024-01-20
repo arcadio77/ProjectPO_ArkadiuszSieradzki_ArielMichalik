@@ -51,7 +51,7 @@ public class WorldMap {
         this.useMutationSwapGene = useMutationSwapGene;
         this.useLifeGivingCorpses = useLifeGivingCorpses;
 
-        Vector2d worldTopRightCorner = new Vector2d(width, height);
+        Vector2d worldTopRightCorner = new Vector2d(width-1, height-1);
         Vector2d worldDownLeftCorner = new Vector2d(0, 0);
         this.worldBounds = new Boundary(worldDownLeftCorner, worldTopRightCorner);
         this.jungleBounds = setJungleBounds();
