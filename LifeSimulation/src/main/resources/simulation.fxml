@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Spinner?>
+
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="550.0" minWidth="850.0" stylesheets="style.css"

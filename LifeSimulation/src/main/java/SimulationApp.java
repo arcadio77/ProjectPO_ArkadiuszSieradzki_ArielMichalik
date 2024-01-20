@@ -32,7 +32,6 @@ public class SimulationApp extends Application {
 
 
     private void configureStage(Stage primaryStage, BorderPane viewRoot){
-        var scene = new Scene(viewRoot);
         primaryStage.setScene(viewRoot.getScene());
         primaryStage.setTitle("Simulation app");
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
