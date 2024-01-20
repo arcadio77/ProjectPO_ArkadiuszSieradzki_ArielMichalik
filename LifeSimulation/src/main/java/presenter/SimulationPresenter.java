@@ -62,7 +62,7 @@ public class SimulationPresenter implements MapChangeListener {
 
     private void putElements(int height) {
         for(WorldElement element: map.getElements()){
-            int newX = element.position().x() + 1;
+            int newX = element.position().x() +1;
             int newY = height - ( element.position().y()); //because I input values inot column from biggest to smallest
             if (element instanceof Animal) {
                 Animal animal = (Animal) element;
@@ -107,13 +107,13 @@ public class SimulationPresenter implements MapChangeListener {
         gridMap.getColumnConstraints().add(new ColumnConstraints(30));
         gridMap.getRowConstraints().add(new RowConstraints(30));
 
-        for(int i=0; i < width; i++){
+        for(int i=0; i <= width; i++){
             gridMap.getColumnConstraints().add(new ColumnConstraints(30));
             Label digit = new Label(String.valueOf(i));
             gridMap.add(digit, i+1, 0); //row
             GridPane.setHalignment(digit, HPos.CENTER);
         }
-        for(int i=0; i < height; i++){
+        for(int i=0; i <= height; i++){
             gridMap.getRowConstraints().add(new RowConstraints(30));
             Label digit = new Label(String.valueOf(height-i-1));
             gridMap.add(digit, 0, i+1);
