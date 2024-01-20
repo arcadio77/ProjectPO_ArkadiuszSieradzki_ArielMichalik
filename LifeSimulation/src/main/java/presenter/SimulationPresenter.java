@@ -1,4 +1,5 @@
 package presenter;
+
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
@@ -9,10 +10,10 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import model.Simulation;
-import model.Vector2d;
 import model.WorldMap;
 import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
+import model.SimulationEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,13 +89,20 @@ public class SimulationPresenter implements MapChangeListener {
 
     @Override
     public void mapChanged(WorldMap worldMap, String message) {
+        System.out.println("niceee");
         Platform.runLater(this::drawMap);
     }
 
     public void onSimulationStartClicked() throws IllegalArgumentException{
-        Simulation simulation = new Simulation();
-        simulation.run();
+        System.out.println("clicked");
+        Simulation simulation = new Simulation(this.map);
+        //simulation.run();
+        //createGrid(10,10);
 
+        SimulationEngine engine = new SimulationEngine(new ArrayList<>(List.of(simulation)), 4);
+        System.out.println("started");
+
+        engine.runAsync();
 
     }
 

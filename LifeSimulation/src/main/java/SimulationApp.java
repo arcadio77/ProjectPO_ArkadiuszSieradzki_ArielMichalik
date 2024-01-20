@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.WorldMap;
+import model.util.Energy;
 import presenter.SimulationPresenter;
 
 public class SimulationApp extends Application {
@@ -11,20 +12,22 @@ public class SimulationApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        WorldMap map = new WorldMap(7, 1);
+        WorldMap map = new WorldMap(12, 12);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
         BorderPane viewRoot = loader.load();
 
         SimulationPresenter presenter = loader.getController();
-//        map.addObserver(presenter);
+        map.addObserver(presenter);
         presenter.setWorldMap(map);
 
-        //wykres
 
+        //wykres
+        System.out.println("ezz");
         configureStage(primaryStage, viewRoot);
         primaryStage.show();
+
     }
 
 

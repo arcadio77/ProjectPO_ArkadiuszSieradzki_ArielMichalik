@@ -71,6 +71,7 @@ public class WorldMap {
 
     //OBSERVERS
     public void addObserver(MapChangeListener observer){
+        System.out.println("added observer");
         observers.add(observer);
     }
 
