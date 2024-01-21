@@ -109,7 +109,7 @@ public class SimulationPresenter implements MapChangeListener {
                     rectangle.setFill(plantColor);
                     gridMap.add(rectangle, newX, newY);
                 }
-            //}
+
         }
     }
 
@@ -143,7 +143,7 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     private void updateStats(WorldMap map){
-        //STATS
+        //TODO update stats
     }
 
     @Override

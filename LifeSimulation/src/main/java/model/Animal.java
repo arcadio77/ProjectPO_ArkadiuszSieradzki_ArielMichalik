@@ -94,7 +94,7 @@ public class Animal implements WorldElement {
         }
 
         // borders but not corners
-        else if (!(position.equals(lowerLeft) || position.equals(upperLeft) || position.equals(upperRight) || position.equals(lowerRight))) {
+        else if (!position.equals(lowerLeft) && !position.equals(upperLeft) && !position.equals(upperRight) && !position.equals(lowerRight)) {
             //right -> move animal to the left part of the map
 
             if(newPosition.x() > upperRight.x()){
@@ -119,36 +119,32 @@ public class Animal implements WorldElement {
 
         // corners
         else{
-            //3 subcases, nextPosition can be to the: 1) right/left -> looping around, 2) up/down -> turn around Pole, 3) diagonal -> act as Pole (turn animal around)
+            //3 subcases, nextPosition can be to the: 1) right/left -> looping around, 2) up/down -> turn around Pole, 3) diagonal -> put animal into opposite corner with same orientation
             if(position.equals(lowerLeft)){
                 checkDownCorners(lowerLeft, newPosition, lowerRight, newPosition.x() < lowerLeft.x(), newPosition.x() >= lowerLeft.x());
                 if(newPosition.isSmaller(lowerLeft)){
-                    this.direction = direction.opposite();
-                    this.position = new Vector2d(lowerRight.x(), newPosition.y());
+                    this.position = upperRight;
 
                 }
             }
             if(position.equals(lowerRight)){
                 checkDownCorners(lowerRight, newPosition, lowerLeft, newPosition.x() > lowerRight.x(), newPosition.x() <= lowerRight.x());
                 if(newPosition.x() > lowerRight.x() && newPosition.y() < lowerRight.y()){
-                    this.direction = direction.opposite();
-                    this.position = new Vector2d(lowerLeft.x(), newPosition.y());
+                    this.position = upperLeft;
 
                 }
             }
             if(position.equals(upperLeft)){
                 checkUpperCorners(upperRight, newPosition, upperLeft, newPosition.x() < upperLeft.x(), newPosition.x() >= upperLeft.x());
                 if(newPosition.x() < upperLeft.x() && newPosition.y() > upperLeft.y()){
-                    this.direction = direction.opposite();
-                    this.position = new Vector2d(upperRight.x(), newPosition.y());
+                    this.position = lowerRight;
 
                 }
             }
             if(position.equals(upperRight)){
                 checkUpperCorners(upperLeft, newPosition, upperRight, newPosition.x() > upperRight.x(), newPosition.x() <= upperRight.x());
                 if(newPosition.isBigger(upperRight)){
-                    this.direction = direction.opposite();
-                    this.position = new Vector2d(upperLeft.x(), newPosition.y());
+                    this.position = lowerLeft;
 
                 }
             }
