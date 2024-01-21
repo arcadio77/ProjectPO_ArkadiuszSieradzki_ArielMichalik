@@ -2,10 +2,7 @@ package presenter;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Mutation;
@@ -24,6 +21,7 @@ import java.util.Random;
 public class StarterPresenter {
     public ComboBox<String> configurations;
     public Button startBtn;
+    public TextField getSpeed;
     public TextField getWidth;
     public TextField getHeight;
     public TextField getAnimalNumber;
@@ -39,6 +37,8 @@ public class StarterPresenter {
     public CheckBox getUseMutationSwapGene;
     public CheckBox getUseLifeGivingCorpses;
 
+
+    public int getSpeedValue() {return Integer.parseInt(getSpeed.getText());}
 
     public int getWidthValue() {
         return Integer.parseInt(getWidth.getText());
@@ -132,7 +132,7 @@ public class StarterPresenter {
         configureStage(stage, viewRoot);
         stage.show();
 
-        Simulation simulation = new Simulation(map);
+        Simulation simulation = new Simulation(map, getSpeedValue());
 
         SimulationPresenter presenter = loader.getController();
         map.addObserver(presenter);
@@ -157,6 +157,7 @@ public class StarterPresenter {
     public void onConfigurationSelected() {
         String selectedConfiguration = configurations.getValue();
         if (selectedConfiguration.equals("Configuration 1")) {
+            getSpeed.setText("800");
             getWidth.setText("10");
             getHeight.setText("10");
             getAnimalNumber.setText("20");
@@ -170,6 +171,7 @@ public class StarterPresenter {
             getMinMutationNum.setText("1");
             getMaxMutationNum.setText("1");
         } else if (selectedConfiguration.equals("Configuration 2")) {
+            getSpeed.setText("800");
             getWidth.setText("20");
             getHeight.setText("20");
             getAnimalNumber.setText("30");
