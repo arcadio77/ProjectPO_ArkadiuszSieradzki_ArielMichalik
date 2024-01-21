@@ -107,7 +107,7 @@ public class SimulationPresenter implements MapChangeListener {
                 int newY = height - (element.position().y()); //because I input values inot column from biggest to smallest
                 if (element instanceof Grass) {
                     Rectangle rectangle = new Rectangle(newX, newY, 30, 30);
-                    Color plantColor = new Color(0, 0.8, 0, 1);
+                    Color plantColor = new Color(0, 0.6, 0, 1);
                     rectangle.setFill(plantColor);
                     gridMap.add(rectangle, newX, newY);
                 }
