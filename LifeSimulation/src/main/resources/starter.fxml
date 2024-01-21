@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            minHeight="550.0" minWidth="850.0" stylesheets="style.css"
+            fx:controller="presenter.StarterPresenter">
+    <top>
+        <HBox>
+            <Button fx:id="startBtn" text="Start" onAction="#onSimulationStartClicked"/>
+            <ComboBox fx:id="configurations" promptText="Configurations" onAction="#onConfigurationSelected">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Configuration 1"/>
+                        <String fx:value="Configuration 2"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
+    </top>
+    <center>
+        <HBox>
+            <VBox>
+                <Label text="Width"/>
+                <TextField fx:id="getWidth"/>
+                <Label text="Height"/>
+                <TextField fx:id="getHeight"/>
+                <Label text="Animal Number"/>
+                <TextField fx:id="getAnimalNumber"/>
+                <Label text="Initial Grass Number"/>
+                <TextField fx:id="getInitialGrassNumber"/>
+                <Label text="Initial Animal Energy"/>
+                <TextField fx:id="getInitialAnimalEnergy"/>
+            </VBox>
+            <VBox>
+                <Label text="Number of Grass Growing Daily"/>
+                <TextField fx:id="getNumOfGrassGrowingDaily"/>
+                <Label text="Grass Energy"/>
+                <TextField fx:id="getGrassEnergy"/>
+                <Label text="Breed Ready Energy"/>
+                <TextField fx:id="getBreedReadyEnergy"/>
+                <Label text="Breed Lost Energy"/>
+                <TextField fx:id="getBreedLostEnergy"/>
+            </VBox>
+            <VBox>
+                <Label text="Genome Length"/>
+                <TextField fx:id="getGenomeLength"/>
+                <Label text="Minimum Mutation Number"/>
+                <TextField fx:id="getMinMutationNum"/>
+                <Label text="Maximum Mutation Number"/>
+                <TextField fx:id="getMaxMutationNum"/>
+                <HBox>
+                    <Label text="Use Mutation Swap Gene"/>
+                    <CheckBox fx:id="getUseMutationSwapGene"/>
+                </HBox>
+                <HBox>
+                    <Label text="Use Life Giving Corpses"/>
+                    <CheckBox fx:id="getUseLifeGivingCorpses"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </center>
+
+</BorderPane>
+

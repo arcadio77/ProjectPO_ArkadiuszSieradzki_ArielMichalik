@@ -53,6 +53,7 @@ public class WorldMap {
 
     }
 
+
     public WorldMap(){
         this(11, 1, 0, 0, new Energy(0, 0, 0, 0),
                 0, 0, 0, 0, new Random(), false, false);
