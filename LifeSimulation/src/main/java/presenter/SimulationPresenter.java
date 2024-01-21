@@ -21,6 +21,7 @@ public class SimulationPresenter implements MapChangeListener {
 
     public Button stopBtn;
     public Label statistics;
+    public Label day;
     public Label numberOfAllAnimals;
     public Label numberOfAllPlants;
     public Label numberOfEmptyCells;
@@ -132,6 +133,7 @@ public class SimulationPresenter implements MapChangeListener {
     private void updateStatsLabels(WorldMap map){
         Statistics statistics = new Statistics(map);
         statistics.updateStats();
+        day.setText("Day: " + statistics.getDayNumber());
         numberOfAllAnimals.setText("Number of Animals: " + statistics.getNumberOfAllAnimals());
         numberOfAllPlants.setText("Number of Plants: " + statistics.getNumberOfAllPlants());
         numberOfEmptyCells.setText("Number of Empty Cells: " + statistics.getNumberOfEmptyCells());

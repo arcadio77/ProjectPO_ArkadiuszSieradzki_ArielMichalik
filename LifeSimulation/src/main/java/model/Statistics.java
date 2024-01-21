@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 public class Statistics {
     private int numberOfAllAnimals;
 
+    public int getDayNumber() { return map.getDay(); }
+
     public int getNumberOfAllAnimals() {
         return numberOfAllAnimals;
     }

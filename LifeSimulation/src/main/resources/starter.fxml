@@ -31,6 +31,8 @@
     <center>
         <HBox>
             <VBox>
+                <Label text="Speed"/>
+                <TextField fx:id="getSpeed"/>
                 <Label text="Width"/>
                 <TextField fx:id="getWidth"/>
                 <Label text="Height"/>

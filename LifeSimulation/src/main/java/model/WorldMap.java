@@ -9,6 +9,7 @@ import java.util.*;
 
 
 public class WorldMap {
+    private int day;
     private int width;
     private int height;
     protected final ArrayList<MapChangeListener> observers;
@@ -26,7 +27,6 @@ public class WorldMap {
     private Boundary worldBounds;
     private Boundary jungleBounds;
     private Random random;
-
     private boolean useMutationSwapGene;
     private boolean useLifeGivingCorpses;
     protected Map<Vector2d, Integer> recentGraves = new HashMap<>();
@@ -41,6 +41,7 @@ public class WorldMap {
                     int numOfGrassGrowingDaily, Random random, boolean useMutationSwapGene,
                     boolean useLifeGivingCorpses){
 
+        this.day = 0;
         this.width = width;
         this.height = height;
         this.initialAnimalsNumber = animalsNumber;
@@ -57,13 +58,16 @@ public class WorldMap {
         this.deadAnimals =  new ArrayList<Animal>();
         this.useMutationSwapGene = useMutationSwapGene;
         this.useLifeGivingCorpses = useLifeGivingCorpses;
-
     }
 
 
     public WorldMap(){
         this(11, 1, 0, 0, new Energy(0, 0, 0, 0),
                 0, 0, 0, 0, new Random(), false, false);
+    }
+
+    public void passDay(){
+        this.day += 1;
     }
 
     //OBSERVERS
@@ -251,6 +255,8 @@ public class WorldMap {
     public Boundary getJungleBounds(){ return jungleBounds; }
 
     public Random getRandom() { return random; }
+
+    public int getDay() { return day; }
 
     public boolean isUseMutationSwapGene() {
         return useMutationSwapGene;

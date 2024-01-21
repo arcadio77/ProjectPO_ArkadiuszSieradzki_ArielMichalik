@@ -8,19 +8,22 @@ public class Simulation implements Runnable{
     private final WorldMap map;
     boolean isRunning;
 
-    public Simulation(WorldMap map){
+    private int speed;
+
+    public Simulation(WorldMap map, int speed){
         this.map = map;
         isRunning = true;
+        this.speed = speed;
     }
 
     public void run(){
         //TODO make CSV file saver
         OneDayRunner oneDay = new OneDayRunner(map);
 
-        for(int i=0; i < 200; i++){
+        while(true){
             oneDay.runOneDay();
             try {
-                Thread.sleep(800);
+                Thread.sleep(speed);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

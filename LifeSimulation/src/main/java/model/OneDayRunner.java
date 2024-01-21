@@ -8,17 +8,15 @@ public class OneDayRunner {
 
     private final WorldMap map;
 
-    private int dayNumber;
     private final Random random;
 
     public OneDayRunner(WorldMap map){
-        this.dayNumber = 0;
         this.map = map;
         this.random = map.getRandom();
     }
 
     public void runOneDay(){
-        dayNumber++;
+        map.passDay();
         map.bestAnimals.clear();
 
         Map<Vector2d, ArrayList<Animal>> animals = map.getAnimals();
@@ -140,9 +138,5 @@ public class OneDayRunner {
             }
         }
         return toPlace;
-    }
-
-    public int getDayNumber() {
-        return dayNumber;
     }
 }
