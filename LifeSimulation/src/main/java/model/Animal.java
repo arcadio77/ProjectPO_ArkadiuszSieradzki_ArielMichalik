@@ -120,15 +120,9 @@ public class Animal implements WorldElement {
 
         // corners
         else{
-            //TODO implement intellij ideas
             //3 subcases, nextPosition can be to the: 1) right/left -> looping around, 2) up/down -> turn around Pole, 3) diagonal -> act as Pole (turn animal around)
             if(position.equals(lowerLeft)){
-                if(newPosition.x() < lowerLeft.x() && newPosition.y() >= lowerLeft.y()){
-                    this.position = new Vector2d(lowerRight.x(), newPosition.y());
-                }
-                if(newPosition.y() < lowerLeft.y() && newPosition.x() >= lowerLeft.x()){
-                    this.direction = direction.opposite();
-                }
+                checkDownCorners(lowerLeft, newPosition, lowerRight, newPosition.x() < lowerLeft.x(), newPosition.x() >= lowerLeft.x());
                 if(newPosition.isSmaller(lowerLeft)){
                     this.direction = direction.opposite();
                     this.position = new Vector2d(lowerRight.x(), newPosition.y());
@@ -136,12 +130,7 @@ public class Animal implements WorldElement {
                 }
             }
             if(position.equals(lowerRight)){
-                if(newPosition.x() > lowerRight.x() && newPosition.y() >= lowerRight.y()){
-                    this.position = new Vector2d(lowerLeft.x(), newPosition.y());
-                }
-                if(newPosition.y() < lowerRight.y() && newPosition.x() <= lowerRight.x()){
-                    this.direction = direction.opposite();
-                }
+                checkDownCorners(lowerRight, newPosition, lowerLeft, newPosition.x() > lowerRight.x(), newPosition.x() <= lowerRight.x());
                 if(newPosition.x() > lowerRight.x() && newPosition.y() < lowerRight.y()){
                     this.direction = direction.opposite();
                     this.position = new Vector2d(lowerLeft.x(), newPosition.y());
@@ -149,12 +138,7 @@ public class Animal implements WorldElement {
                 }
             }
             if(position.equals(upperLeft)){
-                if(newPosition.x() < upperLeft.x() && newPosition.y() <= upperLeft.y()){
-                    this.position = new Vector2d(upperRight.x(), newPosition.y());
-                }
-                if(newPosition.y() > upperLeft.y() && newPosition.x() >= upperLeft.x()){
-                    this.direction = direction.opposite();
-                }
+                checkUpperCorners(upperRight, newPosition, upperLeft, newPosition.x() < upperLeft.x(), newPosition.x() >= upperLeft.x());
                 if(newPosition.x() < upperLeft.x() && newPosition.y() > upperLeft.y()){
                     this.direction = direction.opposite();
                     this.position = new Vector2d(upperRight.x(), newPosition.y());
@@ -162,18 +146,31 @@ public class Animal implements WorldElement {
                 }
             }
             if(position.equals(upperRight)){
-                if(newPosition.x() > upperRight.x() && newPosition.y() <= upperRight.y()){
-                    this.position = new Vector2d(upperLeft.x(), newPosition.y());
-                }
-                if(newPosition.y() > upperRight.y() && newPosition.x() <= upperRight.x()){
-                    this.direction = direction.opposite();
-                }
+                checkUpperCorners(upperLeft, newPosition, upperRight, newPosition.x() > upperRight.x(), newPosition.x() <= upperRight.x());
                 if(newPosition.isBigger(upperRight)){
                     this.direction = direction.opposite();
                     this.position = new Vector2d(upperLeft.x(), newPosition.y());
 
                 }
             }
+        }
+    }
+
+    private void checkUpperCorners(Vector2d upperRight, Vector2d newPosition, Vector2d upperLeft, boolean conditionOne, boolean conditionTwo) {
+        if(conditionOne && newPosition.y() <= upperLeft.y()){
+            this.position = new Vector2d(upperRight.x(), newPosition.y());
+        }
+        if(newPosition.y() > upperLeft.y() && conditionTwo){
+            this.direction = direction.opposite();
+        }
+    }
+
+    private void checkDownCorners(Vector2d lowerLeft, Vector2d newPosition, Vector2d lowerRight, boolean conditionOne, boolean conditionTwo) {
+        if(conditionOne && newPosition.y() >= lowerLeft.y()){
+            this.position = new Vector2d(lowerRight.x(), newPosition.y());
+        }
+        if(newPosition.y() < lowerLeft.y() && conditionTwo){
+            this.direction = direction.opposite();
         }
     }
 
