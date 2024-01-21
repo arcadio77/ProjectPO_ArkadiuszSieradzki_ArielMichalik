@@ -134,6 +134,7 @@ public class OneDayRunner {
                     }
                 }
                 else{ // dead
+                    animal.setDeathDate(dayNumber);
                     map.animalIsDead(position, animal);
                 }
             }

@@ -13,6 +13,17 @@ public class Animal implements WorldElement {
     private int energy;
     private final Genome genome;
     private Integer geneId;
+    private int eatenPlants;
+    private int deathDate;
+
+    public void setDeathDate(int deathDate) {
+        this.deathDate = deathDate;
+    }
+
+    public Integer getGeneId() {
+        return geneId;
+    }
+
     private int age;
     private final ArrayList<Animal> children = new ArrayList<>();
     private static int idCnt = 0;
@@ -179,6 +190,7 @@ public class Animal implements WorldElement {
     }
 
     public void eat(int grassEnergy){
+        this.eatenPlants ++;
         this.energy += grassEnergy;
     }
 
@@ -186,6 +198,13 @@ public class Animal implements WorldElement {
         return String.valueOf(energy);
     }
 
+    public int getEatenPlants() {
+        return eatenPlants;
+    }
+
+    public int getDeathDate() {
+        return deathDate;
+    }
     public int getId() {
         return id;
     }
