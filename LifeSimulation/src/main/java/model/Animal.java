@@ -14,10 +14,12 @@ public class Animal implements WorldElement {
     private final Genome genome;
     private Integer geneId;
     private int age;
-    private final ArrayList<Animal> children = new ArrayList<>();
+    private ArrayList<Animal> children = new ArrayList<>();
     private static int idCnt = 0;
+    //private ArrayList<Animal> ancestors = new ArrayList<>();
 
     public Animal(Vector2d x){
+
         this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0),  new Random()), 0, 5);
     }
 
@@ -29,6 +31,10 @@ public class Animal implements WorldElement {
         this.genome = genome;
         this.geneId = geneId;
         this.energy = initEnergy;
+        //this.ancestors = a1.getAncestors();
+        //this.ancestors.addAll(a2.getAncestors());
+        //this.ancestors.add(a1);
+        //this.ancestors.add(a2);
     }
 
 

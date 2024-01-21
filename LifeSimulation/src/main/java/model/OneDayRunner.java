@@ -5,9 +5,7 @@ import java.util.*;
 import model.enums.MapDirection;
 
 public class OneDayRunner {
-
     private final WorldMap map;
-
     private final Random random;
 
     public OneDayRunner(WorldMap map){
