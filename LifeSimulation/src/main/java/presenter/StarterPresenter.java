@@ -140,19 +140,10 @@ public class StarterPresenter {
         presenter.setWorldMap(map);
         presenter.initializePresenter();
 
-        stage.setOnCloseRequest(event ->
-                stopSimulation(simulation));
-
         SimulationEngine engine = new SimulationEngine(new ArrayList<>(List.of(simulation)), 4);
         System.out.println("started");
         engine.runAsync();
     }
-
-
-    private void stopSimulation(Simulation simulation){
-        simulation.stopSimulation();
-    }
-
 
     public void onConfigurationSelected() {
         String selectedConfiguration = configurations.getValue();

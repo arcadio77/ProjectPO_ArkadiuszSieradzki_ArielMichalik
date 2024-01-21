@@ -4,15 +4,13 @@ import model.util.Energy;
 import java.util.Random;
 
 public class Simulation implements Runnable{
-
     private final WorldMap map;
-    boolean isRunning;
-
     private int speed;
+    private boolean pauseThreadFlag = false;
+    private final Object GUI_INITIALIZATION_MONITOR = new Object();
 
     public Simulation(WorldMap map, int speed){
         this.map = map;
-        isRunning = true;
         this.speed = speed;
     }
 
@@ -20,7 +18,8 @@ public class Simulation implements Runnable{
         //TODO make CSV file saver
         OneDayRunner oneDay = new OneDayRunner(map);
 
-        while(true){
+        while(!map.getAnimals().isEmpty()){
+            checkForPaused();
             oneDay.runOneDay();
             try {
                 Thread.sleep(speed);
@@ -30,13 +29,25 @@ public class Simulation implements Runnable{
         }
     }
 
-    public void stopSimulation() {
-        //TODO stop simulation
-        isRunning = false;
+    public void pauseSimulation() {
+        pauseThreadFlag = true;
     }
 
     public void continueSimulation(){
-        //TODO continue simulation
-        isRunning = true;
+        synchronized(GUI_INITIALIZATION_MONITOR) {
+            pauseThreadFlag = false;
+            GUI_INITIALIZATION_MONITOR.notify();
+        }
     }
+
+    private void checkForPaused() {
+        synchronized (GUI_INITIALIZATION_MONITOR) {
+            while (pauseThreadFlag) {
+                try {
+                    GUI_INITIALIZATION_MONITOR.wait();
+                } catch (Exception e) {}
+            }
+        }
+    }
+
 }

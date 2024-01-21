@@ -19,6 +19,7 @@ import javafx.scene.shape.Circle;
 
 public class SimulationPresenter implements MapChangeListener {
 
+    public Button pauseBtn;
     public Button stopBtn;
     public Label statistics;
     public Label day;
@@ -44,6 +45,7 @@ public class SimulationPresenter implements MapChangeListener {
     private WorldMap map;
     private Simulation simulation;
     public GridPane gridMap;
+    public Label simulationTerminated;
 
     public void setWorldMap(WorldMap map){
         this.map = map;
@@ -152,7 +154,7 @@ public class SimulationPresenter implements MapChangeListener {
         trackedAnimalEnergyLevel.setText("Energy level: " + animalStats.getEnergyLevel());
         trackedAnimalEatenPlantsNumber.setText("Eaten plants number: " + animalStats.getEatenPlantsNumber());
         trackedAnimalKidsNumber.setText("Kids number: " + animalStats.getKidsNumber());
-        trackedAnimalDescendentsNumber.setText("Descendents number: " + animalStats.getDescendentsNumber());
+        trackedAnimalDescendentsNumber.setText("Descendents number: " + animalStats.getDescendantsNumber());
         trackedAnimalHowManyDaysIsLiving.setText("Living days: " + animalStats.getHowManyDaysIsLiving());
         trackedAnimalDayOfDeath.setText("Day of death: " + animalStats.getAnimalDayOfDeath());
     }
@@ -162,8 +164,14 @@ public class SimulationPresenter implements MapChangeListener {
         Platform.runLater(this::drawMap);
     }
 
+    public void onPauseSimulationClicked() {
+        simulation.pauseSimulation();
+    }
+
     public void onStopSimulationClicked() {
-        //TODO on stop simulation clicked
+        map.killAllAnimals();
+        onContinueSimulationClicked();
+        simulationTerminated.setText("Simulation has been terminated");
     }
 
     public void onStopTrackingAnimal() {
@@ -171,6 +179,6 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void onContinueSimulationClicked() {
-        //TODO continue simulation clicked
+        simulation.continueSimulation();
     }
 }

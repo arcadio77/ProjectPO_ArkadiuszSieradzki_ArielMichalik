@@ -10,8 +10,9 @@
             fx:controller="presenter.SimulationPresenter">
     <top>
         <HBox>
-            <Button fx:id="stopBtn" text="Stop" onAction="#onStopSimulationClicked"/>
+            <Button fx:id="pauseBtn" text="Pause" onAction="#onPauseSimulationClicked"/>
             <Button fx:id="continueBtn" text="Continue" onAction="#onContinueSimulationClicked"/>
+            <Button fx:id="stopBtn" text="Terminate" onAction="#onStopSimulationClicked"/>
 
         </HBox>
     </top>
@@ -45,8 +46,11 @@
             <Label fx:id="trackedAnimalDayOfDeath" text="Day of death: "/>
             <Button fx:id="stopTrackingBtn" text="Stop tracking" onAction="#onStopTrackingAnimal"/>
         </VBox>
-
     </right>
-
+    <bottom>
+        <VBox spacing="10">
+        <Label fx:id="simulationTerminated" style="-fx-font-size: 20px; -fx-font-weight: bold"/>
+    </VBox>
+    </bottom>
 
 </BorderPane>

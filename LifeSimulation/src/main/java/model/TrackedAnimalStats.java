@@ -7,7 +7,7 @@ public class TrackedAnimalStats {
     private int activeGene;
     private int energyLevel;
     private int eatenPlantsNumber;
-    private int descendentsNumber;
+    private int descendantsNumber;
     private int kidsNumber;
     private int howManyDaysIsLiving;
     private int animalDayOfDeath;
@@ -32,7 +32,7 @@ public class TrackedAnimalStats {
     }
 
     private void updateDescendantsNumber(){
-        descendentsNumber = rek(animal).size();
+        descendantsNumber = rek(animal).size();
     }
 
     private ArrayList<Animal> rek(Animal a){
@@ -75,5 +75,5 @@ public class TrackedAnimalStats {
     public ArrayList<Integer> getGenome() {
         return genome;
     }
-    public int getDescendentsNumber() { return descendentsNumber; }
+    public int getDescendantsNumber() { return descendantsNumber; }
 }

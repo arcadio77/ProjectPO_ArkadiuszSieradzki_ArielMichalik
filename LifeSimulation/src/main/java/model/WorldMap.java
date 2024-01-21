@@ -111,7 +111,9 @@ public class WorldMap {
         return isOccupiedByGrass(position) ? 1 : 0;
     }
 
-
+    public void killAllAnimals(){
+        animals = new HashMap<>();
+    }
 
     public void initPutGrasses(int plantsNumber){
         GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(this,plantsNumber, false);
