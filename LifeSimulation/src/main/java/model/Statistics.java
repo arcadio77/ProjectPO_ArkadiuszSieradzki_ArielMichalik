@@ -63,7 +63,7 @@ public class Statistics {
                 .mapToInt(Animal::getAge)
                 .average()
                 .orElse(0.0);
-        this.averageLifespanForDeathAnimals = averageLifespan;
+        this.averageLifespanForDeathAnimals = Math.round(averageLifespan * 100.0)/100.0;
         System.out.println("Average lifeSpan: " + averageLifespan);
     }
 
@@ -73,7 +73,7 @@ public class Statistics {
                 .mapToInt(animal -> animal.getChildren().size())
                 .average()
                 .orElse(0.0);
-        this.averageKidsNumberForLivingAnimals = averageChildren;
+        this.averageKidsNumberForLivingAnimals = Math.round(averageChildren * 100.0)/100.0;
         System.out.println("Average number of children: " + averageChildren);
 
     }
@@ -84,7 +84,7 @@ public class Statistics {
                 .mapToInt(Animal::getEnergy)
                 .average()
                 .orElse(0.0);
-        this.averageEnergyLevelForLivingAnimals = averageEnergy;
+        this.averageEnergyLevelForLivingAnimals = Math.round(averageEnergy * 100.0)/100.0;
         System.out.println("Average energy: " + averageEnergy);
 
     }
