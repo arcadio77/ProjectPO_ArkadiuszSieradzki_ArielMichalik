@@ -49,6 +49,8 @@ public class SimulationPresenter implements MapChangeListener {
     public Label trackedAnimalKidsNumber;
     public Label trackedAnimalHowManyDaysIsLiving;
     public Label trackedAnimalDayOfDeath;
+    public Label dayOfSimulation;
+    public Button stopTrackingBtn;
     private WorldMap map;
     private Simulation simulation;
     public GridPane gridMap;
@@ -148,4 +150,6 @@ public class SimulationPresenter implements MapChangeListener {
         
     }
 
+    public void stopTrackingAnimal(ActionEvent actionEvent) {
+    }
 }

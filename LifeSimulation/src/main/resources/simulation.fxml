@@ -16,29 +16,31 @@
     <left>
         <VBox spacing="10">
             <Label fx:id="statistics" text ="Stats"/>
-            <Label fx:id="numberOfAllAnimals" text="Number of all animals"/>
-            <Label fx:id="numberOfAllPlants" text="Number of all plants"/>
-            <Label fx:id="numberOfEmptyCells" text="Number of empty cells"/>
-            <Label fx:id="mostPopularGenotype" text="Most popular genotype"/>
-            <Label fx:id="averageEnergyLevelForLivingAnimals" text="Average energy level for living animals"/>
-            <Label fx:id="averageLifespanForDeathAnimals" text="Average lifespan for death animals"/>
-            <Label fx:id="averageKidsNumberForLivingAnimals" text="Average kids number for living animals"/>
+            <Label fx:id="numberOfAllAnimals" text="Number of all animals: "/>
+            <Label fx:id="numberOfAllPlants" text="Number of all plants: "/>
+            <Label fx:id="numberOfEmptyCells" text="Number of empty cells: "/>
+            <Label fx:id="mostPopularGenotype" text="Most popular genotype: "/>
+            <Label fx:id="averageEnergyLevelForLivingAnimals" text="Average energy level for living animals: "/>
+            <Label fx:id="averageLifespanForDeathAnimals" text="Average lifespan for death animals: "/>
+            <Label fx:id="averageKidsNumberForLivingAnimals" text="Average kids number for living animals: "/>
         </VBox>
     </left>
     <center>
+        <Label fx:id="dayOfSimulation" text="Day number: "/>
         <GridPane fx:id="gridMap" gridLinesVisible="true"/>
     </center>
     <right>
         <VBox spacing="10">
             <Label fx:id="trackedAnimalStats" text="Stats for tracked animal"/>
-            <Label fx:id="trackedAnimalGenotype" text="Genotype"/>
-            <Label fx:id="trackedAnimalActiveGene" text="Active gene"/>
-            <Label fx:id="trackedAnimalEnergyLevel" text="Energy level"/>
-            <Label fx:id="trackedAnimalEatenPlantsNumber" text="Eaten plants number"/>
-            <Label fx:id="trackedAnimalKidsNumber" text="Kids number"/>
-            <Label fx:id="trackedAnimalDescendentsNumber" text="Descendents number"/>
-            <Label fx:id="trackedAnimalHowManyDaysIsLiving" text="Living days counter"/>
-            <Label fx:id="trackedAnimalDayOfDeath" text="Day of death"/>
+            <Label fx:id="trackedAnimalGenotype" text="Genotype: "/>
+            <Label fx:id="trackedAnimalActiveGene" text="Active gene: "/>
+            <Label fx:id="trackedAnimalEnergyLevel" text="Energy level: "/>
+            <Label fx:id="trackedAnimalEatenPlantsNumber" text="Eaten plants number: "/>
+            <Label fx:id="trackedAnimalKidsNumber" text="Kids number: "/>
+            <Label fx:id="trackedAnimalDescendentsNumber" text="Descendents number: "/>
+            <Label fx:id="trackedAnimalHowManyDaysIsLiving" text="Living days counter: "/>
+            <Label fx:id="trackedAnimalDayOfDeath" text="Day of death: "/>
+            <Button fx:id="stopTrackingBtn" text="Stop tracking" onAction="#stopTrackingAnimal"/>
         </VBox>
 
     </right>
