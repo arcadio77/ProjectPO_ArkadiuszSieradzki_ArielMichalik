@@ -6,6 +6,7 @@ import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import model.*;
 
@@ -46,7 +47,7 @@ public class SimulationPresenter implements MapChangeListener {
     private Simulation simulation;
     public GridPane gridMap;
     public Label simulationTerminated;
-
+    Animal currentTrackedAnimal = null;
     public void setWorldMap(WorldMap map){
         this.map = map;
     }
@@ -56,6 +57,8 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void initializePresenter(){
+//        gridMap.getScene().addEventFilter(KeyEvent.KEY_PRESSED, this::handleKeyPress);
+        setAnimalStatsVisible(false);
         drawMap();
     }
 
@@ -66,6 +69,14 @@ public class SimulationPresenter implements MapChangeListener {
         putAnimals(map.getHeight());
         updateStatsLabels(map);
     }
+
+    private void displayAnimalInfo(Animal animal){
+        currentTrackedAnimal = animal;
+        updateAnimalStatsLabels(animal);
+        setAnimalStatsVisible(true);
+
+    }
+
 
     private void putAnimals(int height) {
         for (WorldElement element : map.getElements()) {
@@ -159,6 +170,19 @@ public class SimulationPresenter implements MapChangeListener {
         trackedAnimalDayOfDeath.setText("Day of death: " + animalStats.getAnimalDayOfDeath());
     }
 
+    public void setAnimalStatsVisible(boolean isVisible){
+        trackedAnimalGenome.setVisible(isVisible);
+        trackedAnimalActiveGene.setVisible(isVisible);
+        trackedAnimalEnergyLevel.setVisible(isVisible);
+        trackedAnimalEatenPlantsNumber.setVisible(isVisible);
+        trackedAnimalKidsNumber.setVisible(isVisible);
+        trackedAnimalDescendentsNumber.setVisible(isVisible);
+        trackedAnimalHowManyDaysIsLiving.setVisible(isVisible);
+        trackedAnimalDayOfDeath.setVisible(isVisible);
+    }
+
+
+
     @Override
     public void mapChanged(WorldMap worldMap, String message) {
         Platform.runLater(this::drawMap);
@@ -175,7 +199,9 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void onStopTrackingAnimal() {
-        //TODO on stop tracking animal clicked
+        currentTrackedAnimal = null;
+        setAnimalStatsVisible(false);
+
     }
 
     public void onContinueSimulationClicked() {
