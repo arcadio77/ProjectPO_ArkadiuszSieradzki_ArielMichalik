@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Animal implements WorldElement {
-    //TODO clean
     private final int id;
     private MapDirection direction;
     private Vector2d position;

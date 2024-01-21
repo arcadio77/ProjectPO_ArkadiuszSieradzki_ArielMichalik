@@ -51,6 +51,7 @@ public class SimulationPresenter implements MapChangeListener {
     public Label trackedAnimalDayOfDeath;
     public Label dayOfSimulation;
     public Button stopTrackingBtn;
+    public Button continueBtn;
     private WorldMap map;
     private Simulation simulation;
     public GridPane gridMap;
@@ -141,15 +142,24 @@ public class SimulationPresenter implements MapChangeListener {
 
     }
 
+    private void updateStats(WorldMap map){
+        //STATS
+    }
+
     @Override
     public void mapChanged(WorldMap worldMap, String message) {
         Platform.runLater(this::drawMap);
     }
 
     public void onStopSimulationClicked() {
-        
+        //TODO on stop simulation clicked
     }
 
-    public void stopTrackingAnimal(ActionEvent actionEvent) {
+    public void stopTrackingAnimal() {
+        //TODO on stop tracking animal clicked
+    }
+
+    public void onContinueSimulationClicked() {
+        //TODO continue simulation clicked
     }
 }

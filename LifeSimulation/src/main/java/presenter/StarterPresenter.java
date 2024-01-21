@@ -190,6 +190,6 @@ public class StarterPresenter {
     }
 
     public void showLegend() {
-        
+        //TODO show legend
     }
 }

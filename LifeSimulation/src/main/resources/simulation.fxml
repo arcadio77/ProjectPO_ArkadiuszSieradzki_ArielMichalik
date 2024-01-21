@@ -11,6 +11,8 @@
     <top>
         <HBox>
             <Button fx:id="stopBtn" text="Stop" onAction="#onStopSimulationClicked"/>
+            <Button fx:id="continueBtn" text="Continue" onAction="#onContinueSimulationClicked"/>
+
         </HBox>
     </top>
     <left>
@@ -44,7 +46,6 @@
         </VBox>
 
     </right>
-
 
 
 </BorderPane>

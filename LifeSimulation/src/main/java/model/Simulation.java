@@ -6,14 +6,15 @@ import java.util.Random;
 public class Simulation implements Runnable{
 
     private final WorldMap map;
+    boolean isRunning;
 
     public Simulation(WorldMap map){
         this.map = map;
+        isRunning = true;
     }
 
     public void run(){
-
-        //TODO still different variations of the map are printing - don't know why?
+        //TODO make CSV file saver
         OneDayRunner oneDay = new OneDayRunner(map);
 
         for(int i=0; i < 200; i++){
@@ -27,6 +28,12 @@ public class Simulation implements Runnable{
     }
 
     public void stopSimulation() {
-        //TODO
+        //TODO stop simulation
+        isRunning = false;
+    }
+
+    public void continueSimulation(){
+        //TODO continue simulation
+        isRunning = true;
     }
 }
