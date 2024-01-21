@@ -194,6 +194,7 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void setAnimalStatsVisible(boolean isVisible){
+        trackedAnimalStats.setVisible(isVisible);
         trackedAnimalGenome.setVisible(isVisible);
         trackedAnimalActiveGene.setVisible(isVisible);
         trackedAnimalEnergyLevel.setVisible(isVisible);
