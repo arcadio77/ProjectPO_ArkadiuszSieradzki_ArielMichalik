@@ -1,29 +1,17 @@
 package presenter;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 
-import javafx.scene.PointLight;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.*;
 
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import model.*;
 
 import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
-import model.util.Energy;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Circle;
@@ -40,6 +28,7 @@ public class SimulationPresenter implements MapChangeListener {
     public Label averageEnergyLevelForLivingAnimals;
     public Label averageLifespanForDeathAnimals;
     public Label averageKidsNumberForLivingAnimals;
+    public Label mostPopularGenome;
     public Label trackedAnimalStats;
     public Label trackedAnimalActiveGene;
     public Label trackedAnimalEnergyLevel;
@@ -51,7 +40,6 @@ public class SimulationPresenter implements MapChangeListener {
     public Label dayOfSimulation;
     public Button stopTrackingBtn;
     public Button continueBtn;
-    public Label mostPopularGenome;
     public Label trackedAnimalGenome;
     private WorldMap map;
     private Simulation simulation;
@@ -154,6 +142,19 @@ public class SimulationPresenter implements MapChangeListener {
         averageLifespanForDeathAnimals.setText("Average Number of Kids: " + statistics.getAverageLifespanForDeathAnimals());
         averageKidsNumberForLivingAnimals.setText("Average Lifespan of Dead Animals: " + statistics.getAverageKidsNumberForLivingAnimals());
 
+    }
+
+    private void updateAnimalStatsLabels(Animal animal){
+        TrackedAnimalStats animalStats = new TrackedAnimalStats(animal);
+        animalStats.updateStats();
+        trackedAnimalGenome.setText("Genome: " + animalStats.getGenome());
+        trackedAnimalActiveGene.setText("Active gene: " + animalStats.getActiveGene());
+        trackedAnimalEnergyLevel.setText("Energy level: " + animalStats.getEnergyLevel());
+        trackedAnimalEatenPlantsNumber.setText("Eaten plants number: " + animalStats.getEatenPlantsNumber());
+        trackedAnimalKidsNumber.setText("Kids number: " + animalStats.getKidsNumber());
+        trackedAnimalDescendentsNumber.setText("Descendents number: " + animalStats.getDescendentsNumber());
+        trackedAnimalHowManyDaysIsLiving.setText("Living days: " + animalStats.getHowManyDaysIsLiving());
+        trackedAnimalDayOfDeath.setText("Day of death: " + animalStats.getAnimalDayOfDeath());
     }
 
     @Override
