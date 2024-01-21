@@ -188,7 +188,7 @@ public class Animal implements WorldElement {
 
     public void breed(Animal child, int lostEnergy){
         this.energy -= lostEnergy;
-        children.add(child);
+        this.children.add(child);
     }
 
     public void eat(int grassEnergy){
