@@ -27,7 +27,7 @@ public class Animal implements WorldElement {
     private int age;
     private ArrayList<Animal> children = new ArrayList<>();
     private static int idCnt = 0;
-    //private ArrayList<Animal> ancestors = new ArrayList<>();
+
 
     public Animal(Vector2d x){
 
@@ -42,10 +42,6 @@ public class Animal implements WorldElement {
         this.genome = genome;
         this.geneId = geneId;
         this.energy = initEnergy;
-        //this.ancestors = a1.getAncestors();
-        //this.ancestors.addAll(a2.getAncestors());
-        //this.ancestors.add(a1);
-        //this.ancestors.add(a2);
     }
 
 
