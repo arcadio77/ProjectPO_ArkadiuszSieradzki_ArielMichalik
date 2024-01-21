@@ -77,7 +77,6 @@ public class SimulationPresenter implements MapChangeListener {
 
     }
 
-
     private void putAnimals(int height) {
         for (WorldElement element : map.getElements()) {
             int newX = element.position().x() + 1;
@@ -173,6 +172,7 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void setAnimalStatsVisible(boolean isVisible){
+        trackedAnimalStats.setVisible(isVisible);
         trackedAnimalGenome.setVisible(isVisible);
         trackedAnimalActiveGene.setVisible(isVisible);
         trackedAnimalEnergyLevel.setVisible(isVisible);
