@@ -11,10 +11,8 @@ public class TrackedAnimalStats {
     private int kidsNumber;
     private int howManyDaysIsLiving;
     private int animalDayOfDeath;
-
     private ArrayList<Integer> genome;
     Animal animal;
-
 
     public TrackedAnimalStats(Animal animal){
         this.animal = animal;
@@ -58,7 +56,6 @@ public class TrackedAnimalStats {
         return eatenPlantsNumber;
     }
 
-
     public int getKidsNumber() {
         return kidsNumber;
     }
@@ -70,7 +67,6 @@ public class TrackedAnimalStats {
     public int getAnimalDayOfDeath() {
         return animalDayOfDeath;
     }
-
 
     public ArrayList<Integer> getGenome() {
         return genome;
