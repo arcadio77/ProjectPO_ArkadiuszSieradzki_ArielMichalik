@@ -13,8 +13,6 @@ public class TrackedAnimalStats {
     private int animalDayOfDeath;
 
     private ArrayList<Integer> genome;
-
-
     Animal animal;
 
 
@@ -23,6 +21,7 @@ public class TrackedAnimalStats {
     }
 
     public void updateStats(){
+        updateDescendantsNumber();
         this.activeGene = animal.getGeneId();
         this.energyLevel = animal.getEnergy();
         this.kidsNumber = animal.getChildren().size();
@@ -32,6 +31,20 @@ public class TrackedAnimalStats {
         this.eatenPlantsNumber = animal.getEatenPlants();
     }
 
+    private void updateDescendantsNumber(){
+        descendentsNumber = rek(animal).size();
+    }
+
+    private ArrayList<Animal> rek(Animal a){
+        if (a.getChildren().isEmpty()){
+            return new ArrayList<>();
+        }
+        ArrayList<Animal> currentDescendants = new ArrayList<>();
+        for(Animal ch : a.getChildren()){
+            currentDescendants.addAll(rek(ch));
+        }
+        return currentDescendants;
+    }
 
     public int getActiveGene() {
         return activeGene;
@@ -62,7 +75,5 @@ public class TrackedAnimalStats {
     public ArrayList<Integer> getGenome() {
         return genome;
     }
-    public int getDescendentsNumber() {
-        return descendentsNumber;
-    }
+    public int getDescendentsNumber() { return descendentsNumber; }
 }
