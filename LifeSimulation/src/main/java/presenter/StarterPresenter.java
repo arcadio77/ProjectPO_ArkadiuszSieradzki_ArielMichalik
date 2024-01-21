@@ -148,7 +148,7 @@ public class StarterPresenter {
     public void onConfigurationSelected() {
         String selectedConfiguration = configurations.getValue();
         if (selectedConfiguration.equals("Configuration 1")) {
-            getSpeed.setText("800");
+            getSpeed.setText("80");
             getWidth.setText("10");
             getHeight.setText("10");
             getAnimalNumber.setText("20");
@@ -162,7 +162,7 @@ public class StarterPresenter {
             getMinMutationNum.setText("1");
             getMaxMutationNum.setText("1");
         } else if (selectedConfiguration.equals("Configuration 2")) {
-            getSpeed.setText("800");
+            getSpeed.setText("80");
             getWidth.setText("20");
             getHeight.setText("20");
             getAnimalNumber.setText("30");
