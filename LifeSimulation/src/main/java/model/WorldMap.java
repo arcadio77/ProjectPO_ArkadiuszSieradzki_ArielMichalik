@@ -343,4 +343,8 @@ public class WorldMap {
     public void setUseLifeGivingCorpses(boolean useLifeGivingCorpses) {
         this.useLifeGivingCorpses = useLifeGivingCorpses;
     }
+
+    public boolean isUseLifeGivingCorpses() {
+        return useLifeGivingCorpses;
+    }
 }

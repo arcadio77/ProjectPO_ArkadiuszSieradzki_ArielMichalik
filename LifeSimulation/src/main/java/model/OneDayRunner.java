@@ -101,6 +101,7 @@ public class OneDayRunner {
                 secMostPowerful.breed(child, map.getEnergy().getBreedLost());
                 map.place(child);
                 map.newAnimalBorn();
+                System.out.println("breeding");
             }
         }
     }

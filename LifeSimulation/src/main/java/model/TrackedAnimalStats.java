@@ -39,6 +39,7 @@ public class TrackedAnimalStats {
         }
         ArrayList<Animal> currentDescendants = new ArrayList<>();
         for(Animal ch : a.getChildren()){
+            currentDescendants.add(ch);
             currentDescendants.addAll(rek(ch));
         }
         return currentDescendants;

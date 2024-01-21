@@ -18,9 +18,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import java.util.List;
+import java.util.Map;
+
 
 
 public class SimulationPresenter implements MapChangeListener {
@@ -70,7 +75,11 @@ public class SimulationPresenter implements MapChangeListener {
     private void drawMap(){
         clearGrid();
         createGrid(map.getWidth(), map.getHeight());
+
         putGrasses(map.getHeight());
+        if(map.isUseLifeGivingCorpses()){
+            putCorpses(map.getHeight());
+        }
         putAnimals(map.getHeight());
         updateStatsLabels(map);
     }
@@ -81,6 +90,20 @@ public class SimulationPresenter implements MapChangeListener {
         setAnimalStatsVisible(true);
 
     }
+
+    private void putCorpses(int height){
+        Map<Vector2d, Integer> recentGraves = map.getRecentGraves();
+        List<Vector2d> gravesPositions = new ArrayList<>(recentGraves.keySet());
+        for(Vector2d pos: gravesPositions){
+            int newX = pos.x() + 1;
+            int newY = height - pos.y(); //because I input values inot column from biggest to smallest
+            Rectangle rectangle = new Rectangle(newX, newY, 30, 30);
+            Color plantColor = new Color(0.1, 0.1, 0.1, 1);
+            rectangle.setFill(plantColor);
+            gridMap.add(rectangle, newX, newY);
+        }
+    }
+
 
     private void putAnimals(int height) {
         for (WorldElement element : map.getElements()) {
