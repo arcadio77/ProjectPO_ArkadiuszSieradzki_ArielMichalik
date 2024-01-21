@@ -119,32 +119,35 @@ public class Animal implements WorldElement {
 
         // corners
         else{
-            //3 subcases, nextPosition can be to the: 1) right/left -> looping around, 2) up/down -> turn around Pole, 3) diagonal -> put animal into opposite corner with same orientation
+            //3 subcases, nextPosition can be to the: 1) right/left -> looping around, 2) up/down -> turn around Pole, 3) diagonal -> 1) + 2)
             if(position.equals(lowerLeft)){
                 checkDownCorners(lowerLeft, newPosition, lowerRight, newPosition.x() < lowerLeft.x(), newPosition.x() >= lowerLeft.x());
                 if(newPosition.isSmaller(lowerLeft)){
-                    this.position = upperRight;
-
+                    this.position = new Vector2d(lowerRight.x(), position.y());
+                    this.direction = direction.opposite();
                 }
             }
             if(position.equals(lowerRight)){
                 checkDownCorners(lowerRight, newPosition, lowerLeft, newPosition.x() > lowerRight.x(), newPosition.x() <= lowerRight.x());
                 if(newPosition.x() > lowerRight.x() && newPosition.y() < lowerRight.y()){
-                    this.position = upperLeft;
+                    this.position = new Vector2d(lowerLeft.x(), position.y());
+                    this.direction = direction.opposite();
 
                 }
             }
             if(position.equals(upperLeft)){
                 checkUpperCorners(upperRight, newPosition, upperLeft, newPosition.x() < upperLeft.x(), newPosition.x() >= upperLeft.x());
                 if(newPosition.x() < upperLeft.x() && newPosition.y() > upperLeft.y()){
-                    this.position = lowerRight;
+                    this.position = new Vector2d(upperRight.x(), position.y());
+                    this.direction = direction.opposite();
 
                 }
             }
             if(position.equals(upperRight)){
                 checkUpperCorners(upperLeft, newPosition, upperRight, newPosition.x() > upperRight.x(), newPosition.x() <= upperRight.x());
                 if(newPosition.isBigger(upperRight)){
-                    this.position = lowerLeft;
+                    this.position = new Vector2d(upperLeft.x(), position.y());
+                    this.direction = direction.opposite();
 
                 }
             }

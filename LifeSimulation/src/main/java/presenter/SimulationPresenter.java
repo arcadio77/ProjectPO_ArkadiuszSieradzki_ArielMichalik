@@ -81,8 +81,7 @@ public class SimulationPresenter implements MapChangeListener {
         for (WorldElement element : map.getElements()) {
             int newX = element.position().x() + 1;
             int newY = height - (element.position().y()); //because I input values inot column from biggest to smallest
-            if (element instanceof Animal) {
-                Animal animal = (Animal) element;
+            if (element instanceof Animal animal) {
                 if (animal.getEnergy() >= 2 * map.getEnergy().getInitialAnimalEnergy()){
                     Color animalColor = new Color(1, 1, 0, 1);
                     Circle circle = new Circle(newX, newY, 15, animalColor);
