@@ -164,7 +164,7 @@ public class SimulationPresenter implements MapChangeListener {
         //TODO on stop simulation clicked
     }
 
-    public void stopTrackingAnimal() {
+    public void onStopTrackingAnimal() {
         //TODO on stop tracking animal clicked
     }
 

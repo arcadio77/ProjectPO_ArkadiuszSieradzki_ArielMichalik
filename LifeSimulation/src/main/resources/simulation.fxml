@@ -42,7 +42,7 @@
             <Label fx:id="trackedAnimalDescendentsNumber" text="Descendents number: "/>
             <Label fx:id="trackedAnimalHowManyDaysIsLiving" text="Living days counter: "/>
             <Label fx:id="trackedAnimalDayOfDeath" text="Day of death: "/>
-            <Button fx:id="stopTrackingBtn" text="Stop tracking" onAction="#stopTrackingAnimal"/>
+            <Button fx:id="stopTrackingBtn" text="Stop tracking" onAction="#onStopTrackingAnimal"/>
         </VBox>
 
     </right>
