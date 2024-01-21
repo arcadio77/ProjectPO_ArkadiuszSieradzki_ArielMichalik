@@ -36,12 +36,10 @@ public class SimulationPresenter implements MapChangeListener {
     public Label numberOfAllAnimals;
     public Label numberOfAllPlants;
     public Label numberOfEmptyCells;
-    public Label mostPopularGenotype;
     public Label averageEnergyLevelForLivingAnimals;
     public Label averageLifespanForDeathAnimals;
     public Label averageKidsNumberForLivingAnimals;
     public Label trackedAnimalStats;
-    public Label trackedAnimalGenotype;
     public Label trackedAnimalActiveGene;
     public Label trackedAnimalEnergyLevel;
     public Label trackedAnimalEatenPlantsNumber;
@@ -52,6 +50,8 @@ public class SimulationPresenter implements MapChangeListener {
     public Label dayOfSimulation;
     public Button stopTrackingBtn;
     public Button continueBtn;
+    public Label mostPopularGenome;
+    public Label trackedAnimalGenome;
     private WorldMap map;
     private Simulation simulation;
     public GridPane gridMap;
@@ -73,6 +73,7 @@ public class SimulationPresenter implements MapChangeListener {
         createGrid(map.getWidth(), map.getHeight());
         putGrasses(map.getHeight());
         putAnimals(map.getHeight());
+        updateStatsLabels(map);
     }
 
     private void putAnimals(int height) {
@@ -141,9 +142,17 @@ public class SimulationPresenter implements MapChangeListener {
 
 
     }
+    private void updateStatsLabels(WorldMap map){
+        Statistics statistics = new Statistics(map);
+        statistics.updateStats();
+        numberOfAllAnimals.setText("Number of Animals: " + statistics.getNumberOfAllAnimals());
+        numberOfAllPlants.setText("Number of Plants: " + statistics.getNumberOfAllPlants());
+        numberOfEmptyCells.setText("Number of Empty Cells: " + statistics.getNumberOfEmptyCells());
+        mostPopularGenome.setText("Most Popular Genome: " + statistics.getMostPopularGenome());
+        averageEnergyLevelForLivingAnimals.setText("Average Energy: " + statistics.getAverageEnergyLevelForLivingAnimals());
+        averageLifespanForDeathAnimals.setText("Average Number of Kids: " + statistics.getAverageLifespanForDeathAnimals());
+        averageKidsNumberForLivingAnimals.setText("Average Lifespan of Dead Animals: " + statistics.getAverageKidsNumberForLivingAnimals());
 
-    private void updateStats(WorldMap map){
-        //TODO update stats
     }
 
     @Override

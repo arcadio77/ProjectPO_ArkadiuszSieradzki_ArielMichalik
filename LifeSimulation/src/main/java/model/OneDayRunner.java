@@ -134,7 +134,7 @@ public class OneDayRunner {
                     }
                 }
                 else{ // dead
-                    map.animalIsDead(position);
+                    map.animalIsDead(position, animal);
                 }
             }
         }

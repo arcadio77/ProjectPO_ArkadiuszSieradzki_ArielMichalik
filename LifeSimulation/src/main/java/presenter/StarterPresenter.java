@@ -1,6 +1,5 @@
 package presenter;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,7 +13,6 @@ import model.Mutation;
 import model.Simulation;
 import model.SimulationEngine;
 import model.WorldMap;
-import model.interfaces.MapChangeListener;
 import model.util.Energy;
 
 
@@ -100,8 +98,8 @@ public class StarterPresenter {
     private void settingMap( WorldMap map){
         map.setWidth(getWidthValue());
         map.setHeight(getHeightValue());
-        map.setAnimalsNumber(getAnimalNumberValue());
-        map.setPlantsNumber(getInitialGrassNumberValue());
+        map.setInitialAnimalsNumber(getAnimalNumberValue());
+        map.setInitialPlantsNumber(getInitialGrassNumberValue());
         Energy energy = new Energy(getGrassEnergyValue(), getBreedReadyEnergyValue(), getBreedLostEnergyValue(), getInitialAnimalEnergyValue());
         map.setEnergy(energy);
         map.setMutation(new Mutation(getMinMutationNumValue(), getMaxMutationNumValue()));

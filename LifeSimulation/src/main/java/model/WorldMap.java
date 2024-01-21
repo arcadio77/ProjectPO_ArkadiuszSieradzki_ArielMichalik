@@ -12,8 +12,8 @@ public class WorldMap {
     private int width;
     private int height;
     protected final ArrayList<MapChangeListener> observers;
-    private int plantsNumber; //initial at first
-    private int animalsNumber; //initial at first
+    private int initialPlantsNumber;
+    private int initialAnimalsNumber;
     private int genomeLength;
     private int dead = 0;
     private int newAnimals = 0;
@@ -22,13 +22,19 @@ public class WorldMap {
     protected Map<Vector2d, ArrayList<Animal>> animals;
     protected Map<Vector2d, Animal> bestAnimals;
     protected Map<Vector2d, Grass> plants;
-    private int numOfGrassGrowingDaily; //need to move to oneCycle class
+    private int numOfGrassGrowingDaily;
     private Boundary worldBounds;
     private Boundary jungleBounds;
     private Random random;
+
     private boolean useMutationSwapGene;
     private boolean useLifeGivingCorpses;
     protected Map<Vector2d, Integer> recentGraves = new HashMap<>();
+    protected ArrayList<Animal> deadAnimals;
+
+    public ArrayList<Animal> getDeadAnimals() {
+        return deadAnimals;
+    }
 
     public WorldMap(int width, int height, int animalsNumber, int plantsNumber,
                     Energy energy, int minMutationNum, int maxMutationNum, int genomeLength,
@@ -37,8 +43,8 @@ public class WorldMap {
 
         this.width = width;
         this.height = height;
-        this.animalsNumber = animalsNumber;
-        this.plantsNumber = plantsNumber;
+        this.initialAnimalsNumber = animalsNumber;
+        this.initialPlantsNumber = plantsNumber;
         this.energy = energy;
         this.mutation = new Mutation(minMutationNum, maxMutationNum);
         this.genomeLength = genomeLength;
@@ -48,6 +54,7 @@ public class WorldMap {
         this.plants = new HashMap<>();
         this.random = random;
         this.observers = new ArrayList<>();
+        this.deadAnimals =  new ArrayList<Animal>();
         this.useMutationSwapGene = useMutationSwapGene;
         this.useLifeGivingCorpses = useLifeGivingCorpses;
 
@@ -100,17 +107,8 @@ public class WorldMap {
         return isOccupiedByGrass(position) ? 1 : 0;
     }
 
-    public int cntAllGrasess(){
-        return plants.size();
-    }
 
-    public int cntAllAliveAnimals(){
-        int cnt = 0;
-        for(Map.Entry<Vector2d, ArrayList<Animal>> entry : animals.entrySet()){
-            cnt += entry.getValue().size();
-        }
-        return cnt;
-    }
+
     public void initPutGrasses(int plantsNumber){
         GrassPositionsGenerator grassPositions = new GrassPositionsGenerator(this,plantsNumber, false);
         for(Vector2d grassPosition : grassPositions){
@@ -125,16 +123,10 @@ public class WorldMap {
         }
     }
 
-    public void putAnimals(){
-        AnimalPositionsGenerator positions = new AnimalPositionsGenerator(this, animalsNumber);
-        for(Vector2d animalPosition: positions){
-            Animal newAnimal = new Animal(animalPosition, MapDirection.generateRandomDirection(), new Genome(genomeLength, mutation, random), 0, energy.getInitialAnimalEnergy());
-            this.place(newAnimal);
-        }
-    }
+
 
     public void initPutAnimals(){
-        AnimalPositionsGenerator positions = new AnimalPositionsGenerator(this, animalsNumber);
+        AnimalPositionsGenerator positions = new AnimalPositionsGenerator(this, initialAnimalsNumber);
         for(Vector2d animalPosition: positions){
             Animal newAnimal = new Animal(animalPosition, MapDirection.generateRandomDirection(), new Genome(genomeLength, mutation, random), 0, energy.getInitialAnimalEnergy());
             this.place(newAnimal);
@@ -155,7 +147,8 @@ public class WorldMap {
         newAnimals++;
     }
 
-    public void animalIsDead(Vector2d position){
+    public void animalIsDead(Vector2d position, Animal animal){
+        deadAnimals.add(animal);
         recentGraves.remove(position);
         recentGraves.put(position, 5);
     }
@@ -202,6 +195,7 @@ public class WorldMap {
             animals.put(animalPos, new ArrayList<>(List.of(animal)));
         }
     }
+
 
     @Override
     public String toString() {
@@ -266,12 +260,12 @@ public class WorldMap {
         return recentGraves;
     }
 
-    public void setPlantsNumber(int plantsNumber) {
-        this.plantsNumber = plantsNumber;
+    public void setInitialPlantsNumber(int initialPlantsNumber) {
+        this.initialPlantsNumber = initialPlantsNumber;
     }
 
-    public void setAnimalsNumber(int animalsNumber) {
-        this.animalsNumber = animalsNumber;
+    public void setInitialAnimalsNumber(int initialAnimalsNumber) {
+        this.initialAnimalsNumber = initialAnimalsNumber;
     }
 
     public void setGenomeLength(int genomeLength) {
