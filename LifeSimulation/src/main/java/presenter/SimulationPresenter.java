@@ -83,19 +83,21 @@ public class SimulationPresenter implements MapChangeListener {
             int newX = element.position().x() + 1;
             int newY = height - (element.position().y()); //because I input values inot column from biggest to smallest
             if (element instanceof Animal animal) {
-                if (animal.getEnergy() >= 2 * map.getEnergy().getInitialAnimalEnergy()){
-                    Color animalColor = new Color(1, 1, 0, 1);
-                    Circle circle = new Circle(newX, newY, 15, animalColor);
-                    gridMap.add(circle, newX, newY);
-                } else if (animal.getEnergy() >= map.getEnergy().getInitialAnimalEnergy()) {
-                    Color animalColor = new Color(1, 0.5, 0, 1);
-                    Circle circle = new Circle(newX, newY, 15, animalColor);
-                    gridMap.add(circle, newX, newY);
-                } else {
-                    Color animalColor = new Color(1, 0, 0, 1);
-                    Circle circle = new Circle(newX, newY, 15, animalColor);
-                    gridMap.add(circle, newX, newY);
+                Color animalColor;
+                if (animal.equals(currentTrackedAnimal)) {
+                    animalColor = new Color(0.1, 0.1, 1, 1);
                 }
+                else if (animal.getEnergy() >= 2 * map.getEnergy().getInitialAnimalEnergy()){
+                    animalColor = new Color(1, 1, 0, 1);
+                }
+                else if (animal.getEnergy() >= map.getEnergy().getInitialAnimalEnergy()) {
+                    animalColor = new Color(1, 0.5, 0, 1);
+                } else {
+                    animalColor = new Color(1, 0, 0, 1);
+                }
+                Circle circle = new Circle(newX, newY, 15, animalColor);
+                circle.setOnMouseClicked(event -> displayAnimalInfo(animal));
+                gridMap.add(circle, newX, newY);
             }
         }
     }
