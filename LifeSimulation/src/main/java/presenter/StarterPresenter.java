@@ -160,29 +160,29 @@ public class StarterPresenter {
         if (selectedConfiguration.equals("Configuration 1")) {
             getWidth.setText("10");
             getHeight.setText("10");
-            getAnimalNumber.setText("10");
+            getAnimalNumber.setText("20");
             getInitialAnimalEnergy.setText("10");
-            getInitialGrassNumber.setText("10");
-            getNumOfGrassGrowingDaily.setText("10");
-            getGrassEnergy.setText("10");
-            getBreedReadyEnergy.setText("10");
-            getBreedLostEnergy.setText("10");
-            getGenomeLength.setText("10");
-            getMinMutationNum.setText("10");
-            getMaxMutationNum.setText("10");
+            getInitialGrassNumber.setText("20");
+            getNumOfGrassGrowingDaily.setText("5");
+            getGrassEnergy.setText("3");
+            getBreedReadyEnergy.setText("4");
+            getBreedLostEnergy.setText("2");
+            getGenomeLength.setText("5");
+            getMinMutationNum.setText("1");
+            getMaxMutationNum.setText("1");
         } else if (selectedConfiguration.equals("Configuration 2")) {
             getWidth.setText("20");
             getHeight.setText("20");
-            getAnimalNumber.setText("20");
-            getInitialAnimalEnergy.setText("20");
-            getInitialGrassNumber.setText("20");
-            getNumOfGrassGrowingDaily.setText("20");
-            getGrassEnergy.setText("20");
-            getBreedReadyEnergy.setText("20");
-            getBreedLostEnergy.setText("20");
-            getGenomeLength.setText("20");
-            getMinMutationNum.setText("20");
-            getMaxMutationNum.setText("20");
+            getAnimalNumber.setText("30");
+            getInitialAnimalEnergy.setText("7");
+            getInitialGrassNumber.setText("12");
+            getNumOfGrassGrowingDaily.setText("10");
+            getGrassEnergy.setText("3");
+            getBreedReadyEnergy.setText("4");
+            getBreedLostEnergy.setText("2");
+            getGenomeLength.setText("8");
+            getMinMutationNum.setText("2");
+            getMaxMutationNum.setText("2");
             getUseMutationSwapGene.setSelected(true);
             getUseLifeGivingCorpses.setSelected(true);
         }
