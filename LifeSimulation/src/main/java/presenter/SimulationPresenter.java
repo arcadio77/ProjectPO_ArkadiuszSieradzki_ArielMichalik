@@ -2,6 +2,7 @@ package presenter;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 
 import javafx.scene.PointLight;
@@ -12,9 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.*;
 
@@ -33,8 +32,24 @@ import javafx.scene.shape.Circle;
 public class SimulationPresenter implements MapChangeListener {
 
     public Button stopBtn;
+    public Label statistics;
+    public Label numberOfAllAnimals;
+    public Label numberOfAllPlants;
+    public Label numberOfEmptyCells;
+    public Label mostPopularGenotype;
+    public Label averageEnergyLevelForLivingAnimals;
+    public Label averageLifespanForDeathAnimals;
+    public Label averageKidsNumberForLivingAnimals;
+    public Label trackedAnimalStats;
+    public Label trackedAnimalGenotype;
+    public Label trackedAnimalActiveGene;
+    public Label trackedAnimalEnergyLevel;
+    public Label trackedAnimalEatenPlantsNumber;
+    public Label trackedAnimalDescendentsNumber;
+    public Label trackedAnimalKidsNumber;
+    public Label trackedAnimalHowManyDaysIsLiving;
+    public Label trackedAnimalDayOfDeath;
     private WorldMap map;
-    public Button startBtn;
     private Simulation simulation;
     public GridPane gridMap;
 
@@ -129,14 +144,8 @@ public class SimulationPresenter implements MapChangeListener {
         Platform.runLater(this::drawMap);
     }
 
-
     public void onStopSimulationClicked() {
+        
     }
 
-    public void onStartNewSimulationClicked()  throws IllegalArgumentException{
-//        Simulation simulation = new Simulation(this.map);
-//        SimulationEngine engine = new SimulationEngine(new ArrayList<>(List.of(simulation)), 4);
-//        System.out.println("started");
-//        engine.runAsync();
-    }
 }

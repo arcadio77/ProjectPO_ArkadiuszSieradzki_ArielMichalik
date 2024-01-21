@@ -25,6 +25,7 @@
                     </FXCollections>
                 </items>
             </ComboBox>
+            <Button fx:id="showLegend" text="Legend" onAction="#showLegend"/>
         </HBox>
     </top>
     <center>
