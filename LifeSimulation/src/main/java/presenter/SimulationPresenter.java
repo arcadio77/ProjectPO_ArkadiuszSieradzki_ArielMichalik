@@ -17,6 +17,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Circle;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class SimulationPresenter implements MapChangeListener {
 
@@ -100,6 +105,33 @@ public class SimulationPresenter implements MapChangeListener {
             }
         }
     }
+
+    private void showMostPopularGenome(int height) {
+        //TODO
+//        String genomeText = mostPopularGenome.getText();
+//        ArrayList<Integer> genomeList = Arrays.stream(genomeText.split(","))
+//                .map(Integer::parseInt)
+//                .collect(Collectors.toCollection(ArrayList::new));
+//
+//        List<Animal> AnimalsWithMostOccuredGenome = map.getElements().stream()
+//            .filter(element -> element instanceof Animal)
+//            .map(element -> (Animal) element)
+//            .filter(animal -> animal.getGenomeList().equals(genomeList))
+//            .toList();
+//
+//        for(Animal animal: AnimalsWithMostOccuredGenome){
+//            int newX = animal.position().x() + 1;
+//            int newY = height - (animal.position().y());
+//            Circle circle = new Circle(newX, newY, 15, new Color(0.5, 0.4, 0.7, 1));
+//            gridMap.add(circle, newX, newY);
+//        }
+
+    }
+
+    private void drawEquator() {
+        //TODO 
+    }
+
 
     private void putGrasses(int height) {
         for(WorldElement element: map.getElements()){
@@ -189,8 +221,12 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void onPauseSimulationClicked() {
+        showMostPopularGenome(map.getHeight());
+        drawEquator();
         simulation.pauseSimulation();
     }
+
+
 
     public void onStopSimulationClicked() {
         map.killAllAnimals();
