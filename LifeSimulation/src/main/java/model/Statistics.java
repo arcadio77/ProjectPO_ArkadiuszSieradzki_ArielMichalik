@@ -57,10 +57,10 @@ public class Statistics {
         countMostPopularGenome();
         countAverageEnergyLevelForLivingAnimals();
         countAverageKidsNumberForLivingAnimals();
-        countAverageLifespanForDeathAnimals();
+        countAverageLifespanForDeadAnimals();
     }
 
-    private void countAverageLifespanForDeathAnimals(){
+    private void countAverageLifespanForDeadAnimals(){
         double averageLifespan = map.getDeadAnimals().stream()
                 .mapToInt(Animal::getAge)
                 .average()

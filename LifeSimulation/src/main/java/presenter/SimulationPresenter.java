@@ -183,8 +183,6 @@ public class SimulationPresenter implements MapChangeListener {
         trackedAnimalDayOfDeath.setVisible(isVisible);
     }
 
-
-
     @Override
     public void mapChanged(WorldMap worldMap, String message) {
         Platform.runLater(this::drawMap);
@@ -203,7 +201,6 @@ public class SimulationPresenter implements MapChangeListener {
     public void onStopTrackingAnimal() {
         currentTrackedAnimal = null;
         setAnimalStatsVisible(false);
-
     }
 
     public void onContinueSimulationClicked() {

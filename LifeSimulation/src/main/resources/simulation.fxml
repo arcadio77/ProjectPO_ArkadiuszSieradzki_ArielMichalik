@@ -52,5 +52,4 @@
         <Label fx:id="simulationTerminated" style="-fx-font-size: 20px; -fx-font-weight: bold"/>
     </VBox>
     </bottom>
-
 </BorderPane>
