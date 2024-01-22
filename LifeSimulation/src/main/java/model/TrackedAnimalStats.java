@@ -20,11 +20,11 @@ public class TrackedAnimalStats {
 
     public void updateStats(){
         updateDescendantsNumber();
-        this.activeGene = animal.getGeneId();
         this.energyLevel = animal.getEnergy();
         this.kidsNumber = animal.getChildren().size();
         this.howManyDaysIsLiving = animal.getAge();
         this.genome = animal.getGenomeList();
+        this.activeGene = genome.get(animal.getGeneId());
         this.animalDayOfDeath = animal.getDeathDate();
         this.eatenPlantsNumber = animal.getEatenPlants();
     }
