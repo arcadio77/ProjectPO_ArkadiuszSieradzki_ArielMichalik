@@ -6,7 +6,7 @@ import model.interfaces.WorldElement;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Animal implements WorldElement {
+public class Animal implements WorldElement, Cloneable {
     private final int id;
     private MapDirection direction;
     private Vector2d position;
@@ -29,6 +29,14 @@ public class Animal implements WorldElement {
     private static int idCnt = 0;
 
 
+    @Override
+    public Animal clone() {
+        try {
+            return (Animal) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
     public Animal(Vector2d x){
 
         this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0),  new Random()), 0, 5);

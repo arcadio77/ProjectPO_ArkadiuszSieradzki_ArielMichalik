@@ -59,6 +59,7 @@ public class SimulationPresenter implements MapChangeListener {
     public Label simulationTerminated;
     private Statistics stats;
     Animal currentTrackedAnimal = null;
+    private Animal previousTrackedAnimal = null;
     private int cellSize;
     private int radiusValue;
     private final static int maxGridWidth = 700;
@@ -102,16 +103,12 @@ public class SimulationPresenter implements MapChangeListener {
             putCorpses(map.getHeight());
         }
 
-        putAnimals(map.getHeight());
+        putAnimals();
         updateStatsLabels();
     }
 
-    private void displayAnimalInfo(Animal animal){
-        currentTrackedAnimal = animal;
-        updateAnimalStatsLabels(animal);
-        setAnimalStatsVisible(true);
 
-    }
+
 
     private void putCorpses(int height){
         Map<Vector2d, Integer> recentGraves = map.getRecentGraves();
@@ -126,32 +123,46 @@ public class SimulationPresenter implements MapChangeListener {
             gridMap.add(rectangle, newX, newY);
         }
     }
+    private void displayAnimalInfo(Animal animal){
+        if (currentTrackedAnimal != null) {
+            previousTrackedAnimal = currentTrackedAnimal.clone();
+        }
+        currentTrackedAnimal = animal;
+        updateAnimalColor(previousTrackedAnimal);
+        updateAnimalColor(currentTrackedAnimal);
+        updateAnimalStatsLabels();
+        setAnimalStatsVisible(true);
 
+    }
 
-    private void putAnimals(int height) {
+    private void putAnimals() {
         for (WorldElement element : map.getElements()) {
-            int newX = element.position().x() + 1;
-            int newY = height - (element.position().y()); //because I input values inot column from biggest to smallest
             if (element instanceof Animal animal) {
-                Color animalColor;
-                if (animal.equals(currentTrackedAnimal)) {
-                    animalColor = new Color(0.1, 0.1, 1, 1);
-                }
-                else if (animal.getEnergy() >= 2 * map.getEnergy().getInitialAnimalEnergy()){
-                    animalColor = new Color(1, 1, 0, 1);
-                }
-                else if (animal.getEnergy() >= map.getEnergy().getInitialAnimalEnergy()) {
-                    animalColor = new Color(1, 0.5, 0, 1);
-                } else {
-                    animalColor = new Color(1, 0, 0, 1);
-                }
-                Circle circle = new Circle(newX, newY, radiusValue, animalColor);
-                circle.setOnMouseClicked(event -> displayAnimalInfo(animal));
-                GridPane.setHalignment(circle, HPos.CENTER);
-                gridMap.add(circle, newX, newY);
+                updateAnimalColor(animal);
             }
         }
     }
+    private void updateAnimalColor(Animal animal){
+        int newX = animal.position().x() + 1;
+        int newY = map.getHeight() - (animal.position().y());
+        Color animalColor;
+        if (animal.equals(currentTrackedAnimal)){
+           animalColor = new Color(0.1, 0.1, 1, 1);
+        }
+        else if (animal.getEnergy() >= 2 * map.getEnergy().getInitialAnimalEnergy()){
+            animalColor = new Color(1, 1, 0, 1);
+        }
+        else if (animal.getEnergy() >= map.getEnergy().getInitialAnimalEnergy()) {
+            animalColor = new Color(1, 0.5, 0, 1);
+        } else {
+            animalColor = new Color(1, 0, 0, 1);
+        }
+        Circle circle = new Circle(newX, newY, radiusValue, animalColor);
+        circle.setOnMouseClicked(event -> displayAnimalInfo(animal));
+        GridPane.setHalignment(circle, HPos.CENTER);
+        gridMap.add(circle, newX, newY);
+    }
+
 
     private void showMostPopularGenome() {
         int height = map.getHeight();
@@ -182,12 +193,10 @@ public class SimulationPresenter implements MapChangeListener {
         }
     }
 
-
     private void putGrasses(int height) {
         for(WorldElement element: map.getElements()){
-            //if (!map.isOccupiedByAnimal(element.position())) {
                 int newX = element.position().x() + 1;
-                int newY = height - (element.position().y()); //because I input values inot column from biggest to smallest
+                int newY = height - (element.position().y());
                 if (element instanceof Grass) {
                     Rectangle rectangle = new Rectangle(newX, newY, cellSize, cellSize);
                     Color plantColor = new Color(0, 0.6, 0, 1);
@@ -199,7 +208,7 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     private void clearGrid() {
-        gridMap.getChildren().retainAll(gridMap.getChildren().get(0)); // hack to retain visible grid lines
+        gridMap.getChildren().retainAll(gridMap.getChildren().get(0));
         gridMap.getColumnConstraints().clear();
         gridMap.getRowConstraints().clear();
     }
@@ -239,8 +248,8 @@ public class SimulationPresenter implements MapChangeListener {
 
     }
 
-    private void updateAnimalStatsLabels(Animal animal){
-        TrackedAnimalStats animalStats = new TrackedAnimalStats(animal);
+    private void updateAnimalStatsLabels(){
+        TrackedAnimalStats animalStats = new TrackedAnimalStats(currentTrackedAnimal);
         animalStats.updateStats();
         trackedAnimalGenome.setText("Genome: " + animalStats.getGenome());
         trackedAnimalActiveGene.setText("Active gene: " + animalStats.getActiveGene());
@@ -272,7 +281,9 @@ public class SimulationPresenter implements MapChangeListener {
     public void onPauseSimulationClicked() {
         simulation.pauseSimulation();
         showMostPopularGenome();
-        drawEquator();
+        if(!map.isUseLifeGivingCorpses()){
+            drawEquator();
+        }
     }
 
 
