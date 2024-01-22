@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Legend"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<VBox xmlns="http://javafx.com/javafx"
+      spacing="20" alignment="CENTER"
+      minWidth="320.0" minHeight="320.0"
+      style="-fx-padding: 20;">
+    <Label text="Legend" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 
-</AnchorPane>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Rectangle  width="20" height="20" fill="GREEN"/>
+        <Label text=" - Grass" style="-fx-font-size: 16px;"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Rectangle  width="20" height="20" fill="lightgreen"/>
+        <Label text=" - Equator" style="-fx-font-size: 16px;"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Rectangle width="20" height="20" fill="BLACK"/>
+        <Label text=" - Animals graves" style="-fx-font-size: 16px;"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Circle radius="10" fill="BLUE"/>
+        <Label text=" - Current Tracked Animal " style="-fx-font-size: 16px;"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+            <Circle radius="10" fill="YELLOW"/>
+            <Label text=" - High energy animal " style="-fx-font-size: 16px;"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Circle radius="10" fill="ORANGE"/>
+        <Label text=" - Medium energy animal " style="-fx-font-size: 16px;"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Circle radius="10" fill="RED"/>
+        <Label text=" - Low energy animal " style="-fx-font-size: 16px;"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Circle radius="10" fill="mediumpurple"/>
+        <Label text=" - Most common genome " style="-fx-font-size: 16px;"/>
+    </HBox>
+
+</VBox>

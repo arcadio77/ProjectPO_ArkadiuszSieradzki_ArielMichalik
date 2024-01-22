@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Mutation;
 
@@ -186,7 +187,16 @@ public class StarterPresenter {
         }
     }
 
-    public void showLegend() {
-        //TODO show legend
+    public void showLegend() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("legend.fxml"));
+        Stage stage = new Stage();
+        VBox viewRoot = loader.load();
+        var scene = new Scene(viewRoot);
+        stage.setScene(scene);
+        stage.setTitle("Legend");
+        stage.minWidthProperty().bind(viewRoot.minWidthProperty());
+        stage.minHeightProperty().bind(viewRoot.minHeightProperty());
+        stage.show();
     }
 }

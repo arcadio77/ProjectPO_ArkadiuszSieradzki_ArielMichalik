@@ -108,8 +108,6 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
 
-
-
     private void putCorpses(int height){
         Map<Vector2d, Integer> recentGraves = map.getRecentGraves();
         List<Vector2d> gravesPositions = new ArrayList<>(recentGraves.keySet());
