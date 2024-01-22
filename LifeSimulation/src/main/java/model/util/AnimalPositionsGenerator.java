@@ -3,6 +3,7 @@ package model.util;
 import model.Vector2d;
 import model.WorldMap;
 import model.interfaces.PositionsGenerator;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -29,7 +30,7 @@ public class AnimalPositionsGenerator implements PositionsGenerator {
     }
 
     @Override
-    public Iterator<Vector2d> iterator() {
+    public @NotNull Iterator<Vector2d> iterator() {
         return positions.iterator();
     }
 }

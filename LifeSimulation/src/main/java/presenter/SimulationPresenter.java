@@ -14,6 +14,8 @@ import model.interfaces.WorldElement;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Circle;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +57,7 @@ public class SimulationPresenter implements MapChangeListener {
     private Animal previousTrackedAnimal = null;
     private int cellSize;
     private int radiusValue;
+
     private final static int maxGridWidth = 700;
     private final static int maxGridHeight = 700;
 
@@ -98,6 +101,9 @@ public class SimulationPresenter implements MapChangeListener {
 
         putAnimals();
         updateStatsLabels();
+        if(currentTrackedAnimal != null){
+            updateAnimalStatsLabels();
+        }
     }
 
 
@@ -117,7 +123,12 @@ public class SimulationPresenter implements MapChangeListener {
     private void displayAnimalInfo(Animal animal){
         if (currentTrackedAnimal != null) {
             previousTrackedAnimal = currentTrackedAnimal.clone();
-            updateAnimalColor(previousTrackedAnimal);
+            if(previousTrackedAnimal.getGenomeList().equals(stats.getMostPopularGenome())){
+                showMostPopularGenome();
+            }
+            else{
+                updateAnimalColor(previousTrackedAnimal);
+            }
         }
         currentTrackedAnimal = animal;
         updateAnimalColor(currentTrackedAnimal);
@@ -133,7 +144,7 @@ public class SimulationPresenter implements MapChangeListener {
             }
         }
     }
-    private void updateAnimalColor(Animal animal){
+    private void updateAnimalColor(@NotNull Animal animal){
         int newX = animal.position().x() + 1;
         int newY = map.getHeight() - (animal.position().y());
         Color animalColor;
@@ -167,6 +178,7 @@ public class SimulationPresenter implements MapChangeListener {
             int newX = animal.position().x() + 1;
             int newY = height - (animal.position().y());
             Circle circle = new Circle(newX, newY, radiusValue, new Color(0.5, 0.4, 0.7, 1));
+            circle.setOnMouseClicked(event -> displayAnimalInfo(animal));
             GridPane.setHalignment(circle, HPos.CENTER);
             gridMap.add(circle, newX, newY);
         }
@@ -269,11 +281,12 @@ public class SimulationPresenter implements MapChangeListener {
 
     public void onPauseSimulationClicked() {
         simulation.pauseSimulation();
-        showMostPopularGenome();
         if(!map.isUseLifeGivingCorpses()){
             drawEquator();
             putAnimals();
         }
+        showMostPopularGenome();
+
     }
 
 
