@@ -193,7 +193,6 @@ public class Animal implements WorldElement, Cloneable {
         }
     }
 
-
     public void breed(Animal child, int lostEnergy){
         this.energy -= lostEnergy;
         this.children.add(child);
@@ -215,7 +214,5 @@ public class Animal implements WorldElement, Cloneable {
     public int getDeathDate() {
         return deathDate;
     }
-    public int getId() {
-        return id;
-    }
+
 }

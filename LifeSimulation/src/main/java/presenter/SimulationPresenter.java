@@ -6,23 +6,15 @@ import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import model.*;
 
 import model.interfaces.MapChangeListener;
 import model.interfaces.WorldElement;
-
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Circle;
-
 import java.util.ArrayList;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +45,7 @@ public class SimulationPresenter implements MapChangeListener {
     public Button stopTrackingBtn;
     public Button continueBtn;
     public Label trackedAnimalGenome;
+
     private WorldMap map;
     private Simulation simulation;
     public GridPane gridMap;
@@ -240,9 +233,8 @@ public class SimulationPresenter implements MapChangeListener {
         numberOfEmptyCells.setText("Number of Empty Cells: " + stats.getNumberOfEmptyCells());
         mostPopularGenome.setText("Most Popular Genome: " + stats.getMostPopularGenome());
         averageEnergyLevelForLivingAnimals.setText("Average Energy: " + stats.getAverageEnergyLevelForLivingAnimals());
-        averageLifespanForDeathAnimals.setText("Average Number of Kids: " + stats.getAverageLifespanForDeathAnimals());
-        averageKidsNumberForLivingAnimals.setText("Average Lifespan of Dead Animals: " + stats.getAverageKidsNumberForLivingAnimals());
-
+        averageLifespanForDeathAnimals.setText("Average Lifespan for dead animals : " + stats.getAverageLifespanForDeathAnimals());
+        averageKidsNumberForLivingAnimals.setText("Average Number of Kids: " + stats.getAverageKidsNumberForLivingAnimals());
     }
 
     private void updateAnimalStatsLabels(){

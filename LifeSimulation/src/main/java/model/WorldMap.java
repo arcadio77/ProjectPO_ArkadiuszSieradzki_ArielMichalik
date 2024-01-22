@@ -89,10 +89,8 @@ public class WorldMap {
 
     public Boundary setJungleBounds(){
         //20% of the map area, horizontal line of the grass -> const width
-
         int h = this.height - 1;
         int w = this.width - 1;
-
         int mapArea = h * w;
         int jungleArea = (int) (mapArea*0.2);
         int y = jungleArea/w;
@@ -346,5 +344,9 @@ public class WorldMap {
 
     public boolean isUseLifeGivingCorpses() {
         return useLifeGivingCorpses;
+    }
+
+    public int getNewAnimals() {
+        return newAnimals;
     }
 }

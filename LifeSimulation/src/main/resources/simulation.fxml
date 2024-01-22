@@ -25,7 +25,7 @@
             <Label fx:id="numberOfEmptyCells" text="Number of empty cells: "/>
             <Label fx:id="mostPopularGenome" text="Most popular genotype: "/>
             <Label fx:id="averageEnergyLevelForLivingAnimals" text="Average energy level for living animals: "/>
-            <Label fx:id="averageLifespanForDeathAnimals" text="Average lifespan for death animals: "/>
+            <Label fx:id="averageLifespanForDeathAnimals" text="Average lifespan for dead animals: "/>
             <Label fx:id="averageKidsNumberForLivingAnimals" text="Average kids number for living animals: "/>
         </VBox>
     </left>

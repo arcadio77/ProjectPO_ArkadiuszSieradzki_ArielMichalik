@@ -172,7 +172,7 @@ public class StarterPresenter {
             getMinMutationNum.setText("1");
             getMaxMutationNum.setText("1");
         } else if (selectedConfiguration.equals("Configuration 2")) {
-            speedBox.setValue("Optimal");
+            speedBox.setValue("Very Slow");
             getWidth.setText("15");
             getHeight.setText("15");
             getAnimalNumber.setText("40");

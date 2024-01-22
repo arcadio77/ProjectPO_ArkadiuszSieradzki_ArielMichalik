@@ -34,10 +34,7 @@ public class Statistics {
     public double getAverageKidsNumberForLivingAnimals() {
         return averageKidsNumberForLivingAnimals;
     }
-
-    public double getAverageLifespanForDeathAnimals() {
-        return averageLifespanForDeathAnimals;
-    }
+    public double getAverageLifespanForDeathAnimals() {return averageLifespanForDeathAnimals;}
 
     private int numberOfAllPlants;
     private int numberOfEmptyCells;
@@ -45,6 +42,7 @@ public class Statistics {
     private double averageEnergyLevelForLivingAnimals;
     private double averageKidsNumberForLivingAnimals;
     private double averageLifespanForDeathAnimals;
+
     WorldMap map;
 
     public Statistics(WorldMap map){
@@ -66,7 +64,7 @@ public class Statistics {
                 .average()
                 .orElse(-1.0);
         this.averageLifespanForDeathAnimals = Math.round(averageLifespan * 100.0)/100.0;
-        System.out.println("Average lifeSpan: " + averageLifespan);
+        System.out.println("Average lifeSpan: " + Math.round(averageLifespan * 100.0)/100.0);
     }
 
     private void countAverageKidsNumberForLivingAnimals() {
@@ -76,11 +74,12 @@ public class Statistics {
                 .average()
                 .orElse(-1.0);
         this.averageKidsNumberForLivingAnimals = Math.round(averageChildren * 100.0)/100.0;
-        System.out.println("Average number of children: " + averageChildren);
+        System.out.println("Average number of children: " + Math.round(averageChildren * 100.0)/100.0);
 
     }
 
-    private void  countAverageEnergyLevelForLivingAnimals(){
+
+    private void countAverageEnergyLevelForLivingAnimals(){
         double averageEnergy = map.animals.values().stream()
                 .flatMap(List::stream)
                 .mapToInt(Animal::getEnergy)
