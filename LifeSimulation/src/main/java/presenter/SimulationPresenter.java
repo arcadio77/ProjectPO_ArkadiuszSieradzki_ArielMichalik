@@ -32,7 +32,7 @@ public class SimulationPresenter implements MapChangeListener {
 
     public Button pauseBtn;
     public Button stopBtn;
-    public Label statistics;
+    public Label statisticsLabel;
     public Label day;
     public Label numberOfAllAnimals;
     public Label numberOfAllPlants;
@@ -57,7 +57,9 @@ public class SimulationPresenter implements MapChangeListener {
     private Simulation simulation;
     public GridPane gridMap;
     public Label simulationTerminated;
+    private Statistics stats;
     Animal currentTrackedAnimal = null;
+
     public void setWorldMap(WorldMap map){
         this.map = map;
     }
@@ -67,9 +69,10 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void initializePresenter(){
-//        gridMap.getScene().addEventFilter(KeyEvent.KEY_PRESSED, this::handleKeyPress);
         setAnimalStatsVisible(false);
+        this.stats = new Statistics(map);
         drawMap();
+
     }
 
     private void drawMap(){
@@ -80,8 +83,9 @@ public class SimulationPresenter implements MapChangeListener {
         if(map.isUseLifeGivingCorpses()){
             putCorpses(map.getHeight());
         }
+
         putAnimals(map.getHeight());
-        updateStatsLabels(map);
+        updateStatsLabels();
     }
 
     private void displayAnimalInfo(Animal animal){
@@ -129,25 +133,20 @@ public class SimulationPresenter implements MapChangeListener {
         }
     }
 
-    private void showMostPopularGenome(int height) {
-        //TODO
-//        String genomeText = mostPopularGenome.getText();
-//        ArrayList<Integer> genomeList = Arrays.stream(genomeText.split(","))
-//                .map(Integer::parseInt)
-//                .collect(Collectors.toCollection(ArrayList::new));
-//
-//        List<Animal> AnimalsWithMostOccuredGenome = map.getElements().stream()
-//            .filter(element -> element instanceof Animal)
-//            .map(element -> (Animal) element)
-//            .filter(animal -> animal.getGenomeList().equals(genomeList))
-//            .toList();
-//
-//        for(Animal animal: AnimalsWithMostOccuredGenome){
-//            int newX = animal.position().x() + 1;
-//            int newY = height - (animal.position().y());
-//            Circle circle = new Circle(newX, newY, 15, new Color(0.5, 0.4, 0.7, 1));
-//            gridMap.add(circle, newX, newY);
-//        }
+    private void showMostPopularGenome() {
+        int height = map.getHeight();
+        List<Animal> AnimalsWithMostOccuredGenome = map.getElements().stream()
+                .filter(element -> element instanceof Animal)
+                .map(element -> (Animal) element)
+                .filter(animal -> animal.getGenomeList().equals(stats.getMostPopularGenome()))
+                .toList();
+
+        for(Animal animal: AnimalsWithMostOccuredGenome){
+            int newX = animal.position().x() + 1;
+            int newY = height - (animal.position().y());
+            Circle circle = new Circle(newX, newY, 15, new Color(0.5, 0.4, 0.7, 1));
+            gridMap.add(circle, newX, newY);
+        }
 
     }
 
@@ -167,7 +166,6 @@ public class SimulationPresenter implements MapChangeListener {
                     rectangle.setFill(plantColor);
                     gridMap.add(rectangle, newX, newY);
                 }
-
         }
     }
 
@@ -199,17 +197,16 @@ public class SimulationPresenter implements MapChangeListener {
 
 
     }
-    private void updateStatsLabels(WorldMap map){
-        Statistics statistics = new Statistics(map);
-        statistics.updateStats();
-        day.setText("Day: " + statistics.getDayNumber());
-        numberOfAllAnimals.setText("Number of Animals: " + statistics.getNumberOfAllAnimals());
-        numberOfAllPlants.setText("Number of Plants: " + statistics.getNumberOfAllPlants());
-        numberOfEmptyCells.setText("Number of Empty Cells: " + statistics.getNumberOfEmptyCells());
-        mostPopularGenome.setText("Most Popular Genome: " + statistics.getMostPopularGenome());
-        averageEnergyLevelForLivingAnimals.setText("Average Energy: " + statistics.getAverageEnergyLevelForLivingAnimals());
-        averageLifespanForDeathAnimals.setText("Average Number of Kids: " + statistics.getAverageLifespanForDeathAnimals());
-        averageKidsNumberForLivingAnimals.setText("Average Lifespan of Dead Animals: " + statistics.getAverageKidsNumberForLivingAnimals());
+    private void updateStatsLabels(){
+        this.stats.updateStats();
+        day.setText("Day: " + stats.getDayNumber());
+        numberOfAllAnimals.setText("Number of Animals: " + stats.getNumberOfAllAnimals());
+        numberOfAllPlants.setText("Number of Plants: " + stats.getNumberOfAllPlants());
+        numberOfEmptyCells.setText("Number of Empty Cells: " + stats.getNumberOfEmptyCells());
+        mostPopularGenome.setText("Most Popular Genome: " + stats.getMostPopularGenome());
+        averageEnergyLevelForLivingAnimals.setText("Average Energy: " + stats.getAverageEnergyLevelForLivingAnimals());
+        averageLifespanForDeathAnimals.setText("Average Number of Kids: " + stats.getAverageLifespanForDeathAnimals());
+        averageKidsNumberForLivingAnimals.setText("Average Lifespan of Dead Animals: " + stats.getAverageKidsNumberForLivingAnimals());
 
     }
 
@@ -244,9 +241,9 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void onPauseSimulationClicked() {
-        showMostPopularGenome(map.getHeight());
-        drawEquator();
         simulation.pauseSimulation();
+        showMostPopularGenome();
+        drawEquator();
     }
 
 

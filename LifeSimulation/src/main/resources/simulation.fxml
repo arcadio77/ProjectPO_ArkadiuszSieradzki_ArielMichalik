@@ -18,7 +18,7 @@
     </top>
     <left>
         <VBox spacing="10">
-            <Label fx:id="statistics" text ="Stats"/>
+            <Label fx:id="statisticsLabel" text ="Stats"/>
             <Label fx:id="day" text="Day: "/>
             <Label fx:id="numberOfAllAnimals" text="Number of all animals: "/>
             <Label fx:id="numberOfAllPlants" text="Number of all plants: "/>

@@ -143,7 +143,6 @@ public class StarterPresenter {
         stage.setOnCloseRequest(event ->
                 stopSimulation(simulation));
 
-
         SimulationEngine engine = new SimulationEngine(new ArrayList<>(List.of(simulation)), 4);
         System.out.println("started");
         engine.runAsync();
@@ -170,14 +169,14 @@ public class StarterPresenter {
             getMinMutationNum.setText("1");
             getMaxMutationNum.setText("1");
         } else if (selectedConfiguration.equals("Configuration 2")) {
-            getSpeed.setText("80");
-            getWidth.setText("20");
-            getHeight.setText("20");
-            getAnimalNumber.setText("30");
+            getSpeed.setText("100");
+            getWidth.setText("15");
+            getHeight.setText("15");
+            getAnimalNumber.setText("40");
             getInitialAnimalEnergy.setText("7");
-            getInitialGrassNumber.setText("12");
+            getInitialGrassNumber.setText("42");
             getNumOfGrassGrowingDaily.setText("10");
-            getGrassEnergy.setText("3");
+            getGrassEnergy.setText("6");
             getBreedReadyEnergy.setText("4");
             getBreedLostEnergy.setText("2");
             getGenomeLength.setText("8");
