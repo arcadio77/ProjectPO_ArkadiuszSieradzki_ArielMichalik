@@ -106,9 +106,9 @@ public class SimulationPresenter implements MapChangeListener {
         List<Vector2d> gravesPositions = new ArrayList<>(recentGraves.keySet());
         for(Vector2d pos: gravesPositions){
             int newX = pos.x() + 1;
-            int newY = height - pos.y(); //because I input values inot column from biggest to smallest
+            int newY = height - pos.y();
             Rectangle rectangle = new Rectangle(newX, newY, cellSize,  cellSize);
-            Color plantColor = new Color(0.1, 0.1, 0.1, 1);
+            Color plantColor = new Color(0.4, 0.1, 0, 0.65);
             rectangle.setFill(plantColor);
             GridPane.setHalignment(rectangle, HPos.CENTER);
             gridMap.add(rectangle, newX, newY);

@@ -23,20 +23,15 @@ public class OneDayRunner {
         map.animals = animals;
 
         for (Vector2d key : animals.keySet()) {
-            ArrayList<Animal> animalsOnNewPos = animals.get(key);
-
             AnimalComparator comp = new AnimalComparator();
-
+            ArrayList<Animal> animalsOnNewPos = animals.get(key);
             animalsOnNewPos.sort(comp);
 
-            //Animal mostPowerful = mostPowerful(animalsOnNewPos);
             Animal mostPowerful = animalsOnNewPos.get(0);
             Vector2d mostPowerfulPosition = mostPowerful.position();
             map.bestAnimals.put(mostPowerfulPosition, mostPowerful);
 
             feastOnConquerdPosition(mostPowerful, mostPowerfulPosition);
-
-            //Animal secMostPowerful = secMostPowerful(animalsOnNewPos, mostPowerful);
 
             if (animalsOnNewPos.size() > 1) {
                 Animal secMostPowerful = animalsOnNewPos.get(1);
@@ -49,7 +44,6 @@ public class OneDayRunner {
         map.mapChanged("mapChanged");
     }
 
-
     private void growGrass(){
         int numOfGrassGrowingDaily = map.getNumOfGrassGrowingDaily();
         map.putGrasses(numOfGrassGrowingDaily);
@@ -57,46 +51,6 @@ public class OneDayRunner {
 
     private void gravesAreGettingOlder(){
         map.gravesAreGettingOlder();
-    }
-
-    private Animal mostPowerful(ArrayList<Animal> animalsOnNewPos){
-        Animal mostPowerful = (Animal) animalsOnNewPos.toArray()[0];
-        for (Animal animal : animalsOnNewPos) {
-            if (animal.getEnergy() > mostPowerful.getEnergy()) {
-                mostPowerful = animal;
-            }
-            else if (animal.getEnergy() == mostPowerful.getEnergy()) {
-                mostPowerful = getStrongerAnimal(mostPowerful, animal);
-            }
-        }
-        return mostPowerful;
-    }
-
-    private Animal secMostPowerful(ArrayList<Animal> animalsOnNewPos, Animal mostPowerful){
-        Animal secMostPowerful = (Animal) animalsOnNewPos.toArray()[0];
-        if (animalsOnNewPos.size() > 1) {
-            for (Animal animal : animalsOnNewPos) {
-                if ((animal.getEnergy() > secMostPowerful.getEnergy()) && (animal.getEnergy() <= mostPowerful.getEnergy())) {
-                    secMostPowerful = animal;
-                } else if ((animal.getEnergy() == secMostPowerful.getEnergy()) && (animal.getEnergy() <= mostPowerful.getEnergy())) {
-                    secMostPowerful = getStrongerAnimal(secMostPowerful, animal);
-                }
-            }
-        }
-        return secMostPowerful;
-    }
-
-    private Animal getStrongerAnimal(Animal animal1, Animal animal2) { // if two animals have the same energy levels
-        if (animal2.getAge() > animal1.getAge())
-            animal1 = animal2;
-        else if (animal2.getAge() == animal1.getAge()) {
-            if (animal2.getChildren().size() > animal1.getChildren().size()) {
-                animal1 = animal2;
-            } else if (animal2.getChildren().size() == animal1.getChildren().size()) {
-                animal1 = random.nextBoolean() ? animal2 : animal1;
-            }
-        }
-        return animal1;
     }
 
     private void breedTwoMostPowerful(Animal mostPowerful, Animal secMostPowerful){
