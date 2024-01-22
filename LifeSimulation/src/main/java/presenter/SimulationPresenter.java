@@ -69,10 +69,12 @@ public class SimulationPresenter implements MapChangeListener {
         this.simulation = simulation;
     }
 
+    public void setStats(Statistics statistics) {
+        this.stats = statistics;
+    }
 
     public void initializePresenter(){
         setAnimalStatsVisible(false);
-        this.stats = new Statistics(map);
         calculateCellSize();
         calculateRadiusValue();
         drawMap();
@@ -289,15 +291,13 @@ public class SimulationPresenter implements MapChangeListener {
 
     }
 
-
-
-    public void onStopSimulationClicked() {
+    public void onTerminateSimulationClicked() {
         map.killAllAnimals();
         onContinueSimulationClicked();
         simulationTerminated.setText("Simulation has been terminated");
     }
 
-    public void onStopTrackingAnimal() {
+    public void onStopTrackingAnimalClicked() {
         currentTrackedAnimal = null;
         setAnimalStatsVisible(false);
     }
@@ -305,4 +305,6 @@ public class SimulationPresenter implements MapChangeListener {
     public void onContinueSimulationClicked() {
         simulation.continueSimulation();
     }
+
+
 }

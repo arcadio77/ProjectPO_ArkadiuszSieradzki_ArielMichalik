@@ -6,11 +6,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Mutation;
+import model.*;
 
-import model.Simulation;
-import model.SimulationEngine;
-import model.WorldMap;
 import model.util.Energy;
 
 
@@ -133,13 +130,15 @@ public class StarterPresenter {
         Stage stage = new Stage();
         configureStage(stage, viewRoot);
         stage.show();
+        Statistics statistics = new Statistics(map);
 
-        Simulation simulation = new Simulation(map, getSpeedValue());
+        Simulation simulation = new Simulation(map, getSpeedValue(), statistics);
 
         SimulationPresenter presenter = loader.getController();
         map.addObserver(presenter);
         presenter.setSimulation(simulation);
         presenter.setWorldMap(map);
+        presenter.setStats(statistics);
         presenter.initializePresenter();
 
         stage.setOnCloseRequest(event ->

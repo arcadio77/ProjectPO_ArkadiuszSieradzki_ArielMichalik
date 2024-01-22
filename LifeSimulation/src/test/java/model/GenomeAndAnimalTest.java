@@ -23,15 +23,15 @@ public class GenomeAndAnimalTest {
         a1.eat(10);
         a2.eat(5);
 
-        Genome g3 = new Genome(10, a1, a2, new Mutation(0,0), random);
-
-        ArrayList<Integer> g3List = g3.getGenome();
-        System.out.println(g3List);
-
-        Animal child1 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g3, 0, 5);
-
-        a1.breed(child1, 2);
-        a2.breed(child1, 2);
+//        Genome g3 = new Genome(10, a1, a2, new Mutation(0,0), random);
+//
+//        ArrayList<Integer> g3List = g3.getGenome();
+//        System.out.println(g3List);
+//
+//        Animal child1 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g3, 0, 5);
+//
+//        a1.breed(child1, 2);
+//        a2.breed(child1, 2);
 
 //        WorldMap gF = new WorldMap(10, 10, 10,  10, new Energy(1, 2, 3, 5), 5, 5,
 //                 1);

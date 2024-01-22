@@ -50,7 +50,7 @@ public class GrassPositionsGenerator implements PositionsGenerator {
         int notJungleIdx = 0;
 
         while(accessiblePlaces > 0){
-            int randomNum = map.getRandom().nextInt(10); //problem of that solution is that it can be draw too many times
+            int randomNum = map.getRandom().nextInt(10);
             if(randomNum < 8 && jungleIdx < junglePositions.size()){
                 selectedPositions.add(junglePositions.get(jungleIdx));
                 jungleIdx++;
@@ -84,7 +84,7 @@ public class GrassPositionsGenerator implements PositionsGenerator {
         int notgraveIdx = 0;
 
         while(accessiblePlaces > 0){
-            int randomNum = map.getRandom().nextInt(10); //problem of that solution is that it can be draw too many times
+            int randomNum = map.getRandom().nextInt(10);
             if(randomNum < 8 && graveIdx < gravesPositions.size()){
                 selectedPositions.add(gravesPositions.get(graveIdx));
                 graveIdx++;
@@ -99,7 +99,6 @@ public class GrassPositionsGenerator implements PositionsGenerator {
                 accessiblePlaces = 0;
             }
         }
-
         return selectedPositions;
     }
 

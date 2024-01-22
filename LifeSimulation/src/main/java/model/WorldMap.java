@@ -16,7 +16,6 @@ public class WorldMap {
     private int initialPlantsNumber;
     private int initialAnimalsNumber;
     private int genomeLength;
-    private int dead = 0;
     private int newAnimals = 0;
     Energy energy;
     Mutation mutation;
@@ -31,6 +30,7 @@ public class WorldMap {
     private boolean useLifeGivingCorpses;
     protected Map<Vector2d, Integer> recentGraves = new HashMap<>();
     protected ArrayList<Animal> deadAnimals;
+    private int mapID = 0;
 
     public ArrayList<Animal> getDeadAnimals() {
         return deadAnimals;
@@ -40,7 +40,7 @@ public class WorldMap {
                     Energy energy, int minMutationNum, int maxMutationNum, int genomeLength,
                     int numOfGrassGrowingDaily, Random random, boolean useMutationSwapGene,
                     boolean useLifeGivingCorpses){
-
+        this.mapID++;
         this.day = 0;
         this.width = width;
         this.height = height;
@@ -242,7 +242,6 @@ public class WorldMap {
         return energy;
     }
 
-    public Mutation getMutation() { return mutation; }
 
     public int getGenomeLength() {
         return genomeLength;
@@ -276,10 +275,6 @@ public class WorldMap {
 
     public void setGenomeLength(int genomeLength) {
         this.genomeLength = genomeLength;
-    }
-
-    public void setDead(int dead) {
-        this.dead = dead;
     }
 
     public void setNewAnimals(int newAnimals) {
@@ -322,14 +317,6 @@ public class WorldMap {
         this.numOfGrassGrowingDaily = numOfGrassGrowingDaily;
     }
 
-    public void setWorldBounds(Boundary worldBounds) {
-        this.worldBounds = worldBounds;
-    }
-
-    public void setJungleBounds(Boundary jungleBounds) {
-        this.jungleBounds = jungleBounds;
-    }
-
     public void setRandom(Random random) {
         this.random = random;
     }
@@ -346,7 +333,8 @@ public class WorldMap {
         return useLifeGivingCorpses;
     }
 
-    public int getNewAnimals() {
-        return newAnimals;
+
+    public int getMapID() {
+        return mapID;
     }
 }
