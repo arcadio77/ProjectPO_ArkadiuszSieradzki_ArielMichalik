@@ -66,6 +66,11 @@ public class WorldMap {
                 0, 0, 0, 0, new Random(), false, false);
     }
 
+    public WorldMap(int h){
+        this(11, h, 1000, 1000000, new Energy(10, 2, 1, 10),
+                0, 0, 10, 1000000, new Random(), false, false);
+    }
+
     public void passDay(){
         this.day += 1;
     }

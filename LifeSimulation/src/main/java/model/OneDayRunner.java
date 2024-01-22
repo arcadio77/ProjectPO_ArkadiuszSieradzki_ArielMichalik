@@ -1,8 +1,8 @@
 package model;
-
 import java.util.*;
 
 import model.enums.MapDirection;
+import model.util.AnimalComparator;
 
 public class OneDayRunner {
     private final WorldMap map;
@@ -25,19 +25,28 @@ public class OneDayRunner {
         for (Vector2d key : animals.keySet()) {
             ArrayList<Animal> animalsOnNewPos = animals.get(key);
 
-            Animal mostPowerful = mostPowerful(animalsOnNewPos);
+            AnimalComparator comp = new AnimalComparator();
+
+            animalsOnNewPos.sort(comp);
+
+            //Animal mostPowerful = mostPowerful(animalsOnNewPos);
+            Animal mostPowerful = animalsOnNewPos.get(0);
             Vector2d mostPowerfulPosition = mostPowerful.position();
             map.bestAnimals.put(mostPowerfulPosition, mostPowerful);
 
             feastOnConquerdPosition(mostPowerful, mostPowerfulPosition);
 
-            Animal secMostPowerful = secMostPowerful(animalsOnNewPos, mostPowerful);
+            //Animal secMostPowerful = secMostPowerful(animalsOnNewPos, mostPowerful);
 
-            breedTwoMostPowerful(mostPowerful, secMostPowerful);
+            if (animalsOnNewPos.size() > 1) {
+                Animal secMostPowerful = animalsOnNewPos.get(1);
+
+                breedTwoMostPowerful(mostPowerful, secMostPowerful);
+            }
         }
         growGrass();
         gravesAreGettingOlder();
-        map.mapChanged("uuu");
+        map.mapChanged("mapChanged");
     }
 
 
@@ -101,7 +110,6 @@ public class OneDayRunner {
                 secMostPowerful.breed(child, map.getEnergy().getBreedLost());
                 map.place(child);
                 map.newAnimalBorn();
-                System.out.println("breeding");
             }
         }
     }
