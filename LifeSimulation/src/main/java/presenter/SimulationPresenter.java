@@ -123,7 +123,7 @@ public class SimulationPresenter implements MapChangeListener {
             Rectangle rectangle = new Rectangle(newX, newY, cellSize,  cellSize);
             Color plantColor;
             if(map.isOccupiedByGrass(pos)){
-                plantColor = new Color(0.537, 0.544, 0, 1);
+                plantColor = new Color(0.537, 0.59, 0, 1);
             }
             else{
                 plantColor = new Color(0.537, 0.254, 0, 1);
@@ -315,6 +315,4 @@ public class SimulationPresenter implements MapChangeListener {
     public void onContinueSimulationClicked() {
         simulation.continueSimulation();
     }
-
-
 }
