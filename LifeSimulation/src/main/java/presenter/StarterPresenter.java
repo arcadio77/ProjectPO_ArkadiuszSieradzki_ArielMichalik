@@ -108,7 +108,6 @@ public class StarterPresenter {
         map.setRandom(new Random());
         map.setUseMutationSwapGene(getUseMutationSwapGeneValue());
         map.setUseLifeGivingCorpses(getUseLifeGivingCorpsesValue());
-
         map.initBounds();
         map.initPutAnimals();
         map.initPutGrasses(getInitialGrassNumberValue());

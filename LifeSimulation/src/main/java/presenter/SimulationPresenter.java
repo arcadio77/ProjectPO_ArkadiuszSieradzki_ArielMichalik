@@ -60,8 +60,8 @@ public class SimulationPresenter implements MapChangeListener {
     private Statistics stats;
     Animal currentTrackedAnimal = null;
     private int cellSize;
-    private final static int maxGridWidth = 500;
-    private final static int maxGridHeight = 500;
+    private final static int maxGridWidth = 700;
+    private final static int maxGridHeight = 700;
 
     public void setWorldMap(WorldMap map){
         this.map = map;
