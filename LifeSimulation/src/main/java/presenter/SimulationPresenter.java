@@ -59,6 +59,9 @@ public class SimulationPresenter implements MapChangeListener {
     public Label simulationTerminated;
     private Statistics stats;
     Animal currentTrackedAnimal = null;
+    private int cellSize;
+    private final static int maxGridWidth = 500;
+    private final static int maxGridHeight = 500;
 
     public void setWorldMap(WorldMap map){
         this.map = map;
@@ -71,8 +74,15 @@ public class SimulationPresenter implements MapChangeListener {
     public void initializePresenter(){
         setAnimalStatsVisible(false);
         this.stats = new Statistics(map);
+        calculateCellSize();
         drawMap();
 
+    }
+
+    private void calculateCellSize(){
+        int maxCellWidth = maxGridWidth / (map.getWidth() + 1);
+        int maxCellHeight = maxGridHeight / (map.getHeight() + 1);
+        this.cellSize =  Math.min(maxCellWidth, maxCellHeight);
     }
 
     private void drawMap(){
@@ -151,7 +161,14 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     private void drawEquator() {
-        //TODO 
+        Boundary equatorBounds = map.getJungleBounds();
+        for (int y = equatorBounds.lowerLeft().y(); y <= equatorBounds.upperRight().y(); y++){
+            for (int x = 0; x <= map.getWidth()-1; x++){
+                Rectangle rectangle = new Rectangle(cellSize, cellSize, Color.LIGHTGREEN);
+                GridPane.setHalignment(rectangle, HPos.CENTER);
+                gridMap.add(rectangle, x + 1, map.getHeight() - y);
+            }
+        }
     }
 
 
@@ -161,7 +178,7 @@ public class SimulationPresenter implements MapChangeListener {
                 int newX = element.position().x() + 1;
                 int newY = height - (element.position().y()); //because I input values inot column from biggest to smallest
                 if (element instanceof Grass) {
-                    Rectangle rectangle = new Rectangle(newX, newY, 30, 30);
+                    Rectangle rectangle = new Rectangle(newX, newY, cellSize, cellSize);
                     Color plantColor = new Color(0, 0.6, 0, 1);
                     rectangle.setFill(plantColor);
                     gridMap.add(rectangle, newX, newY);
@@ -179,17 +196,17 @@ public class SimulationPresenter implements MapChangeListener {
         Label separator = new Label("y\\x");
         gridMap.add(separator, 0, 0);
         GridPane.setHalignment(separator, HPos.CENTER);
-        gridMap.getColumnConstraints().add(new ColumnConstraints(30));
-        gridMap.getRowConstraints().add(new RowConstraints(30));
+        gridMap.getColumnConstraints().add(new ColumnConstraints(cellSize));
+        gridMap.getRowConstraints().add(new RowConstraints(cellSize));
 
         for(int i=0; i < width; i++){
-            gridMap.getColumnConstraints().add(new ColumnConstraints(30));
+            gridMap.getColumnConstraints().add(new ColumnConstraints(cellSize));
             Label digit = new Label(String.valueOf(i));
             gridMap.add(digit, i+1, 0); //row
             GridPane.setHalignment(digit, HPos.CENTER);
         }
         for(int i=0; i < height; i++){
-            gridMap.getRowConstraints().add(new RowConstraints(30));
+            gridMap.getRowConstraints().add(new RowConstraints(cellSize));
             Label digit = new Label(String.valueOf(height-i-1));
             gridMap.add(digit, 0, i+1);
             GridPane.setHalignment(digit, HPos.CENTER);

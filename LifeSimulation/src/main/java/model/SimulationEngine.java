@@ -1,6 +1,5 @@
 package model;
 
-import model.Simulation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class SimulationEngine {
-    //bedzie wywooływac wiele symulacji asynchronicznie
+
     private final ArrayList<Simulation> simulations;
     private final List<Thread> threads;
     ExecutorService executorService;

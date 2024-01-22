@@ -38,12 +38,5 @@ public record Vector2d(int x, int y) {
         return x == vector2d.x && y == vector2d.y;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
 }
 
