@@ -31,8 +31,6 @@
     <center>
         <HBox>
             <VBox>
-                <Label text="Speed"/>
-                <TextField fx:id="getSpeed"/>
                 <Label text="Width"/>
                 <TextField fx:id="getWidth"/>
                 <Label text="Height"/>
@@ -69,6 +67,17 @@
                     <Label text="Use Life Giving Corpses"/>
                     <CheckBox fx:id="getUseLifeGivingCorpses"/>
                 </HBox>
+                <ComboBox fx:id="speedBox" promptText="Speed" onAction="#onSpeedSelected">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Very Slow"/>
+                            <String fx:value="Slow"/>
+                            <String fx:value="Optimal"/>
+                            <String fx:value="Fast"/>
+                            <String fx:value="Very Fast"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
             </VBox>
         </HBox>
     </center>

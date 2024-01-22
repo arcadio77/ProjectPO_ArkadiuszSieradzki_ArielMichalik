@@ -1,5 +1,6 @@
 package presenter;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,12 +18,12 @@ import model.util.Energy;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class StarterPresenter {
     public ComboBox<String> configurations;
     public Button startBtn;
-    public TextField getSpeed;
     public TextField getWidth;
     public TextField getHeight;
     public TextField getAnimalNumber;
@@ -37,9 +38,11 @@ public class StarterPresenter {
     public TextField getMaxMutationNum;
     public CheckBox getUseMutationSwapGene;
     public CheckBox getUseLifeGivingCorpses;
+    private int speedValue;
+    public ComboBox speedBox;
 
 
-    public int getSpeedValue() {return Integer.parseInt(getSpeed.getText());}
+    public int getSpeedValue() {return speedValue;}
 
     public int getWidthValue() {
         return Integer.parseInt(getWidth.getText());
@@ -155,7 +158,7 @@ public class StarterPresenter {
     public void onConfigurationSelected() {
         String selectedConfiguration = configurations.getValue();
         if (selectedConfiguration.equals("Configuration 1")) {
-            getSpeed.setText("80");
+            speedBox.setValue("Optimal");
             getWidth.setText("10");
             getHeight.setText("10");
             getAnimalNumber.setText("20");
@@ -169,7 +172,7 @@ public class StarterPresenter {
             getMinMutationNum.setText("1");
             getMaxMutationNum.setText("1");
         } else if (selectedConfiguration.equals("Configuration 2")) {
-            getSpeed.setText("100");
+            speedBox.setValue("Optimal");
             getWidth.setText("15");
             getHeight.setText("15");
             getAnimalNumber.setText("40");
@@ -186,6 +189,19 @@ public class StarterPresenter {
             getUseLifeGivingCorpses.setSelected(true);
         }
     }
+    public void onSpeedSelected() {
+        Map<String, Integer> speedValues = Map.of(
+                "Very Slow", 600,
+                "Slow", 500,
+                "Optimal", 350,
+                "Fast", 200,
+                "Very Fast", 100
+        );
+        String selectedSpeed = (String) speedBox.getValue();
+        this.speedValue = speedValues.get(selectedSpeed);
+
+        }
+
 
     public void showLegend() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -199,4 +215,5 @@ public class StarterPresenter {
         stage.minHeightProperty().bind(viewRoot.minHeightProperty());
         stage.show();
     }
+
 }
