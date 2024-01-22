@@ -32,6 +32,7 @@ public class StarterPresenter {
     public TextField getMaxMutationNum;
     public CheckBox getUseMutationSwapGene;
     public CheckBox getUseLifeGivingCorpses;
+    public Button addNewConfBtn;
     private int speedValue;
     boolean saveCsv;
     public ComboBox speedBox;
@@ -145,7 +146,6 @@ public class StarterPresenter {
                 stopSimulation(simulation));
 
         SimulationEngine engine = new SimulationEngine(new ArrayList<>(List.of(simulation)), 4);
-        System.out.println("started");
         engine.runAsync();
     }
 
@@ -168,6 +168,10 @@ public class StarterPresenter {
     }
     private void stopSimulation(Simulation simulation){
         simulation.pauseSimulation();
+    }
+
+    public void addNewConfiguration() {
+        //todo
     }
 
     public void onConfigurationSelected() {
@@ -265,6 +269,7 @@ public class StarterPresenter {
         stage.minHeightProperty().bind(viewRoot.minHeightProperty());
         stage.show();
     }
+
 
 
 }

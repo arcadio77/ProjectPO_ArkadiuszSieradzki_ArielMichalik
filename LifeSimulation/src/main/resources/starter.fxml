@@ -28,6 +28,7 @@
                 </items>
             </ComboBox>
             <Button fx:id="showLegend" text="Legend" onAction="#showLegend"/>
+            <Button fx:id="addNewConfBtn" text="Add New Configuration" onAction="#addNewConfiguration"/>
         </HBox>
     </top>
     <center>
