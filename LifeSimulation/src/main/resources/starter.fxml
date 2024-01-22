@@ -23,6 +23,7 @@
                         <String fx:value="Configuration 1"/>
                         <String fx:value="Configuration 2"/>
                         <String fx:value="Configuration 3"/>
+                        <String fx:value="Configuration 4"/>
                     </FXCollections>
                 </items>
             </ComboBox>
@@ -71,6 +72,7 @@
                 <ComboBox fx:id="speedBox" promptText="Speed" onAction="#onSpeedSelected">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Turtle speed"/>
                             <String fx:value="Very Slow"/>
                             <String fx:value="Slow"/>
                             <String fx:value="Optimal"/>

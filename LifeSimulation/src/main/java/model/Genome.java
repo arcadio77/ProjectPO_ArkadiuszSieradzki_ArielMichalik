@@ -24,6 +24,13 @@ public class Genome {
         this.genome = genome;
     }
 
+    public Genome(int n, ArrayList<Integer> genomeList){
+        this.genomeLength = n;
+        this.random = new Random();
+        this.mutation = new Mutation(0,0);
+        this.genome = genomeList;
+    }
+
     public Genome(int n, Animal parent1, Animal parent2, Mutation mutation, Random random, boolean useMutationSwapGene){
         this.genomeLength = n;
         this.mutation = mutation;

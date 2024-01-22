@@ -220,9 +220,27 @@ public class StarterPresenter {
             getUseMutationSwapGene.setSelected(false);
             getUseLifeGivingCorpses.setSelected(false);
         }
+        else if (selectedConfiguration.equals("Configuration 4")) {
+            speedBox.setValue("Optimal");
+            getWidth.setText("15");
+            getHeight.setText("15");
+            getAnimalNumber.setText("70");
+            getInitialAnimalEnergy.setText("10");
+            getInitialGrassNumber.setText("40");
+            getNumOfGrassGrowingDaily.setText("40");
+            getGrassEnergy.setText("8");
+            getBreedReadyEnergy.setText("10");
+            getBreedLostEnergy.setText("7");
+            getGenomeLength.setText("15");
+            getMinMutationNum.setText("0");
+            getMaxMutationNum.setText("2");
+            getUseMutationSwapGene.setSelected(true);
+            getUseLifeGivingCorpses.setSelected(true);
+        }
     }
     public void onSpeedSelected() {
         Map<String, Integer> speedValues = Map.of(
+                "Turtle speed", 2000,
                 "Very Slow", 1000,
                 "Slow", 800,
                 "Optimal", 500,
