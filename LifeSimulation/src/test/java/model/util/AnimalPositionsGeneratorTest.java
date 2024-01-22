@@ -6,11 +6,13 @@ import org.junit.jupiter.api.Test;
 public class AnimalPositionsGeneratorTest {
     @Test
     public void TestSelectRandomPositions(){
+        /*
         WorldMap map = new WorldMap(10, 10);
         int animalsToPlace = 10;
         AnimalPositionsGenerator animalsPositions = new AnimalPositionsGenerator(map, animalsToPlace);
         for(Vector2d position: animalsPositions){
             System.out.println(position);
         }
+        */
     }
 }

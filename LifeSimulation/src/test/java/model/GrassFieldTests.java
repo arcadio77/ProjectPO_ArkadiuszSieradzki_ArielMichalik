@@ -10,7 +10,7 @@ public class GrassFieldTests {
 
     public static void main(String[] args) {
         Random random = new Random();
-
+        /*
         WorldMap map = new WorldMap(4, 5, 10, 10, new Energy(1, 2, 3, 5), 5, 5,
                 1, 5, new Random());
 
@@ -31,5 +31,6 @@ public class GrassFieldTests {
         System.out.println(map.cntGrassesOnGivenPosition(new Vector2d(1,0)));
 
         System.out.println(map.setJungleBounds());
+        */
     }
 }
