@@ -95,7 +95,7 @@ public class StarterPresenter {
     }
 
 
-    private void settingMap( WorldMap map){
+    private void settingMap(WorldMap map){
         map.setWidth(getWidthValue());
         map.setHeight(getHeightValue());
         map.setInitialAnimalsNumber(getAnimalNumberValue());

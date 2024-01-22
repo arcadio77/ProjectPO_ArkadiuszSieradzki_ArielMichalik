@@ -2,8 +2,11 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrackedAnimalStats {
+    private WorldMap map;
     private int activeGene;
     private int energyLevel;
     private int eatenPlantsNumber;
@@ -13,6 +16,7 @@ public class TrackedAnimalStats {
     private int animalDayOfDeath;
     private ArrayList<Integer> genome;
     Animal animal;
+    private Map<Animal, Integer> descendantsVisited = new HashMap<>();
 
     public TrackedAnimalStats(Animal animal){
         this.animal = animal;
@@ -39,8 +43,14 @@ public class TrackedAnimalStats {
         }
         ArrayList<Animal> currentDescendants = new ArrayList<>();
         for(Animal ch : a.getChildren()){
-            currentDescendants.add(ch);
-            currentDescendants.addAll(rek(ch));
+            if(!descendantsVisited.containsKey(ch)){
+                descendantsVisited.put(ch, 1);
+                currentDescendants.add(ch);
+                currentDescendants.addAll(rek(ch));
+            }
+            else{
+                continue;
+            }
         }
         return currentDescendants;
     }
