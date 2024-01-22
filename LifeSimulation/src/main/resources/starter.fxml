@@ -22,6 +22,7 @@
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Configuration 1"/>
                         <String fx:value="Configuration 2"/>
+                        <String fx:value="Configuration 3"/>
                     </FXCollections>
                 </items>
             </ComboBox>

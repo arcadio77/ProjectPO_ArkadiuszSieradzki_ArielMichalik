@@ -1,29 +1,20 @@
-import javafx.application.Application;
-import model.*;
+package model.util;
+
+import model.Animal;
+import model.Genome;
+import model.Mutation;
+import model.Vector2d;
 import model.enums.MapDirection;
-import model.util.AnimalComparator;
-import view.SimulationApp;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Random;
+import static org.junit.jupiter.api.Assertions.*;
 
-
-public class WorldGUI {
-    public static void main(String[] args) {
-
-        Application.launch(SimulationApp.class, args);
-
-        //WorldMap map1 = new WorldMap(11);
-/*
-        map1.initBounds();
-        map1.initPutAnimals();
-        map1.initPutGrasses(10);
-
-        OneDayRunner ODR = new OneDayRunner(map1);
-
-        ODR.runOneDay();
+public class AnimalComparatorTest {
+    @Test
+    public void Test(){
         AnimalComparator ac = new AnimalComparator();
-
         Random random = new Random();
         Genome g1 = new Genome(10, new Mutation(0,0), random);
         ArrayList<Integer> g1List = g1.getGenome();
@@ -49,6 +40,16 @@ public class WorldGUI {
         animals.sort(ac);
 
         System.out.println(animals);
-*/
+
+        ArrayList<Animal> expectedAnimals = new ArrayList<Animal>();
+
+        expectedAnimals.add(a4);
+        expectedAnimals.add(a1);
+        expectedAnimals.add(a5);
+        expectedAnimals.add(a3);
+        expectedAnimals.add(a2);
+
+        assertEquals(expectedAnimals, animals);
     }
+
 }

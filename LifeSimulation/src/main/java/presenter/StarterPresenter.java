@@ -186,6 +186,23 @@ public class StarterPresenter {
             getUseMutationSwapGene.setSelected(true);
             getUseLifeGivingCorpses.setSelected(true);
         }
+        else if (selectedConfiguration.equals("Configuration 3")) {
+            speedBox.setValue("Fast");
+            getWidth.setText("15");
+            getHeight.setText("15");
+            getAnimalNumber.setText("40");
+            getInitialAnimalEnergy.setText("10");
+            getInitialGrassNumber.setText("30");
+            getNumOfGrassGrowingDaily.setText("15");
+            getGrassEnergy.setText("8");
+            getBreedReadyEnergy.setText("4");
+            getBreedLostEnergy.setText("3");
+            getGenomeLength.setText("14");
+            getMinMutationNum.setText("0");
+            getMaxMutationNum.setText("2");
+            getUseMutationSwapGene.setSelected(false);
+            getUseLifeGivingCorpses.setSelected(false);
+        }
     }
     public void onSpeedSelected() {
         Map<String, Integer> speedValues = Map.of(
