@@ -39,7 +39,7 @@ public class Genome {
 
         if(randomBool){
             int howManyIdxParent1 = (int)(round(parent1Share * parent1.getGenomeList().size()));
-            List<Integer> partOfParent1 = parent1.getGenomeList().subList(0, howManyIdxParent1);
+            List<Integer> partOfParent1 = new ArrayList<>(parent1.getGenomeList().subList(0, howManyIdxParent1));
 
             int howManyIdxParent2 = (int)(round(parent2Share * parent2.getGenomeList().size()));
             int startingIdx = parent2.getGenomeList().size() - howManyIdxParent2;
@@ -52,7 +52,7 @@ public class Genome {
         else{
             int howManyIdxParent1 = (int)(parent1Share * parent1.getGenomeList().size());
             int startingIdx = parent1.getGenomeList().size() - howManyIdxParent1;
-            List<Integer> partOfParent1 = parent1.getGenomeList().subList(startingIdx, parent1.getGenomeList().size());
+            List<Integer> partOfParent1 = new ArrayList<>(parent1.getGenomeList().subList(startingIdx, parent1.getGenomeList().size()));
 
             int howManyIdxParent2 = (int)(parent2Share * parent2.getGenomeList().size());
             List<Integer> partOfParent2 = parent2.getGenomeList().subList(0, howManyIdxParent2);
@@ -71,13 +71,13 @@ public class Genome {
 
         for (int i = 0 ; i < mutationsNum; i++){
             int randomNum = random.nextInt(8);
-            int where = random.nextInt(currGenome.size());
+            int where = random.nextInt(genomeLength);
             currGenome.set(where, randomNum);
         }
 
         if (useMutationSwapGene){
-            int randomId1 = random.nextInt(currGenome.size());
-            int randomId2 = random.nextInt(currGenome.size());
+            int randomId1 = random.nextInt(genomeLength);
+            int randomId2 = random.nextInt(genomeLength);
             Integer temp = currGenome.get(randomId1);
             currGenome.set(randomId1, currGenome.get(randomId2));
             currGenome.set(randomId2, temp);

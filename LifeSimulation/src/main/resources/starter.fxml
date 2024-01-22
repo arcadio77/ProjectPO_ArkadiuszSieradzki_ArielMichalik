@@ -75,6 +75,8 @@
                             <String fx:value="Optimal"/>
                             <String fx:value="Fast"/>
                             <String fx:value="Very Fast"/>
+                            <String fx:value="Faster"/>
+                            <String fx:value="Supersonic"/>
                         </FXCollections>
                     </items>
                 </ComboBox>
