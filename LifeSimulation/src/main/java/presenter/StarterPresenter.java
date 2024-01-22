@@ -1,5 +1,6 @@
 package presenter;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,10 +13,7 @@ import model.util.Energy;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class StarterPresenter {
     public ComboBox<String> configurations;
@@ -35,8 +33,8 @@ public class StarterPresenter {
     public CheckBox getUseMutationSwapGene;
     public CheckBox getUseLifeGivingCorpses;
     private int speedValue;
+    boolean saveCsv;
     public ComboBox speedBox;
-
 
     public int getSpeedValue() {return speedValue;}
 
@@ -121,6 +119,8 @@ public class StarterPresenter {
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());
     }
     public void onSimulationStartClicked() throws IllegalArgumentException, IOException {
+        String filename = saveStatsToCsv();
+
         WorldMap map = new WorldMap();
         settingMap(map);
 
@@ -132,7 +132,7 @@ public class StarterPresenter {
         stage.show();
         Statistics statistics = new Statistics(map);
 
-        Simulation simulation = new Simulation(map, getSpeedValue(), statistics);
+        Simulation simulation = new Simulation(map, getSpeedValue(), statistics, filename);
 
         SimulationPresenter presenter = loader.getController();
         map.addObserver(presenter);
@@ -149,6 +149,23 @@ public class StarterPresenter {
         engine.runAsync();
     }
 
+    public String saveStatsToCsv() {
+        saveCsv = false;
+        String filename = "output";
+        TextInputDialog dialog = new TextInputDialog(filename);
+        dialog.setTitle("Save statistics");
+        dialog.setHeaderText("Do you want to save statistics");
+        dialog.setContentText("Filename:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            saveCsv = true;
+            filename = result.get();
+        }else{
+            filename = null;
+        }
+        return filename;
+
+    }
     private void stopSimulation(Simulation simulation){
         simulation.pauseSimulation();
     }
@@ -216,7 +233,6 @@ public class StarterPresenter {
         );
         String selectedSpeed = (String) speedBox.getValue();
         this.speedValue = speedValues.get(selectedSpeed);
-
         }
 
     public void showLegend() throws IOException {
@@ -231,5 +247,6 @@ public class StarterPresenter {
         stage.minHeightProperty().bind(viewRoot.minHeightProperty());
         stage.show();
     }
+
 
 }
