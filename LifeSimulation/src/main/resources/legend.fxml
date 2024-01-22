@@ -3,6 +3,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
+
+<?import javafx.scene.shape.Circle?>
+
 
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
@@ -23,8 +27,13 @@
     </HBox>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Rectangle width="20" height="20" fill="BLACK"/>
-        <Label text=" - Animals graves" style="-fx-font-size: 16px;"/>
+        <Rectangle width="20" height="20" fill="rgb(137,65,0)"/>
+        <Label text=" - Corpse " style="-fx-font-size: 16px;"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Rectangle width="20" height="20" fill="rgb(137,139,0)"/>
+        <Label text=" - Corpse and grass " style="-fx-font-size: 16px;"/>
     </HBox>
 
     <HBox spacing="10" alignment="CENTER_LEFT">

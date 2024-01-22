@@ -108,7 +108,6 @@ public class SimulationPresenter implements MapChangeListener {
         }
     }
 
-
     private void putCorpses(int height){
         Map<Vector2d, Integer> recentGraves = map.getRecentGraves();
         List<Vector2d> gravesPositions = new ArrayList<>(recentGraves.keySet());
@@ -116,7 +115,13 @@ public class SimulationPresenter implements MapChangeListener {
             int newX = pos.x() + 1;
             int newY = height - pos.y();
             Rectangle rectangle = new Rectangle(newX, newY, cellSize,  cellSize);
-            Color plantColor = new Color(0.4, 0.1, 0, 0.65);
+            Color plantColor;
+            if(map.isOccupiedByGrass(pos)){
+                plantColor = new Color(0.537, 0.544, 0, 1);
+            }
+            else{
+                plantColor = new Color(0.537, 0.254, 0, 1);
+            }
             rectangle.setFill(plantColor);
             GridPane.setHalignment(rectangle, HPos.CENTER);
             gridMap.add(rectangle, newX, newY);

@@ -159,7 +159,7 @@ public class WorldMap {
     public void animalIsDead(Vector2d position, Animal animal){
         deadAnimals.add(animal);
         recentGraves.remove(position);
-        recentGraves.put(position, 5);
+        recentGraves.put(position, 5); // 5 dni są ważne trupy
     }
 
     public void gravesAreGettingOlder(){
