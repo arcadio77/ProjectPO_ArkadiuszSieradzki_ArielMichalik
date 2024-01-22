@@ -4,31 +4,43 @@ public class Simulation implements Runnable{
     private final WorldMap map;
     private final int speed;
     private final Statistics stats;
+    private final String filename;
     private boolean pauseThreadFlag = false;
+    private final CsvSaver csvSaver;
     private final Object GUI_INITIALIZATION_MONITOR = new Object();
 
-    public Simulation(WorldMap map, int speed, Statistics stats){
+    public Simulation(WorldMap map, int speed, Statistics stats, String filename){
         this.map = map;
         this.speed = speed;
         this.stats = stats;
+        this.filename = filename;
+        this.csvSaver = new CsvSaver(stats);
     }
 
     public void run(){
-        String filePath = "output" + (map.getMapID() + 1) + ".csv";
-        CsvSaver csvSaver = new CsvSaver(stats);
-        csvSaver.createCsvFile(filePath);
+        String filePath = null;
+        if (filename != null){
+            filePath = "SavedStats/" + filename + ".csv";
+            csvSaver.createCsvFile(filePath);
+        }
         OneDayRunner oneDay = new OneDayRunner(map);
 
         while(!map.getAnimals().isEmpty()){
             checkForPaused();
             oneDay.runOneDay();
-            csvSaver.addRow(filePath);
+            if(filename != null){
+                csvSaver.addRow(filePath);
+            }
             try {
                 Thread.sleep(speed);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+        if(filename != null){
+            csvSaver.addRow(filePath);
+        }
+
     }
 
     public void pauseSimulation() {
