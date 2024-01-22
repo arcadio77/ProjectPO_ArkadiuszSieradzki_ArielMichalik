@@ -126,9 +126,9 @@ public class SimulationPresenter implements MapChangeListener {
     private void displayAnimalInfo(Animal animal){
         if (currentTrackedAnimal != null) {
             previousTrackedAnimal = currentTrackedAnimal.clone();
+            updateAnimalColor(previousTrackedAnimal);
         }
         currentTrackedAnimal = animal;
-        updateAnimalColor(previousTrackedAnimal);
         updateAnimalColor(currentTrackedAnimal);
         updateAnimalStatsLabels();
         setAnimalStatsVisible(true);
