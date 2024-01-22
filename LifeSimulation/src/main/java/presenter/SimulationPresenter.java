@@ -179,7 +179,6 @@ public class SimulationPresenter implements MapChangeListener {
             GridPane.setHalignment(circle, HPos.CENTER);
             gridMap.add(circle, newX, newY);
         }
-
     }
 
     private void drawEquator() {
