@@ -103,7 +103,13 @@ public class SimulationPresenter implements MapChangeListener {
 
         putAnimals();
         updateStatsLabels();
-        if(currentTrackedAnimal != null){
+        if(currentTrackedAnimal != null && currentTrackedAnimal.getDeathDate()==0){
+            int newX = currentTrackedAnimal.position().x() + 1;
+            int newY = map.getHeight() - (currentTrackedAnimal.position().y());
+            Color animalColor = new Color(0.1, 0.1, 1, 1);
+            Circle circle = new Circle(newX, newY, radiusValue, animalColor);
+            GridPane.setHalignment(circle, HPos.CENTER);
+            gridMap.add(circle, newX, newY);
             updateAnimalStatsLabels();
         }
     }
@@ -171,7 +177,6 @@ public class SimulationPresenter implements MapChangeListener {
         GridPane.setHalignment(circle, HPos.CENTER);
         gridMap.add(circle, newX, newY);
     }
-
 
     private void showMostPopularGenome() {
         int height = map.getHeight();
