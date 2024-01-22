@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Math.ceil;
 import static java.lang.Math.round;
 
 public class Genome {
@@ -32,30 +33,23 @@ public class Genome {
 
     private ArrayList<Integer> generateGenome(Animal parent1, Animal parent2, Random random, boolean useMutationSwapGene){
         int combinedEnergy = parent1.getEnergy() + parent2.getEnergy();
-        double parent1Share = (double) parent1.getEnergy() / combinedEnergy;
-        double parent2Share = (double) parent2.getEnergy() / combinedEnergy;
+        double ratio = (float) parent1.getEnergy() / combinedEnergy;
 
         boolean randomBool = random.nextBoolean();
 
         if(randomBool){
-            int howManyIdxParent1 = (int)(round(parent1Share * parent1.getGenomeList().size()));
-            List<Integer> partOfParent1 = new ArrayList<>(parent1.getGenomeList().subList(0, howManyIdxParent1));
-
-            int howManyIdxParent2 = (int)(round(parent2Share * parent2.getGenomeList().size()));
-            int startingIdx = parent2.getGenomeList().size() - howManyIdxParent2;
-            List<Integer> partOfParent2 = parent2.getGenomeList().subList(startingIdx, parent2.getGenomeList().size());
+            int Idx = (int)(ceil(ratio * parent1.getGenomeList().size()));
+            List<Integer> partOfParent1 = new ArrayList<>(parent1.getGenomeList().subList(0, Idx));
+            List<Integer> partOfParent2 = new ArrayList<>(parent2.getGenomeList().subList(Idx, parent2.getGenomeList().size()));
 
             partOfParent1.addAll(partOfParent2); // combined
 
             return mutate(partOfParent1, useMutationSwapGene); // mutation
         }
         else{
-            int howManyIdxParent1 = (int)(parent1Share * parent1.getGenomeList().size());
-            int startingIdx = parent1.getGenomeList().size() - howManyIdxParent1;
-            List<Integer> partOfParent1 = new ArrayList<>(parent1.getGenomeList().subList(startingIdx, parent1.getGenomeList().size()));
-
-            int howManyIdxParent2 = (int)(parent2Share * parent2.getGenomeList().size());
-            List<Integer> partOfParent2 = parent2.getGenomeList().subList(0, howManyIdxParent2);
+            int Idx = parent1.getGenomeList().size() - (int)(ceil(ratio * parent1.getGenomeList().size()));
+            List<Integer> partOfParent1 = new ArrayList<>(parent1.getGenomeList().subList(Idx, parent1.getGenomeList().size()));
+            List<Integer> partOfParent2 = new ArrayList<>(parent2.getGenomeList().subList(0, Idx));
 
             partOfParent1.addAll(partOfParent2); // combined
 
