@@ -191,10 +191,10 @@ public class StarterPresenter {
     }
     public void onSpeedSelected() {
         Map<String, Integer> speedValues = Map.of(
-                "Very Slow", 600,
-                "Slow", 500,
-                "Optimal", 350,
-                "Fast", 200,
+                "Very Slow", 1000,
+                "Slow", 800,
+                "Optimal", 500,
+                "Fast", 300,
                 "Very Fast", 100
         );
         String selectedSpeed = (String) speedBox.getValue();
