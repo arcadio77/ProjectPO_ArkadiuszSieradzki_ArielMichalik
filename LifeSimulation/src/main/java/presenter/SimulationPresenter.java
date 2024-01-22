@@ -60,6 +60,7 @@ public class SimulationPresenter implements MapChangeListener {
     private Statistics stats;
     Animal currentTrackedAnimal = null;
     private int cellSize;
+    private int radiusValue;
     private final static int maxGridWidth = 700;
     private final static int maxGridHeight = 700;
 
@@ -71,10 +72,12 @@ public class SimulationPresenter implements MapChangeListener {
         this.simulation = simulation;
     }
 
+
     public void initializePresenter(){
         setAnimalStatsVisible(false);
         this.stats = new Statistics(map);
         calculateCellSize();
+        calculateRadiusValue();
         drawMap();
 
     }
@@ -83,6 +86,11 @@ public class SimulationPresenter implements MapChangeListener {
         int maxCellWidth = maxGridWidth / (map.getWidth() + 1);
         int maxCellHeight = maxGridHeight / (map.getHeight() + 1);
         this.cellSize =  Math.min(maxCellWidth, maxCellHeight);
+    }
+
+
+    private void calculateRadiusValue(){
+        this.radiusValue = (int)(2*cellSize/5);
     }
 
     private void drawMap(){
@@ -111,9 +119,10 @@ public class SimulationPresenter implements MapChangeListener {
         for(Vector2d pos: gravesPositions){
             int newX = pos.x() + 1;
             int newY = height - pos.y(); //because I input values inot column from biggest to smallest
-            Rectangle rectangle = new Rectangle(newX, newY, 30, 30);
+            Rectangle rectangle = new Rectangle(newX, newY, cellSize,  cellSize);
             Color plantColor = new Color(0.1, 0.1, 0.1, 1);
             rectangle.setFill(plantColor);
+            GridPane.setHalignment(rectangle, HPos.CENTER);
             gridMap.add(rectangle, newX, newY);
         }
     }
@@ -136,8 +145,9 @@ public class SimulationPresenter implements MapChangeListener {
                 } else {
                     animalColor = new Color(1, 0, 0, 1);
                 }
-                Circle circle = new Circle(newX, newY, 15, animalColor);
+                Circle circle = new Circle(newX, newY, radiusValue, animalColor);
                 circle.setOnMouseClicked(event -> displayAnimalInfo(animal));
+                GridPane.setHalignment(circle, HPos.CENTER);
                 gridMap.add(circle, newX, newY);
             }
         }
@@ -154,7 +164,8 @@ public class SimulationPresenter implements MapChangeListener {
         for(Animal animal: AnimalsWithMostOccuredGenome){
             int newX = animal.position().x() + 1;
             int newY = height - (animal.position().y());
-            Circle circle = new Circle(newX, newY, 15, new Color(0.5, 0.4, 0.7, 1));
+            Circle circle = new Circle(newX, newY, radiusValue, new Color(0.5, 0.4, 0.7, 1));
+            GridPane.setHalignment(circle, HPos.CENTER);
             gridMap.add(circle, newX, newY);
         }
 
@@ -181,6 +192,7 @@ public class SimulationPresenter implements MapChangeListener {
                     Rectangle rectangle = new Rectangle(newX, newY, cellSize, cellSize);
                     Color plantColor = new Color(0, 0.6, 0, 1);
                     rectangle.setFill(plantColor);
+                    GridPane.setHalignment(rectangle, HPos.CENTER);
                     gridMap.add(rectangle, newX, newY);
                 }
         }
