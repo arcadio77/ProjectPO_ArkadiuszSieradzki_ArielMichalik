@@ -172,6 +172,7 @@ public class SimulationPresenter implements MapChangeListener {
             int newX = animal.position().x() + 1;
             int newY = height - (animal.position().y());
             Circle circle = new Circle(newX, newY, radiusValue, new Color(0.5, 0.4, 0.7, 1));
+            circle.setOnMouseClicked(event -> displayAnimalInfo(animal));
             GridPane.setHalignment(circle, HPos.CENTER);
             gridMap.add(circle, newX, newY);
         }
@@ -279,6 +280,7 @@ public class SimulationPresenter implements MapChangeListener {
             putAnimals();
         }
         showMostPopularGenome();
+
     }
 
 

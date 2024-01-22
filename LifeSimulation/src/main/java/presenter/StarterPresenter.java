@@ -203,7 +203,6 @@ public class StarterPresenter {
 
         }
 
-
     public void showLegend() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("legend.fxml"));
