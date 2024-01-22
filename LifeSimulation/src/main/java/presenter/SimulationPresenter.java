@@ -57,6 +57,7 @@ public class SimulationPresenter implements MapChangeListener {
     private Animal previousTrackedAnimal = null;
     private int cellSize;
     private int radiusValue;
+
     private final static int maxGridWidth = 700;
     private final static int maxGridHeight = 700;
 
@@ -122,7 +123,12 @@ public class SimulationPresenter implements MapChangeListener {
     private void displayAnimalInfo(Animal animal){
         if (currentTrackedAnimal != null) {
             previousTrackedAnimal = currentTrackedAnimal.clone();
-            updateAnimalColor(previousTrackedAnimal);
+            if(previousTrackedAnimal.getGenomeList().equals(stats.getMostPopularGenome())){
+                showMostPopularGenome();
+            }
+            else{
+                updateAnimalColor(previousTrackedAnimal);
+            }
         }
         currentTrackedAnimal = animal;
         updateAnimalColor(currentTrackedAnimal);
