@@ -272,6 +272,7 @@ public class SimulationPresenter implements MapChangeListener {
         showMostPopularGenome();
         if(!map.isUseLifeGivingCorpses()){
             drawEquator();
+            putAnimals();
         }
     }
 

@@ -195,7 +195,9 @@ public class StarterPresenter {
                 "Slow", 800,
                 "Optimal", 500,
                 "Fast", 300,
-                "Very Fast", 100
+                "Very Fast", 100,
+                "Faster", 70,
+                "Supersonic", 55
         );
         String selectedSpeed = (String) speedBox.getValue();
         this.speedValue = speedValues.get(selectedSpeed);
