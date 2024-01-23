@@ -9,8 +9,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
 
+import model.util.ConfigurationReader;
 import model.util.ConfigurationSaver;
 import model.util.Energy;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 import java.io.IOException;
@@ -34,6 +40,7 @@ public class StarterPresenter {
     public CheckBox getUseMutationSwapGene;
     public CheckBox getUseLifeGivingCorpses;
     public Button addNewConfBtn;
+    public Button loadBtn;
     private int speedValue;
     boolean saveCsv;
     public ComboBox speedBox;
@@ -167,6 +174,31 @@ public class StarterPresenter {
         engine.runAsync();
     }
 
+    public void iterateThroughTxtFiles() {
+        String directoryPath = "SavedConfigurations/";
+        
+        DirectoryStream<Path> stream = null;
+        try {
+            stream = Files.newDirectoryStream(Paths.get(directoryPath), "*.txt");
+            for (Path entry : stream) {
+                if (Files.isRegularFile(entry)) {
+                    readConfigurationFromTxt(String.valueOf(entry));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
     public String saveStatsToCsv() {
         saveCsv = false;
         String filename = "output";
@@ -226,14 +258,13 @@ public class StarterPresenter {
         }
     }
 
-    public void readConfigurationFromTxt(String filename) {
-        String filePath = null;
-        ConfigurationSaver cS = new ConfigurationSaver(this);
+    public void readConfigurationFromTxt(String filename) throws IOException {
+        System.out.println(filename);
+        System.out.println("odczytałem");
 
-        if (filename != null){
-            filePath = "SavedConfigurations/" + filename + ".txt";
-            cS.createTXTFile(filePath);
-        }
+        ConfigurationReader cR = new ConfigurationReader();
+        String[] values = cR.readFromTXTFile(filename);
+        System.out.println(Arrays.toString(values));
     }
 
     public void onConfigurationSelected() {
