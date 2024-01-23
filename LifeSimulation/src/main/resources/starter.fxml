@@ -16,10 +16,6 @@
             fx:controller="presenter.StarterPresenter">
     <top>
         <HBox>
-
-            <Button fx:id="loadBtn" text="Load Saved Configurations" onAction="#iterateThroughTxtFiles"/>
-
-
             <Button fx:id="startBtn" text="Start" onAction="#onSimulationStartClicked"/>
             <Button fx:id="showLegend" text="Legend" onAction="#showLegend"/>
             <ComboBox fx:id="configurations" promptText="Configurations" onAction="#onConfigurationSelected">

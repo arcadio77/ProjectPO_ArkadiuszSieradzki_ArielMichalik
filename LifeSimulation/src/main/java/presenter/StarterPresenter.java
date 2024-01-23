@@ -265,9 +265,6 @@ public class StarterPresenter {
             getGenomeLength.setText(values[11]);
             getMinMutationNum.setText(values[12]);
             getMaxMutationNum.setText(values[13]);
-
-        saveConfigurationToTxt(filenames.get(filenameIdx));
-        this.filenameIdx += 1;
     }
 
 
@@ -385,7 +382,4 @@ public class StarterPresenter {
         stage.minHeightProperty().bind(viewRoot.minHeightProperty());
         stage.show();
     }
-
-
-
 }
