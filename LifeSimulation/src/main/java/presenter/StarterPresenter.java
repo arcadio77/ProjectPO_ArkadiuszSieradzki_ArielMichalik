@@ -229,32 +229,54 @@ public class StarterPresenter {
 
         result.ifPresent(name -> {
             this.filenames.add(filenameIdx,name);
-            configurations.getItems().add(name);
-            speedBox.setValue(getSpeedValueString());
-            getWidth.setText(String.valueOf(getWidthValue()));
-            getHeight.setText(String.valueOf(getHeightValue()));
-            getAnimalNumber.setText(String.valueOf(getAnimalNumberValue()));
-            getInitialAnimalEnergy.setText(String.valueOf(getInitialAnimalEnergyValue()));
-            getInitialGrassNumber.setText(String.valueOf(getInitialGrassNumberValue()));
-            getNumOfGrassGrowingDaily.setText(String.valueOf(getNumOfGrassGrowingDailyValue()));
-            getGrassEnergy.setText(String.valueOf(getGrassEnergyValue()));
-            getBreedReadyEnergy.setText(String.valueOf(getBreedReadyEnergyValue()));
-            getBreedLostEnergy.setText(String.valueOf(getBreedLostEnergyValue()));
-            getGenomeLength.setText(String.valueOf(getGenomeLengthValue()));
-            getMinMutationNum.setText(String.valueOf(getMinMutationNumValue()));
-            getMaxMutationNum.setText(String.valueOf(getMaxMutationNumValue()));
+//            configurations.getItems().add(name);
+//            speedBox.setValue(getSpeedValueString());
+//            getWidth.setText(String.valueOf(getWidthValue()));
+//            getHeight.setText(String.valueOf(getHeightValue()));
+//            getAnimalNumber.setText(String.valueOf(getAnimalNumberValue()));
+//            getInitialAnimalEnergy.setText(String.valueOf(getInitialAnimalEnergyValue()));
+//            getInitialGrassNumber.setText(String.valueOf(getInitialGrassNumberValue()));
+//            getNumOfGrassGrowingDaily.setText(String.valueOf(getNumOfGrassGrowingDailyValue()));
+//            getGrassEnergy.setText(String.valueOf(getGrassEnergyValue()));
+//            getBreedReadyEnergy.setText(String.valueOf(getBreedReadyEnergyValue()));
+//            getBreedLostEnergy.setText(String.valueOf(getBreedLostEnergyValue()));
+//            getGenomeLength.setText(String.valueOf(getGenomeLengthValue()));
+//            getMinMutationNum.setText(String.valueOf(getMinMutationNumValue()));
+//            getMaxMutationNum.setText(String.valueOf(getMaxMutationNumValue()));
         });
+
+
         saveConfigurationToTxt(filenames.get(filenameIdx));
         this.filenameIdx += 1;
     }
 
+    public void addConfiguarationFromFileToSpinBox(String [] values) {
+            configurations.getItems().add(values[0]);
+            speedBox.setValue(values[1]);
+            getWidth.setText(values[2]);
+            getHeight.setText(values[3]);
+            getAnimalNumber.setText(values[4]);
+            getInitialAnimalEnergy.setText(values[5]);
+            getInitialGrassNumber.setText(values[6]);
+            getNumOfGrassGrowingDaily.setText(values[7]);
+            getGrassEnergy.setText(values[8]);
+            getBreedReadyEnergy.setText(values[9]);
+            getBreedLostEnergy.setText(values[10]);
+            getGenomeLength.setText(values[11]);
+            getMinMutationNum.setText(values[12]);
+            getMaxMutationNum.setText(values[13]);
+
+        saveConfigurationToTxt(filenames.get(filenameIdx));
+        this.filenameIdx += 1;
+    }
+
+
     public void saveConfigurationToTxt(String filename) {
         String filePath = null;
         ConfigurationSaver cS = new ConfigurationSaver(this);
-
         if (filename != null){
             filePath = "SavedConfigurations/" + filename + ".txt";
-            cS.createTXTFile(filePath);
+            cS.createTXTFile(filePath, filename);
         }
     }
 
@@ -264,6 +286,7 @@ public class StarterPresenter {
 
         ConfigurationReader cR = new ConfigurationReader();
         String[] values = cR.readFromTXTFile(filename);
+        addConfiguarationFromFileToSpinBox(values);
         System.out.println(Arrays.toString(values));
     }
 

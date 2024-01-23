@@ -12,9 +12,10 @@ public class ConfigurationSaver {
         this.starterPresenter = sP;
     }
 
-    public void createTXTFile(String filePath) {
+    public void createTXTFile(String filePath, String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            String rowBuilder = starterPresenter.getSpeedValueString() + "," +
+            String rowBuilder = filename + "," +
+                    starterPresenter.getSpeedValueString() + "," +
                     starterPresenter.getWidthValue() + "," +
                     starterPresenter.getHeightValue() + "," +
                     starterPresenter.getAnimalNumberValue() + "," +
