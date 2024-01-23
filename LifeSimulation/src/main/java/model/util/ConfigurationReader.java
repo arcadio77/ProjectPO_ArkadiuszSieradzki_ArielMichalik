@@ -6,7 +6,6 @@ public class ConfigurationReader {
 
     public ConfigurationReader() {
     }
-
     public String[] readFromTXTFile(String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;

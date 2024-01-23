@@ -1,6 +1,7 @@
 package presenter;
 
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -44,6 +45,8 @@ public class StarterPresenter {
     private int speedValue;
     boolean saveCsv;
     public ComboBox speedBox;
+
+    private ObservableMap<String, String[]> configurationsData = FXCollections.observableHashMap();
 
     public ArrayList<String> filenames = new ArrayList<>();
     public int filenameIdx = 0;
@@ -233,23 +236,6 @@ public class StarterPresenter {
         this.filenameIdx += 1;
     }
 
-    public void addConfiguarationFromFileToSpinBox(String [] values) {
-            configurations.getItems().add(values[0]);
-            speedBox.setValue(values[1]);
-            getWidth.setText(values[2]);
-            getHeight.setText(values[3]);
-            getAnimalNumber.setText(values[4]);
-            getInitialAnimalEnergy.setText(values[5]);
-            getInitialGrassNumber.setText(values[6]);
-            getNumOfGrassGrowingDaily.setText(values[7]);
-            getGrassEnergy.setText(values[8]);
-            getBreedReadyEnergy.setText(values[9]);
-            getBreedLostEnergy.setText(values[10]);
-            getGenomeLength.setText(values[11]);
-            getMinMutationNum.setText(values[12]);
-            getMaxMutationNum.setText(values[13]);
-    }
-
 
     public void saveConfigurationToTxt(String filename) {
         String filePath = null;
@@ -270,74 +256,36 @@ public class StarterPresenter {
         System.out.println(Arrays.toString(values));
     }
 
+    public void addConfiguarationFromFileToSpinBox(String [] values) {
+        configurations.getItems().add(values[0]);
+        configurationsData.put(values[0], values);
+        updateConfiguration(values);
+    }
+
     public void onConfigurationSelected() {
         String selectedConfiguration = configurations.getValue();
-        if (selectedConfiguration.equals("Configuration 1")) {
-            speedBox.setValue("Optimal");
-            getWidth.setText("10");
-            getHeight.setText("10");
-            getAnimalNumber.setText("20");
-            getInitialAnimalEnergy.setText("10");
-            getInitialGrassNumber.setText("20");
-            getNumOfGrassGrowingDaily.setText("5");
-            getGrassEnergy.setText("3");
-            getBreedReadyEnergy.setText("4");
-            getBreedLostEnergy.setText("2");
-            getGenomeLength.setText("5");
-            getMinMutationNum.setText("1");
-            getMaxMutationNum.setText("1");
-        } else if (selectedConfiguration.equals("Configuration 2")) {
-            speedBox.setValue("Very Slow");
-            getWidth.setText("15");
-            getHeight.setText("15");
-            getAnimalNumber.setText("40");
-            getInitialAnimalEnergy.setText("7");
-            getInitialGrassNumber.setText("42");
-            getNumOfGrassGrowingDaily.setText("10");
-            getGrassEnergy.setText("6");
-            getBreedReadyEnergy.setText("4");
-            getBreedLostEnergy.setText("2");
-            getGenomeLength.setText("8");
-            getMinMutationNum.setText("2");
-            getMaxMutationNum.setText("2");
-            getUseMutationSwapGene.setSelected(true);
-            getUseLifeGivingCorpses.setSelected(true);
-        }
-        else if (selectedConfiguration.equals("Configuration 3")) {
-            speedBox.setValue("Fast");
-            getWidth.setText("15");
-            getHeight.setText("15");
-            getAnimalNumber.setText("40");
-            getInitialAnimalEnergy.setText("10");
-            getInitialGrassNumber.setText("30");
-            getNumOfGrassGrowingDaily.setText("15");
-            getGrassEnergy.setText("8");
-            getBreedReadyEnergy.setText("4");
-            getBreedLostEnergy.setText("3");
-            getGenomeLength.setText("14");
-            getMinMutationNum.setText("0");
-            getMaxMutationNum.setText("2");
-            getUseMutationSwapGene.setSelected(false);
-            getUseLifeGivingCorpses.setSelected(false);
-        }
-        else if (selectedConfiguration.equals("Configuration 4")) {
-            speedBox.setValue("Optimal");
-            getWidth.setText("15");
-            getHeight.setText("15");
-            getAnimalNumber.setText("70");
-            getInitialAnimalEnergy.setText("10");
-            getInitialGrassNumber.setText("40");
-            getNumOfGrassGrowingDaily.setText("40");
-            getGrassEnergy.setText("8");
-            getBreedReadyEnergy.setText("10");
-            getBreedLostEnergy.setText("7");
-            getGenomeLength.setText("15");
-            getMinMutationNum.setText("0");
-            getMaxMutationNum.setText("2");
-            getUseMutationSwapGene.setSelected(true);
-            getUseLifeGivingCorpses.setSelected(true);
+        String[] values = configurationsData.get(selectedConfiguration);
+        if (values != null) {
+            updateConfiguration(values);
         }
     }
+
+    private void updateConfiguration(String[] values) {
+        speedBox.setValue(values[1]);
+        getWidth.setText(values[2]);
+        getHeight.setText(values[3]);
+        getAnimalNumber.setText(values[4]);
+        getInitialAnimalEnergy.setText(values[5]);
+        getInitialGrassNumber.setText(values[6]);
+        getNumOfGrassGrowingDaily.setText(values[7]);
+        getGrassEnergy.setText(values[8]);
+        getBreedReadyEnergy.setText(values[9]);
+        getBreedLostEnergy.setText(values[10]);
+        getGenomeLength.setText(values[11]);
+        getMinMutationNum.setText(values[12]);
+        getMaxMutationNum.setText(values[13]);
+    }
+
     public void onSpeedSelected() {
         Map<String, Integer> speedValues = Map.of(
                 "Turtle speed", 2000,
