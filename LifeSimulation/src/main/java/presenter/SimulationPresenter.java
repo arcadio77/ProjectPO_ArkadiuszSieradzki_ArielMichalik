@@ -104,7 +104,7 @@ public class SimulationPresenter implements MapChangeListener {
         putAnimals();
         updateStatsLabels();
         if(currentTrackedAnimal != null){
-            if(currentTrackedAnimal.getDeathDate()==0){
+            if(currentTrackedAnimal.getDeathDate() == 0){
                 int newX = currentTrackedAnimal.position().x() + 1;
                 int newY = map.getHeight() - (currentTrackedAnimal.position().y());
                 Color animalColor = new Color(0.1, 0.1, 1, 1);
@@ -301,7 +301,6 @@ public class SimulationPresenter implements MapChangeListener {
             putAnimals();
         }
         showMostPopularGenome();
-
     }
 
     public void onTerminateSimulationClicked() {
