@@ -296,6 +296,7 @@ public class SimulationPresenter implements MapChangeListener {
     public void onPauseSimulationClicked() {
         simulation.pauseSimulation();
         if(!map.isUseLifeGivingCorpses()){
+            putGrasses(map.getHeight());
             drawEquator();
             putAnimals();
         }
