@@ -21,10 +21,7 @@
             <ComboBox fx:id="configurations" promptText="Configurations" onAction="#onConfigurationSelected">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Configuration 1"/>
-                        <String fx:value="Configuration 2"/>
-                        <String fx:value="Configuration 3"/>
-                        <String fx:value="Configuration 4"/>
+
                     </FXCollections>
                 </items>
             </ComboBox>
