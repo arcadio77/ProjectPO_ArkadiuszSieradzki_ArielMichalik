@@ -14,7 +14,7 @@ public class CsvSaver {
 
     public void createCsvFile(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("Number of animals, Number of plants, Number of empty cells, Most popular genome, " +
+            writer.write("Day number, Number of animals, Number of plants, Number of empty cells, Most popular genome, " +
                     "Average energy, Average number of children, Average lifespan of dead animals");
             writer.newLine();
         } catch (IOException e) {
@@ -24,7 +24,8 @@ public class CsvSaver {
 
     public void addRow(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            String rowBuilder = stats.getNumberOfAllAnimals() + "," +
+            String rowBuilder = stats.getDayNumber() + "," +
+                    stats.getNumberOfAllAnimals() + "," +
                     stats.getNumberOfAllPlants() + "," +
                     stats.getNumberOfEmptyCells() + "," +
                     stats.getMostPopularGenome() + "," +
