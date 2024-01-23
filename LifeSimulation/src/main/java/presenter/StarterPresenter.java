@@ -128,7 +128,7 @@ public class StarterPresenter {
         map.setHeight(getHeightValue());
         map.setInitialAnimalsNumber(getAnimalNumberValue());
         map.setInitialPlantsNumber(getInitialGrassNumberValue());
-        Energy energy = new Energy(getGrassEnergyValue(), getBreedReadyEnergyValue(), getBreedLostEnergyValue(), getInitialAnimalEnergyValue());
+        Energy energy = new Energy(getGrassEnergyValue(), getBreedLostEnergyValue(), getBreedReadyEnergyValue(), getInitialAnimalEnergyValue());
         map.setEnergy(energy);
         map.setMutation(new Mutation(getMinMutationNumValue(), getMaxMutationNumValue()));
         map.setGenomeLength(getGenomeLengthValue());
