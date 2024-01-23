@@ -27,7 +27,11 @@ public class ConfigurationSaver {
                     starterPresenter.getBreedLostEnergyValue() + "," +
                     starterPresenter.getGenomeLengthValue() + "," +
                     starterPresenter.getMinMutationNumValue() + "," +
-                    starterPresenter.getMaxMutationNumValue() + ",";
+                    starterPresenter.getMaxMutationNumValue() + "," +
+                    starterPresenter.getUseMutationSwapGeneValue() + "," +
+                    starterPresenter.getUseLifeGivingCorpsesValue() + "," +
+                    starterPresenter.getCorpseEffectTimeValue()
+                    ;
             writer.write(rowBuilder);
             writer.newLine();
         } catch (IOException e) {

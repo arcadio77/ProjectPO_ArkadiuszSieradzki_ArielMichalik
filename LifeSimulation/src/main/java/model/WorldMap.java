@@ -25,6 +25,7 @@ public class WorldMap {
     private Boundary worldBounds;
     private Boundary jungleBounds;
     private Random random;
+    private int corpseEffectTime;
     private boolean useMutationSwapGene;
     private boolean useLifeGivingCorpses;
     protected Map<Vector2d, Integer> recentGraves = new HashMap<>();
@@ -39,6 +40,7 @@ public class WorldMap {
                     int numOfGrassGrowingDaily, Random random, boolean useMutationSwapGene,
                     boolean useLifeGivingCorpses){
         this.day = 0;
+        this.corpseEffectTime = 0;
         this.width = width;
         this.height = height;
         this.initialAnimalsNumber = animalsNumber;
@@ -136,7 +138,7 @@ public class WorldMap {
     public void animalIsDead(Vector2d position, Animal animal){
         deadAnimals.add(animal);
         recentGraves.remove(position);
-        recentGraves.put(position, 5); // 5 dni są ważne trupy
+        recentGraves.put(position, corpseEffectTime);
     }
 
     public void gravesAreGettingOlder(){
@@ -255,6 +257,8 @@ public class WorldMap {
     public void setRandom(Random random) {
         this.random = random;
     }
+    public int getCorpseEffectTime() {return corpseEffectTime;}
+    public void setCorpseEffectTime(int corpseEffectTime) {this.corpseEffectTime = corpseEffectTime;}
     public void setUseMutationSwapGene(boolean useMutationSwapGene) {
         this.useMutationSwapGene = useMutationSwapGene;
     }

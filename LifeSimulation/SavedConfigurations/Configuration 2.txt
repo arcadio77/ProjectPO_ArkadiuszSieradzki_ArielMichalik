@@ -1,1 +1,1 @@
-Configuration 2,Very Slow,15,15,40,7,42,10,6,4,2,8,2,2,
+Configuration 2,Slow,8,8,24,7,12,6,6,4,2,8,2,2,false,true,3

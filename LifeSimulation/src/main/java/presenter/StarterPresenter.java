@@ -40,6 +40,7 @@ public class StarterPresenter {
     public TextField getMaxMutationNum;
     public CheckBox getUseMutationSwapGene;
     public CheckBox getUseLifeGivingCorpses;
+    public TextField getCorpseEffectTime;
     public Button addNewConfBtn;
     public Button loadBtn;
     private int speedValue;
@@ -119,6 +120,8 @@ public class StarterPresenter {
         return getUseLifeGivingCorpses.isSelected();
     }
 
+    public int getCorpseEffectTimeValue() {return Integer.parseInt(getCorpseEffectTime.getText());}
+
 
     private void settingMap(WorldMap map){
         map.setWidth(getWidthValue());
@@ -131,6 +134,7 @@ public class StarterPresenter {
         map.setGenomeLength(getGenomeLengthValue());
         map.setNumOfGrassGrowingDaily(getNumOfGrassGrowingDailyValue());
         map.setRandom(new Random());
+        map.setCorpseEffectTime(getCorpseEffectTimeValue());
         map.setUseMutationSwapGene(getUseMutationSwapGeneValue());
         map.setUseLifeGivingCorpses(getUseLifeGivingCorpsesValue());
         map.initBounds();
@@ -282,6 +286,9 @@ public class StarterPresenter {
         getGenomeLength.setText(values[11]);
         getMinMutationNum.setText(values[12]);
         getMaxMutationNum.setText(values[13]);
+        getUseMutationSwapGene.setSelected(Boolean.parseBoolean(values[14])); // TODO
+        getUseLifeGivingCorpses.setSelected(Boolean.parseBoolean(values[15])); // TODO
+        getCorpseEffectTime.setText(values[16]);
     }
 
     public void onSpeedSelected() {
