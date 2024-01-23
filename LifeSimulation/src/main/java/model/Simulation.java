@@ -3,6 +3,7 @@ package model;
 import model.util.CsvSaver;
 
 public class Simulation implements Runnable{
+    private boolean running = true;
     private final WorldMap map;
     private final int speed;
     private final Statistics stats;
@@ -39,6 +40,8 @@ public class Simulation implements Runnable{
                 throw new RuntimeException(e);
             }
         }
+        running = false;
+        oneDay.runOneDay();
         if(filename != null){
             csvSaver.addRow(filePath);
         }
@@ -64,6 +67,10 @@ public class Simulation implements Runnable{
                 } catch (Exception ignored) {}
             }
         }
+    }
+
+    public boolean checkIfRunning(){
+        return running;
     }
 
 }

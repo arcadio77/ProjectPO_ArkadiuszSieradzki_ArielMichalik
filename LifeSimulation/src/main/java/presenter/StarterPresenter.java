@@ -169,7 +169,7 @@ public class StarterPresenter {
         presenter.initializePresenter();
 
         stage.setOnCloseRequest(event ->
-                stopSimulation(simulation));
+                pauseSimulation(simulation));
 
         SimulationEngine engine = new SimulationEngine(new ArrayList<>(List.of(simulation)), 4);
         engine.runAsync();
@@ -234,7 +234,7 @@ public class StarterPresenter {
         return filename;
     }
 
-    private void stopSimulation(Simulation simulation){
+    private void pauseSimulation(Simulation simulation){
         simulation.pauseSimulation();
     }
 

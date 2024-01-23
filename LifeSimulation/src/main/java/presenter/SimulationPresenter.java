@@ -94,6 +94,7 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     private void drawMap(){
+        if(!simulation.checkIfRunning()) onTerminateSimulationClicked();
         clearGrid();
         createGrid(map.getWidth(), map.getHeight());
 
