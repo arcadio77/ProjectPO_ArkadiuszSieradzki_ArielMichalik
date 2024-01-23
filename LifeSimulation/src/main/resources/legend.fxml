@@ -3,7 +3,6 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.Color?>
 
 <?import javafx.scene.shape.Circle?>
 
@@ -37,7 +36,7 @@
     </HBox>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Circle radius="10" fill="BLUE"/>
+        <Circle radius="10" fill="rgb(25.5,229.5,255)"/>
         <Label text=" - Current Tracked Animal " style="-fx-font-size: 16px;"/>
     </HBox>
 

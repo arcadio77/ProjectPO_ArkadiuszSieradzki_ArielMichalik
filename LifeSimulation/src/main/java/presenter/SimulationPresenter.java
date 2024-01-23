@@ -164,7 +164,7 @@ public class SimulationPresenter implements MapChangeListener {
         int newY = map.getHeight() - (animal.position().y());
         Color animalColor;
         if (animal.equals(currentTrackedAnimal)){
-           animalColor = new Color(0.1, 0.1, 1, 1);
+           animalColor = new Color(0.1, 0.9, 1, 1);
         }
         else if (animal.getEnergy() >= 2 * map.getEnergy().getInitialAnimalEnergy()){
             animalColor = new Color(1, 1, 0, 1);

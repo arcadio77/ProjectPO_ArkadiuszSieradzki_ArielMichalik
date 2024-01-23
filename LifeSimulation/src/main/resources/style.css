@@ -10,6 +10,10 @@ VBox {
     -fx-pref-width: 128;
     -fx-pref-height: 32;
 }
+
+#addNewConfBtn{
+    -fx-pref-width: 150;
+}
 .moveLabel{
     -fx-font-size: 15;
 }
