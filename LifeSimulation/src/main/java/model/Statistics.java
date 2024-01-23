@@ -8,6 +8,26 @@ import java.util.stream.Collectors;
 
 public class Statistics {
     private int numberOfAllAnimals;
+    private int numberOfAllPlants;
+    private int numberOfEmptyCells;
+    private List<Integer> mostPopularGenome;
+    private double averageEnergyLevelForLivingAnimals;
+    private double averageKidsNumberForLivingAnimals;
+    private double averageLifespanForDeathAnimals;
+    WorldMap map;
+
+    public Statistics(WorldMap map){
+        this.map = map;
+    }
+    public void updateStats(){
+        countAnimals();
+        countPlants();
+        countEmptyCells();
+        countMostPopularGenome();
+        countAverageEnergyLevelForLivingAnimals();
+        countAverageKidsNumberForLivingAnimals();
+        countAverageLifespanForDeadAnimals();
+    }
 
     public int getDayNumber() { return map.getDay(); }
 
@@ -35,29 +55,6 @@ public class Statistics {
         return averageKidsNumberForLivingAnimals;
     }
     public double getAverageLifespanForDeathAnimals() {return averageLifespanForDeathAnimals;}
-
-    private int numberOfAllPlants;
-    private int numberOfEmptyCells;
-    private List<Integer> mostPopularGenome;
-    private double averageEnergyLevelForLivingAnimals;
-    private double averageKidsNumberForLivingAnimals;
-    private double averageLifespanForDeathAnimals;
-
-    WorldMap map;
-
-    public Statistics(WorldMap map){
-        this.map = map;
-    }
-    public void updateStats(){
-        countAnimals();
-        countPlants();
-        countEmptyCells();
-        countMostPopularGenome();
-        countAverageEnergyLevelForLivingAnimals();
-        countAverageKidsNumberForLivingAnimals();
-        countAverageLifespanForDeadAnimals();
-    }
-
 
     private void countAverageLifespanForDeadAnimals(){
         double averageLifespan = map.getDeadAnimals().stream()

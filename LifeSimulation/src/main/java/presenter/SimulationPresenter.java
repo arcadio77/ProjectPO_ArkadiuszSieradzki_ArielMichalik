@@ -48,7 +48,6 @@ public class SimulationPresenter implements MapChangeListener {
     public Button stopTrackingBtn;
     public Button continueBtn;
     public Label trackedAnimalGenome;
-
     private WorldMap map;
     private Simulation simulation;
     public GridPane gridMap;
@@ -58,7 +57,6 @@ public class SimulationPresenter implements MapChangeListener {
     private Animal previousTrackedAnimal = null;
     private int cellSize;
     private int radiusValue;
-
     private final static int maxGridWidth = 700;
     private final static int maxGridHeight = 700;
 

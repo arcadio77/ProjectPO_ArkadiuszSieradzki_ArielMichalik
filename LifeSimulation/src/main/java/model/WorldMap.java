@@ -16,7 +16,6 @@ public class WorldMap {
     private int initialPlantsNumber;
     private int initialAnimalsNumber;
     private int genomeLength;
-    private int newAnimals = 0;
     Energy energy;
     Mutation mutation;
     protected Map<Vector2d, ArrayList<Animal>> animals;
@@ -30,7 +29,6 @@ public class WorldMap {
     private boolean useLifeGivingCorpses;
     protected Map<Vector2d, Integer> recentGraves = new HashMap<>();
     protected ArrayList<Animal> deadAnimals;
-    private int mapID = 0;
 
     public ArrayList<Animal> getDeadAnimals() {
         return deadAnimals;
@@ -40,7 +38,6 @@ public class WorldMap {
                     Energy energy, int minMutationNum, int maxMutationNum, int genomeLength,
                     int numOfGrassGrowingDaily, Random random, boolean useMutationSwapGene,
                     boolean useLifeGivingCorpses){
-        this.mapID++;
         this.day = 0;
         this.width = width;
         this.height = height;
@@ -59,7 +56,6 @@ public class WorldMap {
         this.useMutationSwapGene = useMutationSwapGene;
         this.useLifeGivingCorpses = useLifeGivingCorpses;
     }
-
 
     public WorldMap(){
         this(11, 1, 0, 0, new Energy(0, 0, 0, 0),
@@ -81,10 +77,6 @@ public class WorldMap {
         observers.add(observer);
     }
 
-    public void removeObserver(MapChangeListener observer){
-        observers.remove(observer);
-    }
-
     public void mapChanged(String message){
         for(MapChangeListener observer: observers){
             observer.mapChanged(this, message);
@@ -99,19 +91,10 @@ public class WorldMap {
         int mapArea = h * w;
         int jungleArea = (int) (mapArea*0.2);
         int y = jungleArea/w;
-        int centerHeight =h/2;
+        int centerHeight = h/2;
         Vector2d leftDownCorner = new Vector2d(0,centerHeight-(int)(y/2));
         Vector2d rightUpCorner = new Vector2d(w,leftDownCorner.y() + Math.max(y,1));
         return new Boundary(leftDownCorner, rightUpCorner);
-    }
-
-
-    public int cntAnimalsOnGivenPosition(Vector2d position){
-        return animals.get(position).size();
-    }
-
-    public int cntGrassesOnGivenPosition(Vector2d position){
-        return isOccupiedByGrass(position) ? 1 : 0;
     }
 
     public void killAllAnimals(){
@@ -132,8 +115,6 @@ public class WorldMap {
         }
     }
 
-
-
     public void initPutAnimals(){
         AnimalPositionsGenerator positions = new AnimalPositionsGenerator(this, initialAnimalsNumber);
         for(Vector2d animalPosition: positions){
@@ -152,10 +133,6 @@ public class WorldMap {
         this.jungleBounds = setJungleBounds();
     }
 
-    public void newAnimalBorn(){
-        newAnimals++;
-    }
-
     public void animalIsDead(Vector2d position, Animal animal){
         deadAnimals.add(animal);
         recentGraves.remove(position);
@@ -163,16 +140,13 @@ public class WorldMap {
     }
 
     public void gravesAreGettingOlder(){
-
         Map<Vector2d, Integer> newRecentGraves = new HashMap<>();
-
         for(Vector2d position : recentGraves.keySet()){
             Integer graveStamina = recentGraves.get(position);
             if (graveStamina > 1) {
                 newRecentGraves.put(position, graveStamina - 1);
             }
         }
-
         recentGraves = newRecentGraves;
     }
 
@@ -205,7 +179,6 @@ public class WorldMap {
         }
     }
 
-
     @Override
     public String toString() {
         MapVisualizer vis = new MapVisualizer(this);
@@ -221,126 +194,74 @@ public class WorldMap {
     public Map<Vector2d, ArrayList<Animal>> getAnimals(){
         return this.animals;
     }
-
     public  Map<Vector2d, Grass> getPlants(){
         return this.plants;
     }
-
     public Vector2d getLowerLeft(){
         return worldBounds.lowerLeft();
     }
-
     public Vector2d getUpperRight(){
         return worldBounds.upperRight();
     }
-
-
     public int getWidth(){
         return width;
     }
-
     public int getHeight(){
         return height;
     }
-
     public Energy getEnergy(){
         return energy;
     }
-
     public Map<Vector2d, Animal> getBestAnimals() {return bestAnimals;}
-
     public int getGenomeLength() {
         return genomeLength;
     }
-
     public int getNumOfGrassGrowingDaily() {
         return numOfGrassGrowingDaily;
     }
-
     public Boundary getJungleBounds(){ return jungleBounds; }
-
     public Random getRandom() { return random; }
-
     public int getDay() { return day; }
-
     public boolean isUseMutationSwapGene() {
         return useMutationSwapGene;
     }
-
     public Map<Vector2d, Integer> getRecentGraves() {
         return recentGraves;
     }
-
     public void setInitialPlantsNumber(int initialPlantsNumber) {
         this.initialPlantsNumber = initialPlantsNumber;
     }
-
     public void setInitialAnimalsNumber(int initialAnimalsNumber) {
         this.initialAnimalsNumber = initialAnimalsNumber;
     }
-
     public void setGenomeLength(int genomeLength) {
         this.genomeLength = genomeLength;
     }
-
-    public void setNewAnimals(int newAnimals) {
-        this.newAnimals = newAnimals;
-    }
-
     public void setEnergy(Energy energy) {
         this.energy = energy;
     }
-
     public void setMutation(Mutation mutation) {
         this.mutation = mutation;
     }
-
-    public void setAnimals(Map<Vector2d, ArrayList<Animal>> animals) {
-        this.animals = animals;
-    }
-
-    public void setBestAnimals(Map<Vector2d, Animal> bestAnimals) {
-        this.bestAnimals = bestAnimals;
-    }
-
-    public void setPlants(Map<Vector2d, Grass> plants) {
-        this.plants = plants;
-    }
-
-    public void setRecentGraves(Map<Vector2d, Integer> recentGraves) {
-        this.recentGraves = recentGraves;
-    }
-
     public void setWidth(int width) {
         this.width = width;
     }
-
     public void setHeight(int height) {
         this.height = height;
     }
-
     public void setNumOfGrassGrowingDaily(int numOfGrassGrowingDaily) {
         this.numOfGrassGrowingDaily = numOfGrassGrowingDaily;
     }
-
     public void setRandom(Random random) {
         this.random = random;
     }
-
     public void setUseMutationSwapGene(boolean useMutationSwapGene) {
         this.useMutationSwapGene = useMutationSwapGene;
     }
-
     public void setUseLifeGivingCorpses(boolean useLifeGivingCorpses) {
         this.useLifeGivingCorpses = useLifeGivingCorpses;
     }
-
     public boolean isUseLifeGivingCorpses() {
         return useLifeGivingCorpses;
-    }
-
-
-    public int getMapID() {
-        return mapID;
     }
 }

@@ -6,7 +6,6 @@ public class Simulation implements Runnable{
     private boolean running = true;
     private final WorldMap map;
     private final int speed;
-    private final Statistics stats;
     private final String filename;
     private boolean pauseThreadFlag = false;
     private final CsvSaver csvSaver;
@@ -15,7 +14,6 @@ public class Simulation implements Runnable{
     public Simulation(WorldMap map, int speed, Statistics stats, String filename){
         this.map = map;
         this.speed = speed;
-        this.stats = stats;
         this.filename = filename;
         this.csvSaver = new CsvSaver(stats);
     }

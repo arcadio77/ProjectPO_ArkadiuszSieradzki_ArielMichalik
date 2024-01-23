@@ -14,15 +14,6 @@ public class Animal implements WorldElement, Cloneable {
     private Integer geneId;
     private int eatenPlants;
     private int deathDate;
-
-    public void setDeathDate(int deathDate) {
-        this.deathDate = deathDate;
-    }
-
-    public Integer getGeneId() {
-        return geneId;
-    }
-
     private int age;
     private ArrayList<Animal> children = new ArrayList<>();
 
@@ -73,6 +64,18 @@ public class Animal implements WorldElement, Cloneable {
     public ArrayList<Animal> getChildren() {
         return children;
     }
+
+    public int getEatenPlants() {
+        return eatenPlants;
+    }
+
+    public int getDeathDate() {
+        return deathDate;
+    }
+
+    public Integer getGeneId() {return geneId;}
+
+    public void setDeathDate(int deathDate) {this.deathDate = deathDate;}
 
     public MapDirection getNewOrientation(){
         int gene = genome.getGenome().get(geneId);
@@ -202,14 +205,6 @@ public class Animal implements WorldElement, Cloneable {
 
     public String toString() {
         return String.valueOf(energy);
-    }
-
-    public int getEatenPlants() {
-        return eatenPlants;
-    }
-
-    public int getDeathDate() {
-        return deathDate;
     }
 
 }
