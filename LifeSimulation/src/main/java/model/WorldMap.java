@@ -247,6 +247,7 @@ public class WorldMap {
         return energy;
     }
 
+    public Map<Vector2d, Animal> getBestAnimals() {return bestAnimals;}
 
     public int getGenomeLength() {
         return genomeLength;

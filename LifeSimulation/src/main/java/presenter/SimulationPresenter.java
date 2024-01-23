@@ -1,5 +1,6 @@
 package presenter;
 
+import com.sun.scenario.animation.shared.AnimationAccessor;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 
@@ -107,7 +108,7 @@ public class SimulationPresenter implements MapChangeListener {
             if(currentTrackedAnimal.getDeathDate() == 0){
                 int newX = currentTrackedAnimal.position().x() + 1;
                 int newY = map.getHeight() - (currentTrackedAnimal.position().y());
-                Color animalColor = new Color(0.1, 0.1, 1, 1);
+                Color animalColor = new Color(0.1, 0.9, 1, 1);
                 Circle circle = new Circle(newX, newY, radiusValue, animalColor);
                 GridPane.setHalignment(circle, HPos.CENTER);
                 gridMap.add(circle, newX, newY);
@@ -135,28 +136,11 @@ public class SimulationPresenter implements MapChangeListener {
             gridMap.add(rectangle, newX, newY);
         }
     }
-    private void displayAnimalInfo(Animal animal){
-        if (currentTrackedAnimal != null) {
-            previousTrackedAnimal = currentTrackedAnimal.clone();
-            if(previousTrackedAnimal.getGenomeList().equals(stats.getMostPopularGenome())){
-                showMostPopularGenome();
-            }
-            else{
-                updateAnimalColor(previousTrackedAnimal);
-            }
-        }
-        currentTrackedAnimal = animal;
-        updateAnimalColor(currentTrackedAnimal);
-        updateAnimalStatsLabels();
-        setAnimalStatsVisible(true);
-
-    }
 
     private void putAnimals() {
-        for (WorldElement element : map.getElements()) {
-            if (element instanceof Animal animal) {
-                updateAnimalColor(animal);
-            }
+        ArrayList<Animal> bestAnimals = new ArrayList<>(map.getBestAnimals().values());
+        for (Animal a : bestAnimals) {
+                updateAnimalColor(a);
         }
     }
     private void updateAnimalColor(@NotNull Animal animal){
@@ -178,6 +162,22 @@ public class SimulationPresenter implements MapChangeListener {
         circle.setOnMouseClicked(event -> displayAnimalInfo(animal));
         GridPane.setHalignment(circle, HPos.CENTER);
         gridMap.add(circle, newX, newY);
+    }
+
+    private void displayAnimalInfo(Animal animal){
+        if (currentTrackedAnimal != null) {
+            previousTrackedAnimal = currentTrackedAnimal.clone();
+            if(previousTrackedAnimal.getGenomeList().equals(stats.getMostPopularGenome())){
+                showMostPopularGenome();
+            }
+            else{
+                updateAnimalColor(previousTrackedAnimal);
+            }
+        }
+        currentTrackedAnimal = animal;
+        updateAnimalColor(currentTrackedAnimal);
+        updateAnimalStatsLabels();
+        setAnimalStatsVisible(true);
     }
 
     private void showMostPopularGenome() {

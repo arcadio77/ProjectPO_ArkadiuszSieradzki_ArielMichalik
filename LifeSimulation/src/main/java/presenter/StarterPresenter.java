@@ -37,7 +37,23 @@ public class StarterPresenter {
     boolean saveCsv;
     public ComboBox speedBox;
 
-    public int getSpeedValue() {return speedValue;}
+    public String getSpeedValueString() {
+        Map<Integer, String> speedValues = Map.of(
+                2000, "Turtle speed",
+                 1000, "Very Slow",
+                 800, "Slow",
+                 500, "Optimal",
+                 300, "Fast",
+                 100, "Very Fast",
+                 70, "Faster",
+                 55, "Supersonic"
+        );
+        return speedValues.get(speedValue);
+    }
+
+    public int getSpeedValueInt() {
+        return speedValue;
+    }
 
     public int getWidthValue() {
         return Integer.parseInt(getWidth.getText());
@@ -131,7 +147,7 @@ public class StarterPresenter {
         stage.show();
         Statistics statistics = new Statistics(map);
 
-        Simulation simulation = new Simulation(map, getSpeedValue(), statistics, filename);
+        Simulation simulation = new Simulation(map, getSpeedValueInt(), statistics, filename);
 
         SimulationPresenter presenter = loader.getController();
         map.addObserver(presenter);
@@ -176,7 +192,7 @@ public class StarterPresenter {
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(name -> {
             configurations.getItems().add(name);
-            speedBox.setValue(getSpeedValue()); //todo to trzeba poprawić bo nie wartosc tylko nazwa konfiguracji
+            speedBox.setValue(getSpeedValueString()); //todo to trzeba poprawić bo nie wartosc tylko nazwa konfiguracji
             getWidth.setText(String.valueOf(getWidthValue()));
             getHeight.setText(String.valueOf(getHeightValue()));
             getAnimalNumber.setText(String.valueOf(getAnimalNumberValue()));
