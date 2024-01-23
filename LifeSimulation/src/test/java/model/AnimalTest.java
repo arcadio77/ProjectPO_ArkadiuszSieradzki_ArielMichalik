@@ -56,7 +56,9 @@ class AnimalTest {
     @Test
     void testMoveHorizontally() {
         Vector2d initialPosition = new Vector2d(2, 3);
-        Genome genome = new Genome(10, new Mutation(0,0), new Random());
+        ArrayList<Integer> genomeList = new ArrayList<>(0);
+        genomeList.add(2);
+        Genome genome = new Genome(1, genomeList);
         int geneId = 0;
         int initialEnergy = 10;
 
@@ -72,7 +74,10 @@ class AnimalTest {
 
     @Test
     void testMoveBothVerticallyAndHorizontally() {
-        Animal animal = new Animal(new Vector2d(2, 3), MapDirection.NORTH, new Genome(), 0, 10);
+        ArrayList<Integer> genomeList = new ArrayList<>(0);
+        genomeList.add(1);
+        Genome genome = new Genome(1, genomeList);
+        Animal animal = new Animal(new Vector2d(2, 3), MapDirection.NORTH, genome, 0, 10);
 
         animal.move(new Vector2d(0, 0), new Vector2d(5, 5));
 

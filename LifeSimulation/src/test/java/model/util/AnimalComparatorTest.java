@@ -18,11 +18,9 @@ public class AnimalComparatorTest {
         Random random = new Random();
         Genome g1 = new Genome(10, new Mutation(0,0), random);
         ArrayList<Integer> g1List = g1.getGenome();
-        System.out.println(g1List);
 
         Genome g2 = new Genome(10, new Mutation(0,0), random);
         ArrayList<Integer> g2List = g2.getGenome();
-        System.out.println(g2List);
 
         Animal a1 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g1, 0, 50);
         Animal a2 = new Animal(new Vector2d(0,0), MapDirection.NORTH, g2, 0, 1);

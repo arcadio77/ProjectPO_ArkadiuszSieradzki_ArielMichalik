@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.ceil;
-import static java.lang.Math.round;
 
 public class Genome {
     private final ArrayList<Integer> genome;
@@ -58,9 +57,9 @@ public class Genome {
             List<Integer> partOfParent1 = new ArrayList<>(parent1.getGenomeList().subList(Idx, parent1.getGenomeList().size()));
             List<Integer> partOfParent2 = new ArrayList<>(parent2.getGenomeList().subList(0, Idx));
 
-            partOfParent1.addAll(partOfParent2); // combined
+            partOfParent2.addAll(partOfParent1); // combined
 
-            return mutate(partOfParent1, useMutationSwapGene); // mutation
+            return mutate(partOfParent2, useMutationSwapGene); // mutation
         }
     }
 
