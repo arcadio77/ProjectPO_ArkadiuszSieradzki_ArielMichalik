@@ -65,9 +65,7 @@ public class StarterPresenter {
         return Integer.parseInt(getGrassEnergy.getText());
     }
 
-    public int getBreedReadyEnergyValue() {
-        return Integer.parseInt(getBreedReadyEnergy.getText());
-    }
+    public int getBreedReadyEnergyValue() { return Integer.parseInt(getBreedReadyEnergy.getText()); }
 
     public int getBreedLostEnergyValue() {
         return Integer.parseInt(getBreedLostEnergy.getText());
