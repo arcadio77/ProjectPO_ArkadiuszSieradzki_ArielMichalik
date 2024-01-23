@@ -218,7 +218,6 @@ public class StarterPresenter {
     public void addConfiguarationFromFileToSpinBox(String [] values) {
         configurations.getItems().add(values[0]);
         configurationsData.put(values[0], values);
-        updateConfiguration(values);
     }
 
     public String saveStatsToCsv() {
@@ -286,8 +285,8 @@ public class StarterPresenter {
         getGenomeLength.setText(values[11]);
         getMinMutationNum.setText(values[12]);
         getMaxMutationNum.setText(values[13]);
-        getUseMutationSwapGene.setSelected(Boolean.parseBoolean(values[14])); // TODO
-        getUseLifeGivingCorpses.setSelected(Boolean.parseBoolean(values[15])); // TODO
+        getUseMutationSwapGene.setSelected(Boolean.parseBoolean(values[14]));
+        getUseLifeGivingCorpses.setSelected(Boolean.parseBoolean(values[15]));
         getCorpseEffectTime.setText(values[16]);
     }
 
