@@ -300,6 +300,7 @@ public class SimulationPresenter implements MapChangeListener {
             drawEquator();
             putAnimals();
         }
+        stats.updateStats();
         showMostPopularGenome();
     }
 
