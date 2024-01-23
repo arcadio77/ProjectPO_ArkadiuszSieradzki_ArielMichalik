@@ -45,9 +45,7 @@ public class StarterPresenter {
     private int speedValue;
     boolean saveCsv;
     public ComboBox speedBox;
-
     private ObservableMap<String, String[]> configurationsData = FXCollections.observableHashMap();
-
     public ArrayList<String> filenames = new ArrayList<>();
     public int filenameIdx = 0;
 
@@ -201,6 +199,23 @@ public class StarterPresenter {
         }
     }
 
+    public void readConfigurationFromTxt(String filename) throws IOException {
+        System.out.println(filename);
+        System.out.println("odczytałem");
+
+        ConfigurationReader cR = new ConfigurationReader();
+        String[] values = cR.readFromTXTFile(filename);
+        if(!configurationsData.containsKey(values[0])){
+            addConfiguarationFromFileToSpinBox(values);
+        }
+        System.out.println(Arrays.toString(values));
+    }
+
+    public void addConfiguarationFromFileToSpinBox(String [] values) {
+        configurations.getItems().add(values[0]);
+        configurationsData.put(values[0], values);
+        updateConfiguration(values);
+    }
 
     public String saveStatsToCsv() {
         saveCsv = false;
@@ -217,8 +232,8 @@ public class StarterPresenter {
             filename = null;
         }
         return filename;
-
     }
+
     private void stopSimulation(Simulation simulation){
         simulation.pauseSimulation();
     }
@@ -236,7 +251,6 @@ public class StarterPresenter {
         this.filenameIdx += 1;
     }
 
-
     public void saveConfigurationToTxt(String filename) {
         String filePath = null;
         ConfigurationSaver cS = new ConfigurationSaver(this);
@@ -244,22 +258,6 @@ public class StarterPresenter {
             filePath = "SavedConfigurations/" + filename + ".txt";
             cS.createTXTFile(filePath, filename);
         }
-    }
-
-    public void readConfigurationFromTxt(String filename) throws IOException {
-        System.out.println(filename);
-        System.out.println("odczytałem");
-
-        ConfigurationReader cR = new ConfigurationReader();
-        String[] values = cR.readFromTXTFile(filename);
-        addConfiguarationFromFileToSpinBox(values);
-        System.out.println(Arrays.toString(values));
-    }
-
-    public void addConfiguarationFromFileToSpinBox(String [] values) {
-        configurations.getItems().add(values[0]);
-        configurationsData.put(values[0], values);
-        updateConfiguration(values);
     }
 
     public void onConfigurationSelected() {
