@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
 
+import model.util.ConfigurationSaver;
 import model.util.Energy;
 
 
@@ -36,6 +37,9 @@ public class StarterPresenter {
     private int speedValue;
     boolean saveCsv;
     public ComboBox speedBox;
+
+    public ArrayList<String> filenames = new ArrayList<>();
+    public int filenameIdx = 0;
 
     public String getSpeedValueString() {
         Map<Integer, String> speedValues = Map.of(
@@ -190,9 +194,11 @@ public class StarterPresenter {
         dialog.setHeaderText(null);
         dialog.setContentText("Input new configuration name:");
         Optional<String> result = dialog.showAndWait();
+
         result.ifPresent(name -> {
+            this.filenames.add(filenameIdx,name);
             configurations.getItems().add(name);
-            speedBox.setValue(getSpeedValueString()); //todo to trzeba poprawić bo nie wartosc tylko nazwa konfiguracji
+            speedBox.setValue(getSpeedValueString());
             getWidth.setText(String.valueOf(getWidthValue()));
             getHeight.setText(String.valueOf(getHeightValue()));
             getAnimalNumber.setText(String.valueOf(getAnimalNumberValue()));
@@ -206,9 +212,29 @@ public class StarterPresenter {
             getMinMutationNum.setText(String.valueOf(getMinMutationNumValue()));
             getMaxMutationNum.setText(String.valueOf(getMaxMutationNumValue()));
         });
-
+        saveConfigurationToTxt(filenames.get(filenameIdx));
+        this.filenameIdx += 1;
     }
 
+    public void saveConfigurationToTxt(String filename) {
+        String filePath = null;
+        ConfigurationSaver cS = new ConfigurationSaver(this);
+
+        if (filename != null){
+            filePath = "SavedConfigurations/" + filename + ".txt";
+            cS.createTXTFile(filePath);
+        }
+    }
+
+    public void readConfigurationFromTxt(String filename) {
+        String filePath = null;
+        ConfigurationSaver cS = new ConfigurationSaver(this);
+
+        if (filename != null){
+            filePath = "SavedConfigurations/" + filename + ".txt";
+            cS.createTXTFile(filePath);
+        }
+    }
 
     public void onConfigurationSelected() {
         String selectedConfiguration = configurations.getValue();
