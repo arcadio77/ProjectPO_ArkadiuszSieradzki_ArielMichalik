@@ -1,5 +1,7 @@
 package model;
 
+import model.util.CsvSaver;
+
 public class Simulation implements Runnable{
     private final WorldMap map;
     private final int speed;

@@ -1,4 +1,6 @@
-package model;
+package model.util;
+
+import model.Statistics;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
