@@ -83,5 +83,3 @@ LifeSimulation/gradlew
 .gitattributes
 LifeSimulation/gradlew.bat
 .idea
-LifeSimulation/SavedStats
-LifeSimulation/SavedConfigurations
