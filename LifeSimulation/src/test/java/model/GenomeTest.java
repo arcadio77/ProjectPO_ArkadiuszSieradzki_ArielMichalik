@@ -3,7 +3,6 @@ package model;
 import model.enums.MapDirection;
 import org.junit.jupiter.api.Test;
 
-import javax.naming.InsufficientResourcesException;
 import java.util.ArrayList;
 import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;

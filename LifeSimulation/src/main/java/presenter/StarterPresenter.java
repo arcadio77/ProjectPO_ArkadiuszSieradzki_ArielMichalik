@@ -226,26 +226,9 @@ public class StarterPresenter {
         dialog.setHeaderText(null);
         dialog.setContentText("Input new configuration name:");
         Optional<String> result = dialog.showAndWait();
-
         result.ifPresent(name -> {
             this.filenames.add(filenameIdx,name);
-//            configurations.getItems().add(name);
-//            speedBox.setValue(getSpeedValueString());
-//            getWidth.setText(String.valueOf(getWidthValue()));
-//            getHeight.setText(String.valueOf(getHeightValue()));
-//            getAnimalNumber.setText(String.valueOf(getAnimalNumberValue()));
-//            getInitialAnimalEnergy.setText(String.valueOf(getInitialAnimalEnergyValue()));
-//            getInitialGrassNumber.setText(String.valueOf(getInitialGrassNumberValue()));
-//            getNumOfGrassGrowingDaily.setText(String.valueOf(getNumOfGrassGrowingDailyValue()));
-//            getGrassEnergy.setText(String.valueOf(getGrassEnergyValue()));
-//            getBreedReadyEnergy.setText(String.valueOf(getBreedReadyEnergyValue()));
-//            getBreedLostEnergy.setText(String.valueOf(getBreedLostEnergyValue()));
-//            getGenomeLength.setText(String.valueOf(getGenomeLengthValue()));
-//            getMinMutationNum.setText(String.valueOf(getMinMutationNumValue()));
-//            getMaxMutationNum.setText(String.valueOf(getMaxMutationNumValue()));
         });
-
-
         saveConfigurationToTxt(filenames.get(filenameIdx));
         this.filenameIdx += 1;
     }

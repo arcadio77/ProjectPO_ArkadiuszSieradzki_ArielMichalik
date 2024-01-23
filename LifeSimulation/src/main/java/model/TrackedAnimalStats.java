@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TrackedAnimalStats {
-    private WorldMap map;
     private int activeGene;
     private int energyLevel;
     private int eatenPlantsNumber;
@@ -47,9 +46,6 @@ public class TrackedAnimalStats {
                 descendantsVisited.put(ch, 1);
                 currentDescendants.add(ch);
                 currentDescendants.addAll(rek(ch));
-            }
-            else{
-                continue;
             }
         }
         return currentDescendants;

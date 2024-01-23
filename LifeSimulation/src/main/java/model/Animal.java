@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Animal implements WorldElement, Cloneable {
-    private final int id;
     private MapDirection direction;
     private Vector2d position;
     private int energy;
@@ -26,7 +25,6 @@ public class Animal implements WorldElement, Cloneable {
 
     private int age;
     private ArrayList<Animal> children = new ArrayList<>();
-    private static int idCnt = 0;
 
 
     @Override
@@ -43,8 +41,6 @@ public class Animal implements WorldElement, Cloneable {
     }
 
     public Animal(Vector2d x, MapDirection dir, Genome genome, Integer geneId, int initEnergy){
-        this.id = idCnt;
-        idCnt ++;
         this.position = x;
         this.direction = dir;
         this.genome = genome;
@@ -99,8 +95,8 @@ public class Animal implements WorldElement, Cloneable {
 
     public void move(Vector2d lowerLeft, Vector2d upperRight){ //this method change position or direction or both of the animal on the map
 
-        this.energy--; // daleko jeszcze???
-        this.age++; // starość nie radość
+        this.energy--;
+        this.age++;
         readNextGene();
 
         MapDirection newOrientation = getNewOrientation();
@@ -195,6 +191,7 @@ public class Animal implements WorldElement, Cloneable {
 
     public void breed(Animal child, int lostEnergy){
         this.energy -= lostEnergy;
+        if(this.energy < 0) this.energy = 0;
         this.children.add(child);
     }
 
