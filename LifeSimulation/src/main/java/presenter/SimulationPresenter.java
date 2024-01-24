@@ -103,15 +103,17 @@ public class SimulationPresenter implements MapChangeListener {
 
         putAnimals();
         updateStatsLabels();
-        if(currentTrackedAnimal != null){
-            if(currentTrackedAnimal.getDeathDate() == 0){
-                int newX = currentTrackedAnimal.position().x() + 1;
-                int newY = map.getHeight() - (currentTrackedAnimal.position().y());
-                Color animalColor = new Color(0.1, 0.9, 1, 1);
-                Circle circle = new Circle(newX, newY, radiusValue, animalColor);
-                GridPane.setHalignment(circle, HPos.CENTER);
-                gridMap.add(circle, newX, newY);
-            }
+        printTrackedAnimal();
+    }
+
+    private void printTrackedAnimal(){
+        if(currentTrackedAnimal != null && currentTrackedAnimal.getDeathDate() == 0){
+            int newX = currentTrackedAnimal.position().x() + 1;
+            int newY = map.getHeight() - (currentTrackedAnimal.position().y());
+            Color animalColor = new Color(0.1, 0.9, 1, 1);
+            Circle circle = new Circle(newX, newY, radiusValue, animalColor);
+            GridPane.setHalignment(circle, HPos.CENTER);
+            gridMap.add(circle, newX, newY);
             updateAnimalStatsLabels();
         }
     }
@@ -247,8 +249,6 @@ public class SimulationPresenter implements MapChangeListener {
             gridMap.add(digit, 0, i+1);
             GridPane.setHalignment(digit, HPos.CENTER);
         }
-
-
     }
 
     private void updateStatsLabels(){
@@ -302,6 +302,7 @@ public class SimulationPresenter implements MapChangeListener {
         }
         stats.updateStats();
         showMostPopularGenome();
+        printTrackedAnimal();
     }
 
     public void onTerminateSimulationClicked() {
