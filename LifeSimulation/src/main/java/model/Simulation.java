@@ -39,7 +39,7 @@ public class Simulation implements Runnable{
             }
         }
         running = false;
-        map.mapChanged("terminated");
+        oneDay.runOneDay();
         if(filename != null){
             csvSaver.addRow(filePath);
         }

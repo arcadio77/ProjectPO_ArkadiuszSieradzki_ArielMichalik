@@ -99,8 +99,9 @@ public class WorldMap {
         return new Boundary(leftDownCorner, rightUpCorner);
     }
 
-    public void killAllAnimals(){
+    public void killAllAnimalsAndAllPlants(){
         animals = new HashMap<>();
+        plants = new HashMap<>();
     }
 
     public void initPutGrasses(int plantsNumber){
