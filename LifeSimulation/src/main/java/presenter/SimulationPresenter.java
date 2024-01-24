@@ -305,7 +305,9 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void onTerminateSimulationClicked() {
-        map.killAllAnimals();
+        onPauseSimulationClicked();
+        map.killAllAnimalsAndAllPlants();
+        clearGrid();
         onContinueSimulationClicked();
         simulationTerminated.setText("Simulation has been terminated");
     }
