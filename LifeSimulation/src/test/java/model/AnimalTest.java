@@ -23,7 +23,7 @@ class AnimalTest {
         Vector2d upperRight = new Vector2d(5, 5);
 
         for(int i = 0; i < 5; i++) {
-            animal.move(lowerLeft, upperRight);
+            animal.move(5, 5);
         }
 
         assertTrue(animal.position().isBiggerOrEqual(lowerLeft));
@@ -45,10 +45,8 @@ class AnimalTest {
 
         Animal animal = new Animal(initialPosition, MapDirection.NORTH, genome, geneId, initialEnergy);
 
-        Vector2d lowerLeft = new Vector2d(0, 0);
-        Vector2d upperRight = new Vector2d(5, 5);
 
-        animal.move(lowerLeft, upperRight);
+        animal.move(5, 5);
 
         assertNotEquals(3, animal.position().y());
     }
@@ -64,10 +62,7 @@ class AnimalTest {
 
         Animal animal = new Animal(initialPosition, MapDirection.NORTH, genome, geneId, initialEnergy);
 
-        Vector2d lowerLeft = new Vector2d(0, 0);
-        Vector2d upperRight = new Vector2d(5, 5);
-
-        animal.move(lowerLeft, upperRight);
+        animal.move(5, 5);
 
         assertNotEquals(2, animal.position().x());
     }
@@ -79,7 +74,7 @@ class AnimalTest {
         Genome genome = new Genome(1, genomeList);
         Animal animal = new Animal(new Vector2d(2, 3), MapDirection.NORTH, genome, 0, 10);
 
-        animal.move(new Vector2d(0, 0), new Vector2d(5, 5));
+        animal.move(5, 5);
 
         assertNotEquals(2, animal.position().x());
         assertNotEquals(3, animal.position().y());

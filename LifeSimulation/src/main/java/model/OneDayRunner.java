@@ -82,7 +82,8 @@ public class OneDayRunner {
 
             for (Animal animal : animalsOnThisPos) {
                 if (animal.getEnergy() > 0) {
-                    animal.move(map.getLowerLeft(), map.getUpperRight()); // energy--
+//                    animal.move(map.getLowerLeft(), map.getUpperRight()); // energy--
+                    animal.move(map.getWidth()-1, map.getHeight()-1);
 
                     if(!(toPlace.containsKey(animal.position()))) { // placing on our map
                         toPlace.put(animal.position(), new ArrayList<>(List.of(animal)));

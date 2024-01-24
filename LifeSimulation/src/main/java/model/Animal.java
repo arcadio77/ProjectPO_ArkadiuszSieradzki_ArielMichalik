@@ -27,7 +27,6 @@ public class Animal implements WorldElement, Cloneable {
         }
     }
     public Animal(Vector2d x){
-
         this(x, MapDirection.NORTH, new Genome(10, new Mutation(0,0),  new Random()), 0, 5);
     }
 
@@ -47,10 +46,6 @@ public class Animal implements WorldElement, Cloneable {
     @Override
     public Vector2d position(){
         return this.position;
-    }
-
-    public MapDirection getDirection(){
-        return this.direction;
     }
 
     public int getEnergy() {
@@ -77,119 +72,38 @@ public class Animal implements WorldElement, Cloneable {
 
     public void setDeathDate(int deathDate) {this.deathDate = deathDate;}
 
-    public MapDirection getNewOrientation(){
-        int gene = genome.getGenome().get(geneId);
-        int currOrientationInt = this.direction.fromEnum();
-        int newOrientationInt = (currOrientationInt + gene) % 8;
-        return MapDirection.fromInteger(newOrientationInt);
-    }
 
-    public Vector2d getNewPosition(MapDirection newOrientation){
-        return position.add(newOrientation.toUnitVector());
-    }
     public void readNextGene(){
         geneId = (geneId + 1) % genome.getGenome().size();
     }
+    private void calculateNewPosition(int width, int height){
+        Vector2d newPosition = position.add(direction.toUnitVector());
 
-
-    public boolean isInTheMiddle(Vector2d lowerLeft, Vector2d upperRight){
-        return position.isBigger(lowerLeft) && position.isSmaller(upperRight);
+        if (newPosition.x() > width){
+            newPosition = newPosition.add(new Vector2d(-width - 1, 0));
+        } else if (newPosition.x() < 0){
+            newPosition = newPosition.add(new Vector2d(width + 1, 0));
+        }
+        if (newPosition.y() > height || newPosition.y() < 0){
+            newPosition = new Vector2d(newPosition.x(), position.y());
+            direction = direction.opposite();
+        }
+        this.position = newPosition;
     }
 
-    public void move(Vector2d lowerLeft, Vector2d upperRight){ //this method change position or direction or both of the animal on the map
+    private void getNewOrientation(){
+        int gene = genome.getGenome().get(geneId);
+        int currOrientationInt = this.direction.fromEnum();
+        int newOrientationInt = (currOrientationInt + gene) % 8;
+        this.direction = MapDirection.fromInteger(newOrientationInt);
+    }
 
+    public void move(int width, int height){
         this.energy--;
         this.age++;
         readNextGene();
-
-        MapDirection newOrientation = getNewOrientation();
-        Vector2d newPosition = getNewPosition(newOrientation);
-
-        Vector2d upperLeft = new Vector2d(lowerLeft.x(), upperRight.y());
-        Vector2d lowerRight = new Vector2d(upperRight.x(), lowerLeft.y());
-
-        if (isInTheMiddle(lowerLeft, upperRight)){
-            this.position = newPosition;
-            this.direction = newOrientation;
-        }
-
-        // borders but not corners
-        else if (!position.equals(lowerLeft) && !position.equals(upperLeft) && !position.equals(upperRight) && !position.equals(lowerRight)) {
-            //right -> move animal to the left part of the map
-
-            if(newPosition.x() > upperRight.x()){
-                this.position = new Vector2d(lowerLeft.x(), newPosition.y());
-            }
-
-            // loop left
-            if (newPosition.x() < lowerLeft.x()){
-                this.position = new Vector2d(upperRight.x(), newPosition.y());
-            }
-
-            //turn around South Pole
-            if(newPosition.y() < lowerLeft.y()){
-                this.direction = direction.opposite();
-            }
-
-            // turn around North Pole
-            if (newPosition.y() > upperRight.y()){
-                this.direction = direction.opposite();
-            }
-        }
-
-        // corners
-        else{
-            //3 subcases, nextPosition can be to the: 1) right/left -> looping around, 2) up/down -> turn around Pole, 3) diagonal -> 1) + 2)
-            if(position.equals(lowerLeft)){
-                checkDownCorners(lowerLeft, newPosition, lowerRight, newPosition.x() < lowerLeft.x(), newPosition.x() >= lowerLeft.x());
-                if(newPosition.isSmaller(lowerLeft)){
-                    this.position = new Vector2d(lowerRight.x(), position.y());
-                    this.direction = direction.opposite();
-                }
-            }
-            if(position.equals(lowerRight)){
-                checkDownCorners(lowerRight, newPosition, lowerLeft, newPosition.x() > lowerRight.x(), newPosition.x() <= lowerRight.x());
-                if(newPosition.x() > lowerRight.x() && newPosition.y() < lowerRight.y()){
-                    this.position = new Vector2d(lowerLeft.x(), position.y());
-                    this.direction = direction.opposite();
-
-                }
-            }
-            if(position.equals(upperLeft)){
-                checkUpperCorners(upperRight, newPosition, upperLeft, newPosition.x() < upperLeft.x(), newPosition.x() >= upperLeft.x());
-                if(newPosition.x() < upperLeft.x() && newPosition.y() > upperLeft.y()){
-                    this.position = new Vector2d(upperRight.x(), position.y());
-                    this.direction = direction.opposite();
-
-                }
-            }
-            if(position.equals(upperRight)){
-                checkUpperCorners(upperLeft, newPosition, upperRight, newPosition.x() > upperRight.x(), newPosition.x() <= upperRight.x());
-                if(newPosition.isBigger(upperRight)){
-                    this.position = new Vector2d(upperLeft.x(), position.y());
-                    this.direction = direction.opposite();
-
-                }
-            }
-        }
-    }
-
-    private void checkUpperCorners(Vector2d upperRight, Vector2d newPosition, Vector2d upperLeft, boolean conditionOne, boolean conditionTwo) {
-        if(conditionOne && newPosition.y() <= upperLeft.y()){
-            this.position = new Vector2d(upperRight.x(), newPosition.y());
-        }
-        if(newPosition.y() > upperLeft.y() && conditionTwo){
-            this.direction = direction.opposite();
-        }
-    }
-
-    private void checkDownCorners(Vector2d lowerLeft, Vector2d newPosition, Vector2d lowerRight, boolean conditionOne, boolean conditionTwo) {
-        if(conditionOne && newPosition.y() >= lowerLeft.y()){
-            this.position = new Vector2d(lowerRight.x(), newPosition.y());
-        }
-        if(newPosition.y() < lowerLeft.y() && conditionTwo){
-            this.direction = direction.opposite();
-        }
+        getNewOrientation();
+        calculateNewPosition(width, height);
     }
 
     public void breed(Animal child, int lostEnergy){

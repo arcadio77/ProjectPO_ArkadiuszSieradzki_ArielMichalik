@@ -205,6 +205,10 @@ public class WorldMap {
     public Vector2d getUpperRight(){
         return worldBounds.upperRight();
     }
+    public Boundary getWorldBounds(){
+        return worldBounds;
+    }
+
     public int getWidth(){
         return width;
     }
