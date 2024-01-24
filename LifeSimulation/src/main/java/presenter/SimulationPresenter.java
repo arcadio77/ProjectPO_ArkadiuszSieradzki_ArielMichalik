@@ -107,7 +107,7 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     private void printTrackedAnimal(){
-        if(currentTrackedAnimal != null && currentTrackedAnimal.getDeathDate() == 0){
+        if(currentTrackedAnimal != null && currentTrackedAnimal.getDeathDate() == 0 && simulation.checkIfRunning()){
             int newX = currentTrackedAnimal.position().x() + 1;
             int newY = map.getHeight() - (currentTrackedAnimal.position().y());
             Color animalColor = new Color(0.1, 0.9, 1, 1);
