@@ -40,10 +40,6 @@ public class Simulation implements Runnable{
         }
         running = false;
         oneDay.runOneDay();
-        if(filename != null){
-            csvSaver.addRow(filePath);
-        }
-
     }
 
     public void pauseSimulation() {

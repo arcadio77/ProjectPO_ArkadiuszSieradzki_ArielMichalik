@@ -1,6 +1,5 @@
 package presenter;
 
-import com.sun.scenario.animation.shared.AnimationAccessor;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 
@@ -19,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -107,13 +107,15 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     private void printTrackedAnimal(){
-        if(currentTrackedAnimal != null && currentTrackedAnimal.getDeathDate() == 0 && simulation.checkIfRunning()){
-            int newX = currentTrackedAnimal.position().x() + 1;
-            int newY = map.getHeight() - (currentTrackedAnimal.position().y());
-            Color animalColor = new Color(0.1, 0.9, 1, 1);
-            Circle circle = new Circle(newX, newY, radiusValue, animalColor);
-            GridPane.setHalignment(circle, HPos.CENTER);
-            gridMap.add(circle, newX, newY);
+        if(currentTrackedAnimal != null){
+            if(currentTrackedAnimal.getDeathDate() == 0 && simulation.checkIfRunning()) {
+                int newX = currentTrackedAnimal.position().x() + 1;
+                int newY = map.getHeight() - (currentTrackedAnimal.position().y());
+                Color animalColor = new Color(0.1, 0.9, 1, 1);
+                Circle circle = new Circle(newX, newY, radiusValue, animalColor);
+                GridPane.setHalignment(circle, HPos.CENTER);
+                gridMap.add(circle, newX, newY);
+            }
             updateAnimalStatsLabels();
         }
     }
@@ -259,7 +261,7 @@ public class SimulationPresenter implements MapChangeListener {
         numberOfEmptyCells.setText("Number of Empty Cells: " + stats.getNumberOfEmptyCells());
         mostPopularGenome.setText("Most Popular Genome: " + stats.getMostPopularGenome());
         averageEnergyLevelForLivingAnimals.setText("Average Energy: " + stats.getAverageEnergyLevelForLivingAnimals());
-        averageLifespanForDeathAnimals.setText("Average Lifespan for dead animals : " + stats.getAverageLifespanForDeathAnimals());
+        averageLifespanForDeathAnimals.setText("Average Lifespan for dead animals : " + String.format(Locale.US, "%.2f",stats.getAverageLifespanForDeathAnimals()));
         averageKidsNumberForLivingAnimals.setText("Average Number of Kids: " + stats.getAverageKidsNumberForLivingAnimals());
     }
 
@@ -295,11 +297,14 @@ public class SimulationPresenter implements MapChangeListener {
 
     public void onPauseSimulationClicked() {
         simulation.pauseSimulation();
+        putGrasses(map.getHeight());
         if(!map.isUseLifeGivingCorpses()){
-            putGrasses(map.getHeight());
             drawEquator();
-            putAnimals();
         }
+        else{
+            putCorpses(map.getHeight());
+        }
+        putAnimals();
         stats.updateStats();
         showMostPopularGenome();
         printTrackedAnimal();
@@ -307,9 +312,8 @@ public class SimulationPresenter implements MapChangeListener {
 
     public void onTerminateSimulationClicked() {
         onPauseSimulationClicked();
-        map.killAllAnimalsAndAllPlants();
+        map.killAllAnimalsAndAllPlantsAndCorpses();
         clearGrid();
-        onContinueSimulationClicked();
         simulationTerminated.setText("Simulation has been terminated");
     }
 
