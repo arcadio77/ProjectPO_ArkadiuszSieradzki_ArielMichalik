@@ -10,9 +10,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
 
+import model.exceptions.MutationValuesException;
+import model.exceptions.NegativeValuesException;
+import model.exceptions.NonNumericInputException;
 import model.util.ConfigurationReader;
 import model.util.ConfigurationSaver;
 import model.util.Energy;
+import model.util.InputDataValidator;
+
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -20,7 +25,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
-import java.io.IOException;
 import java.util.*;
 
 public class StarterPresenter {
@@ -149,7 +153,18 @@ public class StarterPresenter {
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());
     }
-    public void onSimulationStartClicked() throws IllegalArgumentException, IOException {
+
+    public void onSimulationStartClicked() throws IllegalArgumentException, IOException{
+        try{
+            InputDataValidator.validate(this);
+        } catch (MutationValuesException | NegativeValuesException | NonNumericInputException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Wrong data values");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         String filename = saveStatsToCsv();
 
         WorldMap map = new WorldMap();
@@ -204,9 +219,6 @@ public class StarterPresenter {
     }
 
     public void readConfigurationFromTxt(String filename) throws IOException {
-        System.out.println(filename);
-        System.out.println("odczytałem");
-
         ConfigurationReader cR = new ConfigurationReader();
         String[] values = cR.readFromTXTFile(filename);
         if(!configurationsData.containsKey(values[0])){
