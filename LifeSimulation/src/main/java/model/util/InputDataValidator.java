@@ -1,14 +1,30 @@
 package model.util;
 
-import model.exceptions.MutationValuesException;
-import model.exceptions.NegativeValuesException;
-import model.exceptions.NonNumericInputException;
+import model.exceptions.*;
 import presenter.StarterPresenter;
 
 
 public class InputDataValidator {
 
-    public static void validate(StarterPresenter presenter) throws MutationValuesException, NegativeValuesException, NonNumericInputException {
+    public static void validate(StarterPresenter presenter) throws MutationValuesException, NegativeValuesException, NonNumericInputException, BlankSpaceException, UnselectedSpeedException {
+
+        validateBlankInput("width", presenter.getWidth.getText());
+        validateBlankInput("height", presenter.getHeight.getText());
+        validateBlankInput("animal number", presenter.getAnimalNumber.getText());
+        validateBlankInput("initial grass number", presenter.getInitialGrassNumber.getText());
+        validateBlankInput("initial animal energy", presenter.getInitialAnimalEnergy.getText());
+        validateBlankInput("number of grass growing daily", presenter.getNumOfGrassGrowingDaily.getText());
+        validateBlankInput("grass energy", presenter.getGrassEnergy.getText());
+        validateBlankInput("breed lost energy", presenter.getBreedLostEnergy.getText());
+        validateBlankInput("breed ready energy", presenter.getBreedReadyEnergy.getText());
+        validateBlankInput("genome length", presenter.getGenomeLength.getText());
+        validateBlankInput("min mutation number", presenter.getMinMutationNum.getText());
+        validateBlankInput("max mutation number", presenter.getMaxMutationNum.getText());
+        validateBlankInput("corpse effect time", presenter.getCorpseEffectTime.getText());
+
+        validateComboBox(presenter.getSpeedBox().getSelectionModel().getSelectedItem());
+        System.out.println(presenter.getSpeedBox().getItems());
+
         validateNumericInput("width", presenter.getWidth.getText());
         validateNumericInput("height", presenter.getHeight.getText());
         validateNumericInput("animal number", presenter.getAnimalNumber.getText());
@@ -52,7 +68,15 @@ public class InputDataValidator {
             throw new NegativeValuesException(parameterName);
         }
     }
+    private static void validateBlankInput(String parameterName, String value) throws BlankSpaceException {
+        if (value == null || value.trim().isEmpty()) {
+            throw new BlankSpaceException(parameterName);
+        }
+    }
 
-
-
+    private static void validateComboBox(Object items) throws UnselectedSpeedException {
+        if (items == null) {
+            throw new UnselectedSpeedException("speed");
+        }
+    }
 }

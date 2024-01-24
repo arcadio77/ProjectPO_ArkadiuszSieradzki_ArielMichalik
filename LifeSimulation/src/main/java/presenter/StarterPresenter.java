@@ -10,9 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
 
-import model.exceptions.MutationValuesException;
-import model.exceptions.NegativeValuesException;
-import model.exceptions.NonNumericInputException;
+import model.exceptions.*;
 import model.util.ConfigurationReader;
 import model.util.ConfigurationSaver;
 import model.util.Energy;
@@ -66,6 +64,10 @@ public class StarterPresenter {
                  55, "Supersonic"
         );
         return speedValues.get(speedValue);
+    }
+
+    public ComboBox getSpeedBox(){
+        return speedBox;
     }
 
     public int getSpeedValueInt() {
@@ -157,7 +159,8 @@ public class StarterPresenter {
     public void onSimulationStartClicked() throws IllegalArgumentException, IOException{
         try{
             InputDataValidator.validate(this);
-        } catch (MutationValuesException | NegativeValuesException | NonNumericInputException e){
+        } catch (MutationValuesException | NegativeValuesException | NonNumericInputException | BlankSpaceException |
+                 UnselectedSpeedException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Wrong data values");
             alert.setHeaderText(null);
@@ -254,6 +257,18 @@ public class StarterPresenter {
     }
 
     public void addNewConfiguration() {
+        try{
+            InputDataValidator.validate(this);
+        } catch (MutationValuesException | NegativeValuesException | NonNumericInputException | BlankSpaceException |
+                 UnselectedSpeedException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Wrong data values");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
+
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("New configuration name");
         dialog.setHeaderText(null);
@@ -264,6 +279,8 @@ public class StarterPresenter {
         });
         saveConfigurationToTxt(filenames.get(filenameIdx));
         this.filenameIdx += 1;
+
+
     }
 
     public void saveConfigurationToTxt(String filename) {
