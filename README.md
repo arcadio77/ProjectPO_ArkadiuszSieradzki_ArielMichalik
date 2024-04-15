@@ -3,7 +3,7 @@
 ![image](https://github.com/arcadio77/ProjectPO_ArkadiuszSieradzki_ArielMichalik/assets/110745124/5147a4d3-1c9f-4d23-bcbf-cd22c5369822)
 
 ### You can choose from pre-prepared configurations to fast start simulation
-![image](https://github.com/arcadio77/ProjectPO_ArkadiuszSieradzki_ArielMichalik/assets/110745124/2e53257a-9ee8-40cc-8d3b-cd5a6705d96e)\
+![image](https://github.com/arcadio77/ProjectPO_ArkadiuszSieradzki_ArielMichalik/assets/110745124/2e53257a-9ee8-40cc-8d3b-cd5a6705d96e)
 ### After initialization you can save statistics generated in the simulation you run
 ![image](https://github.com/arcadio77/ProjectPO_ArkadiuszSieradzki_ArielMichalik/assets/110745124/760d52a5-2291-463a-a728-7426b6b128da)
 
